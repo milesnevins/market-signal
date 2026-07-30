@@ -3,6 +3,14 @@ import pathlib
 scratch = pathlib.Path(__file__).parent
 fonts_css = (scratch / "embedded-fonts.css").read_text()
 NEWLINE = chr(10)
+WHATIS_LABELS = {
+    "cre": "CRE",
+    "ib": "IB",
+    "credit": "Private Credit",
+    "redebt": "RE Debt",
+    "structured": "Structured Finance",
+    "securitized": "Securitized Products",
+}
 
 # ============================================================== CSS ==============================================================
 CSS = """
@@ -256,6 +264,16 @@ a{ color:inherit; }
   font-variant-numeric:tabular-nums;
 }
 .masthead-meta .place{color:var(--fg);}
+.masthead-name{display:flex;flex-direction:column;gap:7px;}
+.masthead-whatis{
+  font-family:var(--font-mono);
+  font-size:10px;
+  letter-spacing:0.03em;
+  color:var(--muted);
+  text-decoration:none;
+  transition:color .15s ease;
+}
+.masthead-whatis:hover{color:var(--accent);}
 
 /* ---------- section eyebrow ---------- */
 .eyebrow{
@@ -750,9 +768,15 @@ def final_observation_html(paragraphs, bullets):
   </div>'''
 
 
-def masthead_html(name_a, name_b, dateline, drop, coverage):
+def masthead_html(name_a, name_b, dateline, drop, coverage, page_id=None):
+    whatis = ""
+    if page_id and page_id in WHATIS_LABELS:
+        whatis = f'<a class="masthead-whatis" href="#/about/{page_id}">What is {WHATIS_LABELS[page_id]}? &rarr;</a>'
     return f'''  <div class="masthead">
-    <p class="wordmark"><span class="cre">{name_a}</span><span class="signal">{name_b}</span></p>
+    <div class="masthead-name">
+      <p class="wordmark"><span class="cre">{name_a}</span><span class="signal">{name_b}</span></p>
+      {whatis}
+    </div>
     <div class="masthead-meta">
       <span class="place">{dateline}</span> &middot; {drop}<br>
       COVERAGE: {coverage}
@@ -776,7 +800,7 @@ def issue_page(page_id, active, name_a, name_b, dateline, drop, coverage, snapsh
         notice = f'<p class="key-line" style="margin:-32px 0 52px;">{sample_notice}</p>'
     return f'''<section id="page-{page_id}" class="page{active_cls}">
 <div class="issue">
-{masthead_html(name_a, name_b, dateline, drop, coverage)}
+{masthead_html(name_a, name_b, dateline, drop, coverage, page_id)}
 {notice}
   <p class="eyebrow">Market Snapshot</p>
   <div class="snapshot">
@@ -814,14 +838,14 @@ def market_block_html(page_id, market_id, active, name_a, name_b, dateline, drop
     active_cls = " active" if active else ""
     if coming_soon:
         return f'''<div id="market-{page_id}-{market_id}" class="market{active_cls}">
-{masthead_html(name_a, name_b, dateline, drop, coverage)}
+{masthead_html(name_a, name_b, dateline, drop, coverage, page_id)}
   <p class="key-line" style="margin:-32px 0 0;">{coming_soon}</p>
 </div>'''
     notice = ""
     if sample_notice:
         notice = f'<p class="key-line" style="margin:-32px 0 52px;">{sample_notice}</p>'
     return f'''<div id="market-{page_id}-{market_id}" class="market{active_cls}">
-{masthead_html(name_a, name_b, dateline, drop, coverage)}
+{masthead_html(name_a, name_b, dateline, drop, coverage, page_id)}
 {notice}
   <p class="eyebrow">Market Snapshot</p>
   <div class="snapshot">

@@ -308,6 +308,16 @@ a{ color:inherit; }
   font-variant-numeric:tabular-nums;
 }
 .masthead-meta .place{color:var(--fg);}
+.masthead-name{display:flex;flex-direction:column;gap:7px;}
+.masthead-whatis{
+  font-family:var(--font-mono);
+  font-size:10px;
+  letter-spacing:0.03em;
+  color:var(--muted);
+  text-decoration:none;
+  transition:color .15s ease;
+}
+.masthead-whatis:hover{color:var(--accent);}
 
 /* ---------- section eyebrow ---------- */
 .eyebrow{
@@ -891,7 +901,10 @@ footer{
   </div>
 <div id="market-cre-austin" class="market active">
   <div class="masthead">
-    <p class="wordmark"><span class="cre">CRE</span><span class="signal">Signal</span></p>
+    <div class="masthead-name">
+      <p class="wordmark"><span class="cre">CRE</span><span class="signal">Signal</span></p>
+      <a class="masthead-whatis" href="#/about/cre">What is CRE? &rarr;</a>
+    </div>
     <div class="masthead-meta">
       <span class="place">AUSTIN, TEXAS</span> &middot; JULY 29, 2026<br>
       COVERAGE: JULY 7&ndash;27, 2026
@@ -1029,7 +1042,10 @@ footer{
 </div>
 <div id="market-cre-usc" class="market">
   <div class="masthead">
-    <p class="wordmark"><span class="cre">CRE</span><span class="signal">Signal</span></p>
+    <div class="masthead-name">
+      <p class="wordmark"><span class="cre">CRE</span><span class="signal">Signal</span></p>
+      <a class="masthead-whatis" href="#/about/cre">What is CRE? &rarr;</a>
+    </div>
     <div class="masthead-meta">
       <span class="place">LOS ANGELES, CA</span> &middot; JULY 29, 2026<br>
       COVERAGE: JULY 15&ndash;28, 2026
@@ -1182,7 +1198,10 @@ footer{
 </div>
 <div id="market-cre-nyu" class="market">
   <div class="masthead">
-    <p class="wordmark"><span class="cre">CRE</span><span class="signal">Signal</span></p>
+    <div class="masthead-name">
+      <p class="wordmark"><span class="cre">CRE</span><span class="signal">Signal</span></p>
+      <a class="masthead-whatis" href="#/about/cre">What is CRE? &rarr;</a>
+    </div>
     <div class="masthead-meta">
       <span class="place">NEW YORK, NY</span> &middot; JULY 29, 2026<br>
       COVERAGE: JULY 15&ndash;28, 2026
@@ -1291,7 +1310,10 @@ footer{
 </div>
 <div id="market-cre-uga" class="market">
   <div class="masthead">
-    <p class="wordmark"><span class="cre">CRE</span><span class="signal">Signal</span></p>
+    <div class="masthead-name">
+      <p class="wordmark"><span class="cre">CRE</span><span class="signal">Signal</span></p>
+      <a class="masthead-whatis" href="#/about/cre">What is CRE? &rarr;</a>
+    </div>
     <div class="masthead-meta">
       <span class="place">ATLANTA, GA</span> &middot; COMING SOON<br>
       COVERAGE: &mdash;
@@ -1301,7 +1323,10 @@ footer{
 </div>
 <div id="market-cre-uf" class="market">
   <div class="masthead">
-    <p class="wordmark"><span class="cre">CRE</span><span class="signal">Signal</span></p>
+    <div class="masthead-name">
+      <p class="wordmark"><span class="cre">CRE</span><span class="signal">Signal</span></p>
+      <a class="masthead-whatis" href="#/about/cre">What is CRE? &rarr;</a>
+    </div>
     <div class="masthead-meta">
       <span class="place">MIAMI, FL</span> &middot; COMING SOON<br>
       COVERAGE: &mdash;
@@ -1314,7 +1339,10 @@ footer{
 <section id="page-ib" class="page">
 <div class="issue">
   <div class="masthead">
-    <p class="wordmark"><span class="cre">IB</span><span class="signal">Signal</span></p>
+    <div class="masthead-name">
+      <p class="wordmark"><span class="cre">IB</span><span class="signal">Signal</span></p>
+      <a class="masthead-whatis" href="#/about/ib">What is IB? &rarr;</a>
+    </div>
     <div class="masthead-meta">
       <span class="place">NEW YORK, NY</span> &middot; JULY 29, 2026<br>
       COVERAGE: JULY 19&ndash;27, 2026
@@ -1469,7 +1497,10 @@ footer{
 <section id="page-credit" class="page">
 <div class="issue">
   <div class="masthead">
-    <p class="wordmark"><span class="cre">Credit</span><span class="signal">Signal</span></p>
+    <div class="masthead-name">
+      <p class="wordmark"><span class="cre">Credit</span><span class="signal">Signal</span></p>
+      <a class="masthead-whatis" href="#/about/credit">What is Private Credit? &rarr;</a>
+    </div>
     <div class="masthead-meta">
       <span class="place">NEW YORK, NY</span> &middot; JULY 29, 2026<br>
       COVERAGE: JULY 21&ndash;28, 2026
@@ -1637,7 +1668,10 @@ footer{
   </div>
 <div id="market-redebt-austin" class="market active">
   <div class="masthead">
-    <p class="wordmark"><span class="cre">RE Debt</span><span class="signal">Signal</span></p>
+    <div class="masthead-name">
+      <p class="wordmark"><span class="cre">RE Debt</span><span class="signal">Signal</span></p>
+      <a class="masthead-whatis" href="#/about/redebt">What is RE Debt? &rarr;</a>
+    </div>
     <div class="masthead-meta">
       <span class="place">AUSTIN, TEXAS</span> &middot; JULY 29, 2026<br>
       COVERAGE: JUNE 2&ndash;JULY 28, 2026
@@ -1791,7 +1825,10 @@ footer{
 </div>
 <div id="market-redebt-usc" class="market">
   <div class="masthead">
-    <p class="wordmark"><span class="cre">RE Debt</span><span class="signal">Signal</span></p>
+    <div class="masthead-name">
+      <p class="wordmark"><span class="cre">RE Debt</span><span class="signal">Signal</span></p>
+      <a class="masthead-whatis" href="#/about/redebt">What is RE Debt? &rarr;</a>
+    </div>
     <div class="masthead-meta">
       <span class="place">LOS ANGELES, CA</span> &middot; JULY 29, 2026<br>
       COVERAGE: JULY 15&ndash;28, 2026
@@ -1946,7 +1983,10 @@ footer{
 </div>
 <div id="market-redebt-nyu" class="market">
   <div class="masthead">
-    <p class="wordmark"><span class="cre">RE Debt</span><span class="signal">Signal</span></p>
+    <div class="masthead-name">
+      <p class="wordmark"><span class="cre">RE Debt</span><span class="signal">Signal</span></p>
+      <a class="masthead-whatis" href="#/about/redebt">What is RE Debt? &rarr;</a>
+    </div>
     <div class="masthead-meta">
       <span class="place">NEW YORK, NY</span> &middot; JULY 29, 2026<br>
       COVERAGE: JULY 6&ndash;29, 2026
@@ -2101,7 +2141,10 @@ footer{
 </div>
 <div id="market-redebt-uga" class="market">
   <div class="masthead">
-    <p class="wordmark"><span class="cre">RE Debt</span><span class="signal">Signal</span></p>
+    <div class="masthead-name">
+      <p class="wordmark"><span class="cre">RE Debt</span><span class="signal">Signal</span></p>
+      <a class="masthead-whatis" href="#/about/redebt">What is RE Debt? &rarr;</a>
+    </div>
     <div class="masthead-meta">
       <span class="place">ATLANTA, GA</span> &middot; COMING SOON<br>
       COVERAGE: &mdash;
@@ -2111,7 +2154,10 @@ footer{
 </div>
 <div id="market-redebt-uf" class="market">
   <div class="masthead">
-    <p class="wordmark"><span class="cre">RE Debt</span><span class="signal">Signal</span></p>
+    <div class="masthead-name">
+      <p class="wordmark"><span class="cre">RE Debt</span><span class="signal">Signal</span></p>
+      <a class="masthead-whatis" href="#/about/redebt">What is RE Debt? &rarr;</a>
+    </div>
     <div class="masthead-meta">
       <span class="place">MIAMI, FL</span> &middot; COMING SOON<br>
       COVERAGE: &mdash;
@@ -2124,7 +2170,10 @@ footer{
 <section id="page-structured" class="page">
 <div class="issue">
   <div class="masthead">
-    <p class="wordmark"><span class="cre">Structured</span><span class="signal">Signal</span></p>
+    <div class="masthead-name">
+      <p class="wordmark"><span class="cre">Structured</span><span class="signal">Signal</span></p>
+      <a class="masthead-whatis" href="#/about/structured">What is Structured Finance? &rarr;</a>
+    </div>
     <div class="masthead-meta">
       <span class="place">NEW YORK, NY</span> &middot; JULY 29, 2026<br>
       COVERAGE: JULY 2&ndash;28, 2026
@@ -2279,7 +2328,10 @@ footer{
 <section id="page-securitized" class="page">
 <div class="issue">
   <div class="masthead">
-    <p class="wordmark"><span class="cre">Securitized</span><span class="signal">Signal</span></p>
+    <div class="masthead-name">
+      <p class="wordmark"><span class="cre">Securitized</span><span class="signal">Signal</span></p>
+      <a class="masthead-whatis" href="#/about/securitized">What is Securitized Products? &rarr;</a>
+    </div>
     <div class="masthead-meta">
       <span class="place">NEW YORK, NY</span> &middot; JULY 29, 2026<br>
       COVERAGE: JULY 7&ndash;28, 2026
