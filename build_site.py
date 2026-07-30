@@ -2,6 +2,7 @@ import pathlib
 
 scratch = pathlib.Path(__file__).parent
 fonts_css = (scratch / "embedded-fonts.css").read_text()
+NEWLINE = chr(10)
 
 # ============================================================== CSS ==============================================================
 CSS = """
@@ -489,13 +490,9 @@ footer{
   margin-top:6px;
 }
 .desk-card{
-  display:block;
   background:var(--bg);
   border:1px solid var(--rule);
   border-radius:14px;
-  padding:12px 20px;
-  text-decoration:none;
-  cursor:pointer;
   transition:transform .2s cubic-bezier(.2,.7,.3,1), border-color .2s ease, box-shadow .3s ease;
 }
 .desk-card:hover{
@@ -503,6 +500,25 @@ footer{
   border-color:var(--accent);
   box-shadow:0 14px 34px -20px var(--accent-glow), 0 2px 10px -4px var(--accent-glow);
 }
+.desk-card-link{
+  display:block;
+  padding:12px 20px;
+  text-decoration:none;
+  color:inherit;
+  cursor:pointer;
+}
+.desk-card-whatis{
+  display:block;
+  font-family:var(--font-mono);
+  font-size:10.5px;
+  letter-spacing:0.03em;
+  color:var(--muted);
+  text-decoration:none;
+  padding:9px 20px;
+  border-top:1px solid var(--rule);
+  transition:color .15s ease;
+}
+.desk-card-whatis:hover{color:var(--accent);}
 .desk-row-top{
   display:flex;
   align-items:baseline;
@@ -558,7 +574,7 @@ footer{
   white-space:nowrap;
   flex-shrink:0;
 }
-.desk-card:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+.desk-card-link:focus-visible, .desk-card-whatis:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
 
 /* ---------- responsive ---------- */
 @media (max-width:560px){
@@ -571,7 +587,8 @@ footer{
   .signal-title{font-size:20px;max-width:none;}
   .asset-class{margin:48px 0 24px;}
   footer{flex-direction:column;align-items:flex-start;}
-  .desk-card{padding:16px 18px;}
+  .desk-card-link{padding:16px 18px;}
+  .desk-card-whatis{padding:10px 18px;}
   .desk-card-desc{min-width:0;}
 }
 
@@ -579,6 +596,83 @@ footer{
   .issue{padding:24px 8px;}
   .topnav{display:none;}
 }
+
+/* ---------- about / explainer pages ---------- */
+.issue.about{max-width:640px;}
+.about-page-title{
+  font-family:var(--font-display);
+  font-size:26px;
+  font-weight:600;
+  margin:14px 0 10px;
+}
+.about-page-lede{
+  color:var(--muted);
+  font-size:14.5px;
+  max-width:56ch;
+  margin:0 0 28px;
+}
+.about-switcher{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:8px;
+  border-bottom:1px solid var(--rule);
+  padding-bottom:20px;
+}
+.about-switch-link{
+  font-family:var(--font-mono);
+  font-size:10.5px;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:var(--muted);
+  text-decoration:none;
+  padding:6px 13px;
+  border-radius:999px;
+  border:1px solid var(--rule);
+  transition:color .15s ease, border-color .15s ease;
+}
+.about-switch-link:hover{color:var(--fg);}
+.about-switch-link.active{color:var(--accent);border-color:var(--accent);}
+.about-title{
+  font-family:var(--font-display);
+  font-size:28px;
+  font-weight:600;
+  margin:28px 0 8px;
+}
+.about-subtitle{
+  color:var(--muted);
+  font-style:italic;
+  font-size:15px;
+  margin:0 0 22px;
+}
+.market .about-title{margin-top:0;}
+.about-terms{
+  margin-top:26px;
+  padding:22px 24px;
+  border:1px solid var(--rule);
+  border-radius:14px;
+}
+.about-terms-label{
+  font-family:var(--font-mono);
+  font-size:10.5px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin:0 0 14px;
+}
+.about-terms ul{margin:0;padding:0;list-style:none;}
+.about-terms li{margin-bottom:10px;font-size:14px;line-height:1.6;}
+.about-terms li:last-child{margin-bottom:0;}
+.about-term{color:var(--fg);font-weight:600;}
+.about-back{
+  display:inline-block;
+  margin-top:32px;
+  font-family:var(--font-mono);
+  font-size:11px;
+  color:var(--muted);
+  text-decoration:none;
+}
+.about-back:hover{color:var(--accent);}
 
 /* ---------- brand wordmark override (must stay last to win over .wordmark/.footer-wordmark/.desk-card-name) ---------- */
 .brand-word{font-family:var(--font-brand);font-weight:700;letter-spacing:-0.015em;}
@@ -1848,17 +1942,183 @@ print("Structured page OK", len(STRUCTURED_PAGE))
 
 # ============================================================== HOME PAGE ==============================================================
 
-def desk_card(page_id, name_a, name_b, desc, meta):
-    return f'''  <a class="desk-card" href="#/{page_id}">
-    <div class="desk-row-top">
-      <p class="desk-card-name"><span class="cre">{name_a}</span><span class="signal">{name_b}</span></p>
-      <span class="desk-card-arrow">&rarr;</span>
-    </div>
-    <div class="desk-row-bottom">
-      <p class="desk-card-desc">{desc}</p>
-      <span class="desk-card-meta">{meta}</span>
-    </div>
-  </a>'''
+def desk_card(page_id, name_a, name_b, desc, meta, whatis_label):
+    return f'''  <div class="desk-card">
+    <a class="desk-card-link" href="#/{page_id}">
+      <div class="desk-row-top">
+        <p class="desk-card-name"><span class="cre">{name_a}</span><span class="signal">{name_b}</span></p>
+        <span class="desk-card-arrow">&rarr;</span>
+      </div>
+      <div class="desk-row-bottom">
+        <p class="desk-card-desc">{desc}</p>
+        <span class="desk-card-meta">{meta}</span>
+      </div>
+    </a>
+    <a class="desk-card-whatis" href="#/about/{page_id}">What is {whatis_label}? &rarr;</a>
+  </div>'''
+
+# ============================================================== ABOUT / EXPLAINER PAGES ==============================================================
+
+ABOUT_SWITCHER_ITEMS = [
+    ("cre", "CRE"),
+    ("ib", "IB"),
+    ("credit", "Credit"),
+    ("redebt", "RE Debt"),
+    ("structured", "Structured"),
+    ("securitized", "Securitized"),
+]
+
+def about_switcher_html(active_id):
+    links = []
+    for aid, label in ABOUT_SWITCHER_ITEMS:
+        cls = " active" if aid == active_id else ""
+        links.append(f'      <a class="about-switch-link{cls}" data-about-id="{aid}" href="#/about/{aid}">{label}</a>')
+    return NEWLINE.join(links)
+
+def about_block_html(desk_id, active, title, subtitle, paragraphs, terms, back_href, back_label):
+    active_cls = " active" if active else ""
+    paras = NEWLINE.join(f"    <p>{p}</p>" for p in paragraphs)
+    term_items = NEWLINE.join(f"      <li><span class=\"about-term\">{t}</span> {d}</li>" for t, d in terms)
+    return f'''<div id="market-about-{desk_id}" class="market{active_cls}">
+  <p class="eyebrow">What Is It?</p>
+  <h1 class="about-title">{title}</h1>
+  <p class="about-subtitle">{subtitle}</p>
+{paras}
+  <div class="about-terms">
+    <p class="about-terms-label">Key terms to know</p>
+    <ul>
+{term_items}
+    </ul>
+  </div>
+  <a class="about-back" href="#/{back_href}">&larr; Back to {back_label}</a>
+</div>'''
+
+ABOUT_CRE = about_block_html(
+    "cre", True,
+    "What Is Commercial Real Estate?",
+    "The business of property that isn't a single family's home.",
+    [
+        "Commercial real estate (CRE) covers property used for business purposes rather than housing one family &mdash; office towers, apartment complexes, warehouses, retail centers, and hotels. Even apartment buildings count as \"commercial\" once they're owned as an income-producing asset rather than a single home.",
+        "The core idea: a piece of land can be worth wildly different amounts depending on what's built on it and who wants to occupy it. CRE is the business of finding that gap &mdash; buying, developing, leasing, or repositioning a property for more than it cost, or advising someone else through that process.",
+        "Recruiting into CRE usually means one of three paths: development (building new projects), brokerage (finding tenants or buyers), or asset/property management (running buildings day to day). The debt and capital-markets side of the same industry is covered separately in RE Debt Signal.",
+    ],
+    [
+        ("Cap rate", "&mdash; a property's annual income divided by its price; the quick way investors compare deals."),
+        ("NOI", "&mdash; net operating income, a property's income after operating expenses but before debt payments."),
+        ("Submarket", "&mdash; a specific neighborhood or corridor within a larger metro, since pricing and demand vary block by block."),
+        ("Entitlement", "&mdash; the government approvals a developer needs before construction can legally begin."),
+    ],
+    "cre", "CRE Signal",
+)
+
+ABOUT_IB = about_block_html(
+    "ib", False,
+    "What Is Investment Banking?",
+    "Advising companies on their biggest, highest-stakes financial decisions.",
+    [
+        "Investment banks advise companies on major financial decisions: buying another company (M&amp;A), raising money by selling stock (equity capital markets) or bonds (debt capital markets), or restructuring debt when a company is in financial trouble.",
+        "These decisions are high-stakes and infrequent for any single company, so companies pay banks a fee to run the process, find the right counterparties or investors, and negotiate the best terms &mdash; expertise most companies don't need often enough to build in-house.",
+        "Analysts and associates build the financial models and prep the pitch materials; managing directors run the client relationships and win the mandates that bring in the work.",
+    ],
+    [
+        ("M&amp;A", "&mdash; mergers and acquisitions; one company buying, merging with, or selling to another."),
+        ("ECM / DCM", "&mdash; equity and debt capital markets; the teams that help companies raise money by selling stock or bonds."),
+        ("Sell-side / buy-side", "&mdash; sell-side advises the company doing a deal; buy-side represents the investors putting up capital."),
+        ("Mandate", "&mdash; the formal engagement where a company hires a specific bank to run a specific deal."),
+    ],
+    "ib", "IB Signal",
+)
+
+ABOUT_CREDIT = about_block_html(
+    "credit", False,
+    "What Is Private Credit?",
+    "Lending directly to companies, outside the banking system.",
+    [
+        "Instead of a company borrowing from a bank or issuing public bonds, private credit funds lend directly to companies &mdash; often ones owned by private equity firms &mdash; using money raised from institutional investors like pension funds and insurers.",
+        "It's one of the fastest-growing corners of finance because banks pulled back from riskier corporate lending after tighter regulation following the 2008 financial crisis, and private credit funds stepped in to fill that gap with more flexible, custom-negotiated loans.",
+        "Credit analysts underwrite a borrower's ability to repay, similar to a bank loan officer, but usually for larger, more complex deals with fewer regulatory constraints than a traditional bank loan.",
+    ],
+    [
+        ("BDC", "&mdash; business development company; a publicly traded vehicle that pools capital to make these loans."),
+        ("Direct lending", "&mdash; a fund lending straight to a borrower, without a bank arranging or syndicating the loan."),
+        ("Unitranche", "&mdash; a single blended loan that combines what would otherwise be separate senior and subordinated debt."),
+        ("Covenant", "&mdash; a condition in a loan agreement the borrower must maintain, like a minimum cash flow level."),
+    ],
+    "credit", "Credit Signal",
+)
+
+ABOUT_REDEBT = about_block_html(
+    "redebt", False,
+    "What Is Commercial Real Estate Debt?",
+    "Every property needs a loan behind it &mdash; this is that loan, examined closely.",
+    [
+        "Every CRE project needs a loan behind it, just like a house needs a mortgage. RE Debt Signal covers that loan side specifically: who's lending, on what terms, and what happens when a loan runs into trouble.",
+        "A property's owner and its lender have very different risk exposure &mdash; the lender gets paid first but doesn't share in the upside if the property does well, so lenders underwrite a deal completely differently than an equity investor does. That difference is what makes CRE debt its own specialized career path, distinct from the development or brokerage side covered in CRE Signal.",
+        "Loan originators at banks and debt funds underwrite and price new loans; special servicers step in specifically when an existing loan is in distress and needs a workout.",
+    ],
+    [
+        ("LTV", "&mdash; loan-to-value; the loan amount as a percentage of the property's value, a core risk measure."),
+        ("Debt yield", "&mdash; a property's income divided by the loan amount, used to judge how much cushion a lender has."),
+        ("Special servicing", "&mdash; the process a troubled loan enters so a specialist can manage a workout, sale, or foreclosure."),
+        ("Mezzanine debt", "&mdash; a second layer of debt that sits between the senior loan and the equity, higher risk and higher rate."),
+    ],
+    "redebt", "RE Debt Signal",
+)
+
+ABOUT_STRUCTURED = about_block_html(
+    "structured", False,
+    "What Is Structured Finance?",
+    "Pooling loans together, then slicing that pool into new securities.",
+    [
+        "Structured finance takes a pool of loans &mdash; corporate loans, auto loans, credit card debt &mdash; and repackages them into new securities that get sold off in slices, called tranches, each with a different risk and return level.",
+        "Pooling and slicing risk lets a lender turn loans it's already made into cash it can lend out again, and lets investors buy exactly the risk level they want, instead of owning any single underlying loan outright.",
+        "Structuring bankers design these deals and negotiate the tranche terms; portfolio managers at CLO managers select which loans actually go into the pool and manage it over time.",
+    ],
+    [
+        ("CLO", "&mdash; collateralized loan obligation; a pool of corporate loans repackaged into tranches of bonds."),
+        ("Tranche", "&mdash; one slice of a structured deal's capital stack, ranked by which slice absorbs losses first."),
+        ("ABS", "&mdash; asset-backed security; a bond backed by a pool of loans other than mortgages, like auto or credit card debt."),
+        ("Equity tranche", "&mdash; the riskiest, first-loss slice of a deal, which also captures the most upside if it performs well."),
+    ],
+    "structured", "Structured Signal",
+)
+
+ABOUT_SECURITIZED = about_block_html(
+    "securitized", False,
+    "What Is Mortgage Securitization?",
+    "The same pooling-and-slicing idea as Structured Signal, but for mortgages specifically.",
+    [
+        "Securitized Signal covers the same pooling-and-slicing idea as structured finance, but applied specifically to mortgages: RMBS bundles residential mortgages, CMBS bundles commercial mortgages, and both get sold to bond investors in tranches.",
+        "It's treated as its own specialty rather than folded into CLOs and corporate ABS because mortgage securitization has its own collateral type, investor base, and risk drivers &mdash; property values and occupancy, not corporate credit quality.",
+        "Conduit lenders originate mortgages specifically to sell into these pools; rating agencies and investors analyze the underlying loan-level data on every property in the pool to price each tranche.",
+    ],
+    [
+        ("CMBS conduit", "&mdash; a pool of many commercial mortgages from different properties, bundled into one deal."),
+        ("SASB", "&mdash; single-asset, single-borrower; a CMBS deal backed by just one property instead of a diversified pool."),
+        ("Credit enhancement", "&mdash; the cushion of subordinate bonds that absorbs losses before a senior tranche takes a hit."),
+        ("Re-REMIC", "&mdash; a re-securitization that repackages existing mortgage bonds into a new set of tranches."),
+    ],
+    "securitized", "Securitized Signal",
+)
+
+ABOUT_PAGE = f'''<section id="page-about" class="page">
+<div class="issue about">
+  <p class="eyebrow">What Is It?</p>
+  <h1 class="about-page-title brand-word"><span class="cre">Market</span><span class="signal">Signal</span> Explainers</h1>
+  <p class="about-page-lede">Short, plain-English primers on each industry this newsletter covers &mdash; read one before diving into that desk's signals if the vocabulary is new to you.</p>
+  <div class="about-switcher">
+{about_switcher_html("cre")}
+  </div>
+{ABOUT_CRE}
+{ABOUT_IB}
+{ABOUT_CREDIT}
+{ABOUT_REDEBT}
+{ABOUT_STRUCTURED}
+{ABOUT_SECURITIZED}
+</div>
+</section>'''
+
+print("About page OK", len(ABOUT_PAGE))
 
 HOME_PAGE = f'''<section id="page-home" class="page active">
 <div class="issue home">
@@ -1873,22 +2133,22 @@ HOME_PAGE = f'''<section id="page-home" class="page active">
   <div class="desk-grid">
 {desk_card("cre", "CRE", "Signal",
            "Commercial real estate signals across multiple university markets nationwide.",
-           "Latest: Jul 29, 2026")}
+           "Latest: Jul 29, 2026", "CRE")}
 {desk_card("ib", "IB", "Signal",
            "M&amp;A, capital markets, sponsor finance, and restructuring signals.",
-           "Latest: Jul 29, 2026")}
+           "Latest: Jul 29, 2026", "IB")}
 {desk_card("credit", "Credit", "Signal",
            "Direct lending, BDCs, and private credit signals.",
-           "Latest: Jul 29, 2026")}
+           "Latest: Jul 29, 2026", "Private Credit")}
 {desk_card("redebt", "RE Debt", "Signal",
            "Construction, bridge, agency, and CMBS lending signals.",
-           "Latest: Jul 29, 2026")}
+           "Latest: Jul 29, 2026", "RE Debt")}
 {desk_card("structured", "Structured", "Signal",
            "CLOs, ABS, and securitized credit signals.",
-           "Latest: Jul 29, 2026")}
+           "Latest: Jul 29, 2026", "Structured Finance")}
 {desk_card("securitized", "Securitized", "Signal",
            "Non-agency RMBS and CMBS signals.",
-           "Latest: Jul 29, 2026")}
+           "Latest: Jul 29, 2026", "Securitized Products")}
   </div>
 
   <footer>
@@ -1952,10 +2212,11 @@ THEME_SCRIPT = '''<script>
 
 ROUTER_SCRIPT = '''<script>
 (function(){
-  var PAGES = ["home","cre","ib","credit","redebt","structured","securitized"];
+  var PAGES = ["home","cre","ib","credit","redebt","structured","securitized","about"];
   var MARKETS = {
     cre: ["austin","usc","nyu","uga","uf"],
-    redebt: ["austin","usc","nyu","uga","uf"]
+    redebt: ["austin","usc","nyu","uga","uf"],
+    about: ["cre","ib","credit","redebt","structured","securitized"]
   };
   function parseHash(){
     var h = location.hash.replace(/^#\\/?/, "");
@@ -1983,6 +2244,10 @@ ROUTER_SCRIPT = '''<script>
       }
       var select = document.querySelector('.market-select[data-desk="' + state.page + '"]');
       if (select) select.value = market;
+      var subLinks = document.querySelectorAll('[data-about-id]');
+      for (var s = 0; s < subLinks.length; s++){
+        subLinks[s].classList.toggle("active", subLinks[s].getAttribute("data-about-id") === market);
+      }
     }
     window.scrollTo(0, 0);
   }
@@ -2035,7 +2300,6 @@ window.__filterSignals = function(el){
 
 # ============================================================== ASSEMBLE ==============================================================
 
-NEWLINE = chr(10)
 BODY = NEWLINE.join([
     NAV,
     THEME_SCRIPT,
@@ -2046,6 +2310,7 @@ BODY = NEWLINE.join([
     REDEBT_PAGE,
     STRUCTURED_PAGE,
     SECURITIZED_PAGE,
+    ABOUT_PAGE,
     FILTER_SCRIPT,
     ROUTER_SCRIPT,
 ])
