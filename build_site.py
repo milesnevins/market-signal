@@ -852,11 +852,11 @@ CRE_FINAL_BULLETS = [
 ]
 
 CRE_MARKETS = [
-    ("austin", "Austin, TX &mdash; UT Austin"),
-    ("usc", "Los Angeles, CA &mdash; USC"),
-    ("nyu", "New York, NY &mdash; NYU"),
-    ("uga", "Atlanta, GA &mdash; UGA"),
-    ("uf", "Miami, FL &mdash; Univ. of Florida"),
+    ("austin", "Austin, TX"),
+    ("usc", "Los Angeles, CA"),
+    ("nyu", "New York, NY"),
+    ("uga", "Atlanta, GA"),
+    ("uf", "Miami, FL"),
 ]
 
 CRE_AUSTIN_BLOCK = market_block_html(
@@ -975,20 +975,89 @@ CRE_USC_BLOCK = market_block_html(
     "No predictions. No stock references. Project-anchored interpretation only.",
     implications_label="Local Market Implications",
 )
+NYC_SNAPSHOT = [
+    ("Development Activity", "rising"),
+    ("Office Pipeline", "rising"),
+    ("Industrial Momentum", "stable"),
+    ("Mixed-Use Activity", "rising"),
+    ("Capital Availability", "stable"),
+    ("Infrastructure Relevance", "stable"),
+]
+
+NYC_SIGNALS = [
+    dict(category="Office", title="NBCUniversal Renews 244,185 SF at 1221 Avenue of the Americas",
+         subtitle="A Legacy Media Tenant Recommits Instead of Shrinking",
+         trigger=f'''{src("https://commercialobserver.com/2026/07/nbcuniversal-lease-renewal-office-1221-avenue-of-the-americas/", "NBCUniversal renewed 244,185 square feet at Rockefeller Group's 1221 Avenue of the Americas")} in Midtown, across from its 30 Rockefeller Plaza headquarters, building on a footprint it first established there in 2012 and expanded in 2021; Midtown average asking rents hit $86.18 per square foot in Q2 2026, a quarter Commercial Observer described as having leasing velocity not seen since 2002.''',
+         why="A legacy media tenant recommitting to a quarter-million square feet, rather than shrinking or relocating, directly undercuts the narrative that large corporate occupiers are only downsizing their Manhattan footprints. That this renewal lands in a quarter with the strongest Manhattan office leasing velocity since 2002 suggests it's part of a broader pattern of large-tenant conviction, not an isolated holdout renewal driven by relocation costs.",
+         implications=[
+             "Confirms large legacy tenants are renewing at scale, not uniformly shrinking their Manhattan footprints",
+             "Reinforces 1221 Avenue of the Americas and the Rockefeller Center corridor as a durable media-tenant cluster",
+             "Adds to a broader Q2 2026 leasing velocity trend described as the strongest since 2002",
+             "Supports continued asking-rent growth in Midtown even amid national office-sector caution",
+         ],
+         watch="Whether other large media or legacy corporate tenants announce comparable renewals in the same submarket this year."),
+    dict(category="Mixed-Use", title="Bill Ackman Pays $188M for Lab Building, Plans Brain Research Institute",
+         subtitle="A Philanthropic Buyer Converts Office/Lab Stock Into an Institutional Research Campus",
+         trigger=f'''{src("https://commercialobserver.com/2026/07/bill-ackman-buys-125-west-end-avenue/", "Bill Ackman's Pershing Square Foundation paid $188 million for the 400,000-square-foot lab building at 125 West End Avenue")} from Taconic Partners, the first piece of a roughly $260 million, two-building, 700,000-square-foot assemblage on the Upper West Side that will become the Ackman Oxman Institute, a brain research center developed with the Mount Sinai Hospital System.''',
+         why="A billionaire-funded philanthropic buyer paying a premium to convert existing lab and office stock into a dedicated institutional research campus is a concrete example of life-sciences and &ldquo;eds-and-meds&rdquo; demand becoming a real alternative use case for underused Manhattan office and lab buildings, not just a talking point. Because this is a mission-driven, not yield-driven, acquisition, it's a different kind of demand signal than a REIT or fund buying the same building &mdash; but it still removes real square footage from the conventional office market permanently.",
+         implications=[
+             "Confirms life-sciences and institutional research demand as a genuine absorption path for older lab/office stock",
+             "Removes roughly 700,000 square feet from conventional Manhattan office/lab inventory permanently",
+             "Signals continued philanthropic capital willingness to fund large-scale medical research real estate in NYC",
+             "May encourage other underused Upper West Side lab buildings to market toward similar institutional buyers",
+         ],
+         watch="Whether the Foundation closes on the adjacent 320 West 66th Street parcel as planned, and construction/opening timelines for the Ackman Oxman Institute."),
+    dict(category="Retail", title="Boutique Fitness Operators Drive Manhattan Retail Vacancy to a 2019 Low",
+         subtitle="Experiential Wellness Tenants, Not Apparel Chains, Are Now the Demand Engine",
+         trigger=f'''{src("https://www.credaily.com/briefs/boutique-gyms-lead-manhattan-retail-leasing-surge/", "Boutique fitness and wellness operators drove a surge in Manhattan and Brooklyn retail leasing")}, led by Chelsea Piers (76,000 square feet at Seaport) and Life Time (71,000 square feet in North Williamsburg), pushing prime-corridor retail vacancy down to roughly 12% &mdash; the lowest since 2019, with Madison Avenue and SoHo down to about 8%.''',
+         why="Wellness and fitness tenants regularly ranking among the largest retail leases in the market, rather than traditional apparel or restaurant chains, is a durable shift in what landlords are underwriting retail rents against &mdash; these operators typically sign long-term leases anchored around expensive buildout (pools, studios, equipment), which makes them stickier tenants than a typical apparel retailer once installed. Vacancy falling to a level not seen since 2019 in the specific corridors these tenants are choosing confirms this demand is broad enough to move real vacancy numbers, not just a handful of headline deals.",
+         implications=[
+             "Confirms experiential wellness tenants, not apparel or dining, are now the leading edge of large-block retail demand",
+             "Pushes prime-corridor Manhattan retail vacancy to its lowest level since 2019",
+             "Signals landlords can underwrite rents against sticky, buildout-heavy wellness tenants rather than higher-turnover retail",
+             "May pressure remaining large-block retail asking rents higher in the corridors these operators favor",
+         ],
+         watch="Whether additional large-format wellness operators announce New York leases this year, and rent growth in the specific corridors already tightening."),
+    dict(category="Office", title="Brooklyn Medical Office Building Sells for $632/SF, Well Above Conventional Office",
+         subtitle="Healthcare-Anchored Real Estate Is Trading at a Premium to Ordinary Office",
+         trigger=f'''{src("https://crenews.com/2026/07/28/brooklyn-n-y-medical-office-property-sells-for-89-9mln/", "The 142,249-square-foot East New York Health Hub sold for $89.9 million")}, or roughly $632 per square foot, to Vital Infrastructure Property Trust, with Newmark involved in the brokerage.''',
+         why="A $632-per-square-foot price for an outer-borough medical office asset is well above typical Brooklyn office pricing, which confirms healthcare-anchored real estate is trading at a meaningful premium to conventional office right now. That premium reflects the durability of medical tenancies (long leases, high build-out costs, non-discretionary demand) relative to ordinary office space, and reinforces medical and life-science-adjacent property as one of the few office-related categories still attracting strong institutional capital.",
+         implications=[
+             "Confirms medical office commands a real, quantifiable premium over conventional Brooklyn office pricing",
+             "Signals institutional capital (Vital Infrastructure Property Trust) sees durable value in healthcare-anchored real estate",
+             "Provides a $632/SF benchmark for other outer-borough medical office sales this cycle",
+             "Reinforces healthcare tenancy as a differentiated, still-in-favor office subcategory",
+         ],
+         watch="Whether comparable outer-borough medical office assets trade at similarly premium pricing, and Vital Infrastructure's disclosed plans for the property."),
+]
+
+NYC_FINAL_PARAGRAPHS = [
+    "This week's New York signals share a theme: capital is finding conviction in real estate uses that sit adjacent to, or entirely outside of, conventional office and retail &mdash; a legacy media tenant recommitting to Midtown space, a philanthropic buyer converting lab space into an institutional research campus, wellness operators driving retail vacancy to a multi-year low, and a healthcare-anchored asset trading at a steep premium to ordinary office.",
+    "The NBCUniversal renewal and the East New York Health Hub sale are worth reading as two data points on the same broader question: which uses is capital willing to pay up for right now. A legacy tenant renewing at scale in a strong leasing quarter, and a medical office property trading at nearly double typical Brooklyn office pricing, both point toward durable, non-discretionary demand commanding real premiums.",
+    "The Ackman Oxman Institute purchase and the wellness-driven retail leasing surge describe a similar dynamic from opposite ends of the market: mission-driven and experiential demand, not conventional office or apparel retail, is what's actually absorbing space and moving vacancy right now.",
+]
+NYC_FINAL_BULLETS = [
+    "A legacy media tenant renewed at scale in Manhattan's strongest office leasing quarter since 2002",
+    "A philanthropic buyer is converting lab/office stock into a dedicated institutional research campus",
+    "Wellness and fitness tenants, not apparel or dining, pushed prime retail vacancy to a 2019 low",
+    "A Brooklyn medical office asset traded at nearly double typical conventional office pricing",
+]
+
 CRE_NYU_BLOCK = market_block_html(
-    "cre", "nyu", False, "CRE", "Signal", "NEW YORK, NY", "COMING SOON", "&mdash;",
-    [], "What Happened", [], [], [], "No predictions. No stock references. Project-anchored interpretation only.",
-    coming_soon="Coming soon &mdash; real research for the New York market (NYU) is in progress.",
+    "cre", "nyu", False, "CRE", "Signal", "NEW YORK, NY", "JULY 29, 2026", "JULY 15&ndash;28, 2026",
+    NYC_SNAPSHOT, "What Happened", NYC_SIGNALS, NYC_FINAL_PARAGRAPHS, NYC_FINAL_BULLETS,
+    "No predictions. No stock references. Project-anchored interpretation only.",
+    implications_label="Local Market Implications",
 )
 CRE_UGA_BLOCK = market_block_html(
     "cre", "uga", False, "CRE", "Signal", "ATLANTA, GA", "COMING SOON", "&mdash;",
     [], "What Happened", [], [], [], "No predictions. No stock references. Project-anchored interpretation only.",
-    coming_soon="Coming soon &mdash; real research for the Atlanta market (UGA) is in progress.",
+    coming_soon="Coming soon &mdash; real research for the Atlanta market is in progress.",
 )
 CRE_UF_BLOCK = market_block_html(
     "cre", "uf", False, "CRE", "Signal", "MIAMI, FL", "COMING SOON", "&mdash;",
     [], "What Happened", [], [], [], "No predictions. No stock references. Project-anchored interpretation only.",
-    coming_soon="Coming soon &mdash; real research for the Miami market (Univ. of Florida) is in progress.",
+    coming_soon="Coming soon &mdash; real research for the Miami market is in progress.",
 )
 
 CRE_PAGE = multi_market_page("cre", False, CRE_MARKETS,
@@ -1221,11 +1290,11 @@ print("Credit page OK", len(CREDIT_PAGE))
 # ============================================================== RE DEBT SIGNAL ==============================================================
 
 REDEBT_MARKETS = [
-    ("austin", "Austin, TX &mdash; UT Austin"),
-    ("usc", "Los Angeles, CA &mdash; USC"),
-    ("nyu", "New York, NY &mdash; NYU"),
-    ("uga", "Atlanta, GA &mdash; UGA"),
-    ("uf", "Miami, FL &mdash; Univ. of Florida"),
+    ("austin", "Austin, TX"),
+    ("usc", "Los Angeles, CA"),
+    ("nyu", "New York, NY"),
+    ("uga", "Atlanta, GA"),
+    ("uf", "Miami, FL"),
 ]
 
 AUSTIN_DEBT_SNAPSHOT = [
@@ -1445,20 +1514,121 @@ REDEBT_USC_BLOCK = market_block_html(
     USC_DEBT_SNAPSHOT, "What Happened", USC_DEBT_SIGNALS, USC_DEBT_FINAL_PARAGRAPHS, USC_DEBT_FINAL_BULLETS,
     "No predictions. No stock references. Loan-anchored interpretation only.",
 )
+NYC_DEBT_SNAPSHOT = [
+    ("CRE Lending Volume", "stable"),
+    ("Construction Financing", "rising"),
+    ("CMBS Issuance", "stable"),
+    ("Agency Multifamily Activity", "rising"),
+    ("Credit Availability", "stable"),
+    ("Residential Credit (Non-QM / Jumbo)", "stable"),
+]
+
+NYC_DEBT_SIGNALS = [
+    dict(category="Refinancing", title="SL Green Begins Refinancing $1.77B Mortgage on 245 Park Ave",
+         subtitle="A Mega-Loan Refi Attempt Is a Real Test of the Trophy Office Debt Market",
+         trigger=f'''{src("https://crenews.com/2026/07/29/sl-green-eyes-refinancing-245-park-office-in-midtown-manhattan/", "SL Green Realty Corp. began efforts to refinance $1.77 billion of existing mortgage debt")} against 245 Park Avenue, its 1.78 million-square-foot Midtown Manhattan office tower.''',
+         why="A refinancing attempt at this scale on a large Class A Midtown tower is a direct test of whether debt capital is willing to underwrite mega-loans on trophy office again, rather than just office debt broadly stabilizing on paper. The eventual lender group, pricing, and proceeds relative to the existing $1.77 billion balance will be closely watched as a read on where office lending has actually normalized versus where it merely looks calmer from the outside.",
+         implications=[
+             "Functions as a live test case for whether $1.77 billion-scale trophy office refinancings can still clear the market",
+             "Sets a size benchmark other large Manhattan office sponsors will reference for their own refinancing timelines",
+             "Signals SL Green's confidence that lenders remain willing to underwrite its flagship asset at scale",
+             "Provides an early read on proceeds and pricing relative to the existing loan balance once terms are disclosed",
+         ],
+         watch="The identity of the new lender group once disclosed, and whether proceeds come in at, above, or below the existing $1.77 billion balance."),
+    dict(category="Distressed Note Sale", title="OceanFirst Sells $1.3B of NYC Rent-Stabilized Apartment Loans to Cerberus",
+         subtitle="A Regional Bank De-Risks Its Rent-Regulated Multifamily Exposure in Bulk",
+         trigger=f'''{src("https://crenews.com/2026/07/29/oceanfirst-bank-sells-1-3bln-portfolio-of-new-york-apartment-loans/", "OceanFirst Financial Corp. sold a $1.3 billion portfolio of New York City apartment loans to Cerberus Capital Management")}, with most of the underlying properties subject to New York's rent-stabilization regulations.''',
+         why="A regional bank offloading $1.3 billion in rent-regulated multifamily paper in bulk, to a distressed-debt buyer rather than another bank, is a concrete data point on how lenders are de-risking exposure to post-HSTPA rent-stabilized buildings &mdash; an asset class many lenders have quietly repriced as structurally impaired collateral since New York's 2019 rent law changes limited owners' ability to raise rents or recoup renovation costs. Cerberus buying at scale suggests distressed-debt investors see a workable basis in this paper that the originating bank no longer wanted to carry.",
+         implications=[
+             "Confirms regional banks are actively de-risking rent-stabilized NYC multifamily loan exposure in bulk, not loan-by-loan",
+             "Signals distressed-debt buyers like Cerberus see a workable basis in rent-regulated paper banks are exiting",
+             "Provides a large, real transaction size benchmark for rent-stabilized loan portfolio sales",
+             "May prompt other regional banks carrying similar post-HSTPA exposure to pursue comparable bulk sales",
+         ],
+         watch="Whether other regional or community banks announce similar bulk sales of rent-stabilized NYC multifamily loans."),
+    dict(category="Special Servicing", title="$37.5M CMBS Loan on Lower Manhattan Office Building Hits Special Servicing",
+         subtitle="Distress Has Moved Well Beyond Trophy Towers Into Small, Older Office Stock",
+         trigger=f'''{src("https://crenews.com/2026/07/06/continued-occupancy-cash-flow-issues-prompt-manhattan-office-loans-transfer-to-special-servicing/", "The $37.5 million CMBS loan against the 58,850-square-foot Ditson Building in Lower Manhattan transferred to special servicing")} due to continued occupancy and cash-flow issues; the loan, securitized through the BANK 2018-BN13 trust, carries a fixed rate of 5.43%.''',
+         why="A sub-$40 million loan hitting special servicing shows office distress has moved well beyond headline-grabbing trophy towers into small, older Lower Manhattan office stock &mdash; buildings where there's little leasing momentum to justify an extended workout, making straight liquidation a more likely outcome than extend-and-pretend. Aggregating enough of these smaller loan-level events is often a better read on the depth of an office distress cycle than any single large-tower story.",
+         implications=[
+             "Confirms office distress extends into small, older Lower Manhattan buildings, not just trophy towers",
+             "Signals limited leasing momentum makes a negotiated workout less likely than eventual liquidation here",
+             "Adds a specific, small-loan data point to the broader Manhattan office CMBS distress narrative",
+             "May be more representative of aggregate distress depth than large single-tower special servicing stories",
+         ],
+         watch="Whether the loan proceeds toward a modification or a forced sale, and comparable special servicing transfers on similarly small, older Manhattan office loans."),
+    dict(category="Agency Multifamily", title="Arbor Writes $146.24M Fannie Mae Loan for Lower Manhattan Apartments",
+         subtitle="Agency Lenders Remain the Reliable, Lowest-Cost Capital Source for Stabilized NYC Multifamily",
+         trigger=f'''{src("https://crenews.com/2026/07/28/arbor-realty-writes-146-24mln-fannie-mae-loan-for-manhattan-apartments/", "Arbor Realty Trust originated a $146.24 million Fannie Mae loan for the 209-unit apartment building at 7 Dey Street")} in Lower Manhattan.''',
+         why="Continued heavy GSE appetite for Manhattan multifamily at this scale reinforces that agency lenders remain the reliable, lowest-cost capital source for stabilized NYC apartment assets even while bank and CMBS office lending stays comparatively choppy. That split &mdash; agency capital flowing freely to multifamily while office debt requires much more selective underwriting &mdash; is one of the clearest lender-risk-appetite divides in the current market.",
+         implications=[
+             "Confirms GSE lenders remain willing to fund large Manhattan multifamily loans at scale",
+             "Reinforces the divide between freely-flowing agency multifamily capital and more selective office lending",
+             "Provides a $146.24 million comp for comparable Lower Manhattan multifamily agency financings",
+             "Signals continued confidence in stabilized NYC apartment collateral specifically",
+         ],
+         watch="Whether comparable GSE-financed Manhattan multifamily loans price similarly in the coming weeks."),
+    dict(category="Construction Lending", title="BXP Closes $1.2B Construction Loan for 343 Madison Ave Office Tower",
+         subtitle="A Bank Club Deal Shows Lenders Will Still Fund New Office Supply, With Conditions",
+         trigger=f'''{src("https://commercialobserver.com/2026/07/bxp-construction-loan-343-madison-avenue-q2-earnings/", "BXP closed a $1.2 billion construction loan for its 46-story, roughly 930,000-square-foot office tower at 343 Madison Avenue")}, led by Wells Fargo with support from BofA Securities, Bank of New York Mellon, and JPMorgan Chase; the loan carries a four-year initial term plus a one-year extension, an initial rate of Term SOFR plus 2.50% that steps down to plus 2.25% on leasing and construction milestones, and the roughly $2 billion, Grand Central-connected tower is about 50% pre-leased with completion expected in 2029.''',
+         why="A major bank club deal financing ground-up trophy office construction, at a moment when office construction lending has been scarce nationally, shows lenders will still underwrite new supply &mdash; but only when it clears a high bar: pre-leased, transit-connected, and built by a top-tier REIT. The rate step-down tied to leasing and construction milestones is itself a signal that lenders are pricing in real execution risk and rewarding de-risking events explicitly, rather than underwriting the project on projected rents alone.",
+         implications=[
+             "Confirms bank capital will still fund large ground-up office construction when pre-leasing and sponsor quality are strong",
+             "Ties borrowing cost directly to leasing and construction milestones, pricing execution risk explicitly into the loan",
+             "Sets a $1.2 billion size and multi-bank club structure benchmark for other trophy office construction financings",
+             "Reinforces Grand Central-area transit connectivity as a key underwriting factor for new Midtown office supply",
+         ],
+         watch="Whether 343 Madison's pre-leasing percentage climbs enough to trigger the rate step-down, and construction progress toward the 2029 completion target."),
+    dict(category="Affordable Bond Financing", title="Cedarbridge Refinances 1,000-Unit Portfolio With 40-Year Affordability Deal",
+         subtitle="A Bank Refinancing Is Being Used to Lock In Affordability, Not Just Provide Subsidy",
+         trigger=f'''{src("https://www.bisnow.com/new-york/news/deal-sheet/canadian-reit-brooklyn-medical-office-ny-deal-sheet-135586", "Cedarbridge Management refinanced a 27-building, 1,000-unit multifamily portfolio")} across Brooklyn and Manhattan with a $145.7 million loan from Customers Bank, closing simultaneously with a new 40-year Article 11 affordability agreement negotiated with the NYC Housing Partnership.''',
+         why="Tying a private bank refinancing directly to a long-term, 40-year affordability covenant illustrates how lenders and the city are increasingly using debt structuring itself &mdash; not just direct subsidy &mdash; as the mechanism to preserve affordable housing stock at scale. A 27-building portfolio locking in affordability for four decades in exchange for refinancing terms is a much larger and longer-duration commitment than a typical single-building affordable deal.",
+         implications=[
+             "Demonstrates debt structuring itself, not just subsidy, as a tool for locking in long-term affordability",
+             "Locks in affordability across 1,000 units for a full 40-year term, a longer horizon than most comparable deals",
+             "Provides a replicable template pairing private bank refinancing with city affordability partnerships",
+             "Signals continued private bank appetite to refinance large multifamily portfolios tied to affordability covenants",
+         ],
+         watch="Whether Customers Bank or other private lenders pursue additional refinancings structured around long-term Article 11 agreements."),
+    dict(category="Bridge Lending", title="Ladder Capital Lends $268M to Fund 575 Fifth Ave Office Purchase",
+         subtitle="A Non-Bank Lender Underwrites Aggressive Leverage on a Fifth Avenue Trade",
+         trigger=f'''{src("https://crenews.com/2026/07/27/ladder-capital-lends-268mln-to-fund-purchase-of-manhattans-575-fifth-ave-office/", "Ladder Capital Corp. lent $268 million to fund the purchase of the 507,031-square-foot office building at 575 Fifth Avenue")}, which traded for $378 million ($745.50 per square foot), implying roughly 71% leverage against the purchase price; Eastdil Secured brokered the sale.''',
+         why="A non-bank balance-sheet lender writing a $268 million acquisition loan at roughly 71% loan-to-value on a Fifth Avenue office trade signals real debt capital is still willing to underwrite sizable Manhattan office acquisitions at aggressive leverage. Read alongside this week's special servicing and refinancing-distress signals, it's a useful counterpoint showing the office debt market is bifurcating sharply by asset quality and location, rather than being uniformly frozen.",
+         implications=[
+             "Confirms non-bank lenders remain willing to underwrite aggressive leverage on quality Manhattan office acquisitions",
+             "Provides a 71% loan-to-value benchmark for comparable Fifth Avenue-caliber office acquisition financings",
+             "Signals continued bifurcation in office debt markets by asset quality, not a uniform financing freeze",
+             "Reinforces Eastdil Secured's role brokering large Manhattan office trades this cycle",
+         ],
+         watch="The borrower's business plan for 575 Fifth Avenue, and whether comparable non-bank lenders write similarly leveraged acquisition loans on other Manhattan office trades."),
+]
+
+NYC_DEBT_FINAL_PARAGRAPHS = [
+    "This week's New York lending activity splits cleanly between capital exiting risk and capital extending fresh conviction. OceanFirst's $1.3 billion bulk sale of rent-stabilized loans to Cerberus and the Ditson Building's special servicing transfer both represent lenders recognizing or exiting distress; SL Green's $1.77 billion refinancing attempt, BXP's $1.2 billion construction loan, and Ladder Capital's $268 million acquisition loan all represent fresh capital being extended at real scale.",
+    "The SL Green and BXP signals are worth reading together as two different tests of the same question: will debt capital still underwrite Manhattan trophy office at scale? SL Green is asking that question of existing debt on a stabilized asset; BXP already got its answer, in the form of a $1.2 billion bank club construction loan with milestone-based pricing that shows lenders will fund new supply, but only on favorable, pre-leased terms.",
+    "Ladder Capital's aggressive 71%-leverage acquisition loan on 575 Fifth Avenue is this week's clearest evidence that office debt isn't frozen uniformly &mdash; it's bifurcating sharply by asset quality, location, and lender type, with non-bank balance-sheet lenders stepping in exactly where the picture otherwise looks most cautious.",
+]
+NYC_DEBT_FINAL_BULLETS = [
+    "A regional bank exited $1.3 billion of rent-stabilized NYC multifamily loan exposure in one bulk sale to Cerberus",
+    "SL Green and BXP are both testing whether debt capital still underwrites Manhattan trophy office at billion-dollar scale",
+    "A sub-$40 million special servicing transfer shows office distress reaching small, older Lower Manhattan buildings too",
+    "A non-bank lender's 71%-leverage acquisition loan shows office debt bifurcating by quality, not freezing uniformly",
+]
+
 REDEBT_NYU_BLOCK = market_block_html(
-    "redebt", "nyu", False, "RE Debt", "Signal", "NEW YORK, NY", "COMING SOON", "&mdash;",
-    [], "What Happened", [], [], [], "No predictions. No stock references. Loan-anchored interpretation only.",
-    coming_soon="Coming soon &mdash; real research for the New York market (NYU) is in progress.",
+    "redebt", "nyu", False, "RE Debt", "Signal", "NEW YORK, NY", "JULY 29, 2026", "JULY 6&ndash;29, 2026",
+    NYC_DEBT_SNAPSHOT, "What Happened", NYC_DEBT_SIGNALS, NYC_DEBT_FINAL_PARAGRAPHS, NYC_DEBT_FINAL_BULLETS,
+    "No predictions. No stock references. Loan-anchored interpretation only.",
 )
 REDEBT_UGA_BLOCK = market_block_html(
     "redebt", "uga", False, "RE Debt", "Signal", "ATLANTA, GA", "COMING SOON", "&mdash;",
     [], "What Happened", [], [], [], "No predictions. No stock references. Loan-anchored interpretation only.",
-    coming_soon="Coming soon &mdash; real research for the Atlanta market (UGA) is in progress.",
+    coming_soon="Coming soon &mdash; real research for the Atlanta market is in progress.",
 )
 REDEBT_UF_BLOCK = market_block_html(
     "redebt", "uf", False, "RE Debt", "Signal", "MIAMI, FL", "COMING SOON", "&mdash;",
     [], "What Happened", [], [], [], "No predictions. No stock references. Loan-anchored interpretation only.",
-    coming_soon="Coming soon &mdash; real research for the Miami market (Univ. of Florida) is in progress.",
+    coming_soon="Coming soon &mdash; real research for the Miami market is in progress.",
 )
 
 REDEBT_PAGE = multi_market_page("redebt", False, REDEBT_MARKETS,
