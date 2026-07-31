@@ -414,8 +414,16 @@ a{ color:inherit; }
   font-style:italic;
   color:var(--muted);
   font-size:14.5px;
-  margin:0 0 26px;
+  margin:0 0 10px;
   max-width:46ch;
+}
+.signal-date{
+  font-family:var(--font-mono);
+  font-size:10.5px;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin:0 0 22px;
 }
 .block{margin-bottom:20px;max-width:58ch;}
 .block-label{
@@ -774,9 +782,11 @@ def signals_html(trigger_label, signals, implications_label="Market Implications
             out.append(f'  <div class="asset-class" data-category="{s["category"]}"><span class="label">{s["category"]}</span><span class="fill"></span></div>')
             last_cat = s["category"]
         impl = "\n".join(f"      <li>{i}</li>" for i in s["implications"])
+        date_html = f'<p class="signal-date">{s["date"]}</p>' if s.get("date") else ""
         out.append(f'''  <div class="signal-card" data-category="{s["category"]}">
     <h3 class="signal-title">{s["title"]}</h3>
     <p class="signal-subtitle">{s["subtitle"]}</p>
+    {date_html}
     <div class="block"><p class="block-label">{trigger_label}</p><p>{s["trigger"]}</p></div>
     <div class="block"><p class="block-label">Why This Matters</p><p>{s["why"]}</p></div>
     <div class="block implications"><p class="block-label">{implications_label}</p><ul>
@@ -943,6 +953,7 @@ CRE_SNAPSHOT = [
 CRE_SIGNALS = [
     dict(category="Industrial", title="Amazon Confirmed as Anchor Behind Southeast Austin Mega-Project",
          subtitle="A $5.6 Billion Infrastructure Package Follows the Tenant, Not the Other Way Around",
+         date="July 23, 2026",
          trigger=f'''Austin officials confirmed that {src("https://www.kut.org/austin/2026-07-21/secrets-out-amazon-is-the-company-behind-austins-fast-tracked-dogs-head-project", "Amazon's robotics division is the previously unnamed tenant")} behind the roughly 2,600-acre &ldquo;Dog's Head&rdquo; site along the Colorado River in Southeast Austin, and on July 23 {src("https://austincurrent.org/2026/07/23/dogshead-austin-texas-development/", "the Austin City Council voted 7-3 to approve Tax Increment Reinvestment Zone financing")} for the site, with developer Endeavor projecting roughly $3.5 billion in property tax revenue over 30 years to fund infrastructure covering up to 12,000 homes and 4 million square feet of industrial space.''',
          why="A TIRZ vote is a bet the city is willing to make with its own future tax revenue, not just a rezoning approval &mdash; the city is committing to fund infrastructure against tax increment that only materializes if the development actually gets built and leases up as projected. That the anchor tenant turned out to be Amazon's robotics division, rather than a speculative logistics user, changes the credit quality of that bet: a name-brand corporate tenant with disclosed job commitments is a very different anchor than an unnamed spec building. The 1,478-to-645 public sign-up split ahead of the vote also shows this was a genuinely contested approval, not a rubber stamp.",
          implications=[
@@ -954,6 +965,7 @@ CRE_SIGNALS = [
          watch="Whether Amazon's disclosed job commitments materialize on the timeline implied by the TIRZ financing, and the outcome of the still-pending council vote on the site's regulating plan."),
     dict(category="Industrial", title="Tesla Signs Major Industrial Lease at Austin Hills Commerce Center",
          subtitle="A Second Big-Box User Confirms the Southeast Corridor Thesis Independently",
+         date="July 7, 2026",
          trigger=f'''{src("https://therealdeal.com/texas/2026/07/07/tesla-leases-683k-sf-industrial-building-in-austin-sweep/", "Tesla signed a lease for roughly 682,000 square feet of speculative industrial space")} at 11801 Decker Lake Road, the second phase of Austin Hills Commerce Center &mdash; a 1.4 million-square-foot project from Sansone Group and Principal Asset Management &mdash; with completion targeted for January 2027. Tesla's intended use of the space was not disclosed.''',
          why="Tesla signing for two-thirds of a million square feet of speculative industrial space, without disclosing what it's for, is itself informative &mdash; companies don't pre-lease that much unmarked capacity unless they're confident enough in near-term demand to pay for optionality now rather than wait for a build-to-suit later. Read next to the Dog's Head announcement in the same broad corridor, this is the second large corporate industrial user to commit to Southeast Austin within the same month, from two very different demand drivers, even as reported Austin-metro warehouse vacancy sits near 17%.",
          implications=[
@@ -965,6 +977,7 @@ CRE_SIGNALS = [
          watch="Whether Tesla discloses its intended use of the space as the January 2027 completion approaches, and whether other large users follow into the same commerce center."),
     dict(category="Office", title="Hines Pays $733/SF for Fully Leased Downtown Austin Tower",
          subtitle="A Full-Price Trophy Trade Is a Different Signal Than the Metro's Vacancy Rate",
+         date="July 13, 2026",
          trigger=f'''{src("https://therealdeal.com/texas/2026/07/13/houston-based-hines-snags-405-colorado-for-733-per-sf/", "Hines paid $151 million ($733 per square foot) to buy the 206,000-square-foot tower at 405 Colorado St.")} from Brandywine Realty Trust, a 25-story, Class-A building completed in 2021 and fully leased to tenants including JPMorgan Chase, Bain &amp; Company, and AllianceBernstein; Eastdil Secured advised seller Brandywine, which is executing a plan to sell roughly $300 million of assets from its portfolio.''',
          why="A fully-leased trophy tower trading at $733 per square foot, in a market where office vacancy is running near 25%, is a specific bet on tenant quality and lease term, not a bet on the office sector broadly &mdash; Hines is underwriting JPMorgan, Bain, and AllianceBernstein's credit and renewal likelihood, not downtown Austin office fundamentals as a whole. That Brandywine sold at what appears to be a strong basis, as part of a disclosed disposition program, also suggests the seller found this specific asset easier to monetize than the rest of its portfolio.",
          implications=[
@@ -976,6 +989,7 @@ CRE_SIGNALS = [
          watch="Whether Brandywine's remaining Austin office assets, including One Uptown, trade at comparable pricing, and Hines' plans for the building at lease rollover."),
     dict(category="Multifamily", title="Brandywine Puts Uptown ATX Apartment Tower Up for Sale",
          subtitle="Selling a 93%-Leased Asset Is a Capital-Recycling Decision, Not a Distress Sale",
+         date="July 27, 2026",
          trigger=f'''{src("https://therealdeal.com/texas/2026/07/27/brandywine-looks-to-sell-uptown-atx-apartment-complex/", "Brandywine Realty Trust disclosed on its Q2 earnings call that it is marketing Solaris")}, a 341-unit apartment complex at 2800 Solaris St. in the Uptown ATX development that was 93% leased as of the prior month, and is separately seeking a capital partner for the adjacent One Uptown office building, with both transactions expected to close later this year.''',
          why="A REIT selling a 93%-leased, stabilized apartment asset at the same time it sells a fully-leased office trophy nearby is a capital-recycling decision, not a signal that either asset is underperforming &mdash; Brandywine is converting stabilized cash flow into cash to fund its stated $300 million disposition program, which likely goes toward debt paydown or redeployment elsewhere. That the company is simultaneously seeking a partner rather than an outright sale for One Uptown suggests it wants to retain some upside in that asset while still de-risking its balance sheet.",
          implications=[
@@ -987,6 +1001,7 @@ CRE_SIGNALS = [
          watch="The eventual sale price and buyer for Solaris, and whether Brandywine finds a capital partner for One Uptown on the timeline it disclosed."),
     dict(category="Infrastructure", title="Project Connect Light Rail Shrinks to 9.8 Miles, No Subway, No Airport Link",
          subtitle="Six Years After Voter Approval, the Line Voters Funded Isn't the Line Getting Built",
+         date="July 24, 2026",
          trigger=f'''{src("https://www.kut.org/transportation/2026-07-24/austin-tx-project-connect-explainer-capmetro-light-rail-bus-train", "Austin's Project Connect light rail has been scaled down from an original 20.2-mile, 31-station plan with a downtown subway to 9.8 miles and 15 stations")} with no subway and no airport connection, nearly six years after 2020 voter approval; the downtown tunnel and airport link, together a $2&ndash;4 billion cost driver, were both eliminated, construction is still not slated to start until 2027, and current light-rail cost estimates exceed $8.2 billion, up from an original $5.8 billion estimate.''',
          why="A rail line's scope and timeline are the single biggest variable in how station-area land actually gets valued, and this is a material downgrade on both dimensions from what voters funded in 2020 &mdash; a shorter route with no downtown subway or airport connection serves fewer trip patterns and touches fewer parcels than the original plan did. That the cost estimate has grown even as scope shrank means the per-mile economics of this project have deteriorated substantially, which matters for how much confidence to place in any future scope restoration.",
          implications=[
@@ -998,6 +1013,7 @@ CRE_SIGNALS = [
          watch="Whether the 2027 construction start holds, and whether CapMetro identifies funding to restore any of the cut scope in a later phase."),
     dict(category="Mixed-Use", title="Ownership Turns Over on Two Austin-Area Master-Planned Communities",
          subtitle="Horizontal Land Plays Are Still Financeable, Just Through Different Structures",
+         date="July 28, 2026",
          trigger=f'''{src("https://www.bisnow.com/austin-san-antonio/news/master-planned-communities/mpc-projects-pose-challenges-texas-developers-135594", "Rockspring closed a $28.2 million loan to begin construction on The Highlands")}, a 254-acre master-planned community in Marble Falls combining houses, apartments, and retail, while The Ridge, a 6,200-home master-planned community south of Austin, was acquired by Wilson Capital in July 2026.''',
          why="Master-planned communities typically take 10 to 20 years to complete and depend on public improvement district bonds and special financing districts, with financing delays historically the biggest bottleneck &mdash; a fresh construction loan on one project and a full ownership change on another, in the same stretch, show capital is still willing to fund multi-decade horizontal land plays in the Austin exurbs despite tighter underwriting conditions elsewhere. Nearly 20 Texas MPCs ranked among the top 50 best-selling nationally in 2025, concentrated in Austin, Houston, Dallas-Fort Worth, and San Antonio.",
          implications=[
@@ -1047,6 +1063,7 @@ USC_SNAPSHOT = [
 USC_SIGNALS = [
     dict(category="Industrial", title="Rexford Industrial Quadruples Planned Asset Sales After $506.9M Loss",
          subtitle="LA's Dominant Industrial Landlord Is Pruning Even Strong-Fundamentals Product",
+         date="July 2026",
          trigger=f'''{src("https://www.bisnow.com/los-angeles/news/industrial/rexford-takes-500m-loss-plans-up-to-2b-in-dispositions-this-year-135577", "Rexford Industrial Realty raised its 2026 disposition guidance to $1.5&ndash;2 billion")}, up from $400&ndash;500 million, after posting a $506.9 million net loss in Q2 driven by a noncash impairment; the expanded sell-off covers roughly 8 million square feet, about 16% of Rexford's ~50 million-square-foot LA-basin portfolio, with the company targeting properties it says carry &ldquo;substantially above-market in-place rents&rdquo; from acquisitions &ldquo;at the height of the market.&rdquo;''',
          why="A REIT quadrupling its planned dispositions while eating a half-billion-dollar impairment is a concrete repricing signal, not a portfolio-management footnote &mdash; Rexford is the single largest and most closely-watched industrial landlord in the LA basin, so its own admission that certain assets were bought at peak valuations tells you where the broader market's cost basis stands relative to today's rents. That same-property occupancy still sits at 95.7% even amid this pruning shows the portfolio's operating performance isn't the problem; the entry price is.",
          implications=[
@@ -1058,6 +1075,7 @@ USC_SIGNALS = [
          watch="The pricing Rexford actually achieves on the expanded $1.5&ndash;2 billion disposition slate, and whether other LA-basin industrial REITs follow with similar guidance revisions."),
     dict(category="Industrial", title="Aerospace and Defense Tenants Drive a Two-Speed South Bay Industrial Market",
          subtitle="Longer Leases at Premium Terms Are Reshaping Which Submarket Wins",
+         date="Q2 2026",
          trigger=f'''{src("https://www.bisnow.com/los-angeles/news/industrial/los-angeles-industrial-defense-tech-aerospace-135477", "LA industrial leasing hit 15.7 million square feet in Q2 2026, up 40.4% year-over-year")}, with South Bay accounting for 42% of all leases (up from a 34% historical average) on the strength of aerospace and defense tenants, including a 512,000-square-foot Valar Atomics lease in Torrance and a roughly 400,000-square-foot Divergent Technologies lease in Long Beach; vacancy in the submarket fell to 3.9% and average weighted lease terms stretched from 72 months in 2025 to 83 months today.''',
          why="Aerospace and defense tenants signing 400,000-to-500,000-square-foot leases at terms nearly seven years long is a fundamentally different demand driver than the e-commerce and third-party-logistics leasing that has dominated industrial headlines for years &mdash; these tenants commit to long-duration, mission-specific buildouts tied to government contracts, not seasonal throughput. That South Bay's share of citywide leasing jumped from a 34% historical average to 42% in one quarter shows landlords in that specific submarket now have real pricing power that the rest of the LA industrial market, still facing broader vacancy pressure, does not.",
          implications=[
@@ -1069,6 +1087,7 @@ USC_SIGNALS = [
          watch="Whether aerospace/defense leasing volume holds through the back half of 2026, and if South Bay vacancy continues falling as landlords test higher asking rents."),
     dict(category="Office", title="Santa Monica Office Building Sells for Conversion to a School",
          subtitle="A 70%-Vacant Building Finds an Exit Outside the Office Category Entirely",
+         date="July 17, 2026",
          trigger=f'''{src("https://www.bisnow.com/los-angeles/news/deal-sheet/santa-monica-offices-to-become-school-los-angeles-deal-sheet-135476", "A roughly 100,000-square-foot office and medical building at 2701 Ocean Park Boulevard in Santa Monica, more than 70% vacant, sold to an undisclosed school")} for campus relocation, brokered by Colliers, Industry Partners, and Newmark.''',
          why="A school buying a vacant office building isn't a real estate trade in the traditional sense &mdash; it's an institutional user removing the asset from the office market entirely, with no rent-roll dependency on the office leasing cycle at all. Sellers accept this kind of sale specifically when they've concluded the building can't be re-leased as office at a viable basis, which is itself a data point about the depth of vacancy in this submarket and building type. Unlike a residential or hotel conversion, a school use also permanently removes the building from any future return to commercial use, since institutional buyers rarely resell.",
          implications=[
@@ -1081,6 +1100,7 @@ USC_SIGNALS = [
          tldr="A 70%-vacant Santa Monica office building sold to a school, permanently removing it from the office market rather than waiting for a lease-up recovery."),
     dict(category="Multifamily", title="Milhaus Merges With SRG Residential, Agrees to Acquire Broadshore Capital",
          subtitle="Consolidation Is How Mid-Size Multifamily Platforms Are Buying Scale Right Now",
+         date="July 15, 2026",
          trigger=f'''{src("https://www.bisnow.com/los-angeles/news/multifamily/milhaus-and-srg-residential-complete-merger-acquire-broadshore-capital-partners-135444", "Indianapolis-based Milhaus completed its merger with Newport Beach's SRG Residential on July 15, 2026")} and separately agreed to acquire LA-based Broadshore Capital Partners, creating a combined platform with $2.5 billion in investment activity and more than 50,000 apartments under third-party management, spanning development, investment management, and lending capabilities across Long Beach, Irvine, Woodland Hills, and Ontario.''',
          why="A mid-size developer merging with an LA-adjacent operator and simultaneously acquiring an investment-and-lending platform is a scale play, not a distressed rescue &mdash; Milhaus is assembling development, third-party management, and capital-markets capabilities under one roof specifically because standalone platforms are finding it harder to compete for institutional capital in a tighter fundraising environment. For USC-market multifamily specifically, this concentrates a meaningful share of LA-area third-party management and lending relationships into one combined platform almost overnight.",
          implications=[
@@ -1092,6 +1112,7 @@ USC_SIGNALS = [
          watch="Whether the combined platform's eight planned development projects break ground on schedule, and if further bolt-on acquisitions follow the Broadshore deal's close this summer."),
     dict(category="Mixed-Use", title="Bankruptcy Court Approves $517M Sale of Stalled Oceanwide Plaza Towers",
          subtitle="A Half-Billion-Dollar Sale Still Leaves an $800 Million Gap to Finish the Job",
+         date="July 2026",
          trigger=f'''{src("https://commercialobserver.com/2026/07/oceanwide-plaza-sale-graffiti-towers-los-angeles-kpc/", "A federal bankruptcy judge approved the sale of the stalled, graffiti-covered Oceanwide Plaza towers in downtown LA")} to a partnership led by KPC Development and Lendlease Americas for roughly $517 million in cash and credit, with an estimated $800 million or more still needed to complete the three-tower project; the buyer has six months to close and must begin graffiti removal within 90 days.''',
          why="A $517 million sale price for a project that needs another $800 million-plus to finish is not a valuation of the towers as they stand &mdash; it's a valuation of the entitlements, sunk structural work, and downtown site control, discounted heavily for the enormous execution risk of completing stalled high-rise construction. That a buyer was willing to take this on at all, after years of the site sitting vacant and vandalized, signals a bet that downtown LA's eventual recovery justifies absorbing that risk now, while the entry basis is this depressed. The court-mandated graffiti removal deadline puts a hard, public clock on the buyer's first visible commitment, before the harder work of construction financing even begins.",
          implications=[
@@ -1104,6 +1125,7 @@ USC_SIGNALS = [
          tldr="A bankruptcy judge approved a $517M sale of the stalled Oceanwide Plaza towers, which still need $800M-plus more before they're finished."),
     dict(category="Retail", title="Sony and Alamo Drafthouse to Reopen Hollywood's ArcLight and Cinerama Dome",
          subtitle="A Six-Year-Dark Landmark Gets a Reopening Date",
+         date="July 2026",
          trigger=f'''{src("https://www.bisnow.com/los-angeles/news/retail/hollywood-arclight-and-cinerama-dome-reopening-under-alamo-drafthouse-135526", "Sony Pictures Entertainment struck a lease deal for Alamo Drafthouse to reopen the shuttered Cinerama Dome and former ArcLight Hollywood complex")}, dark since 2020; the Dome keeps its name, the former ArcLight becomes a 14-screen Alamo Drafthouse Hollywood, with construction starting in August 2026 and reopening targeted for 2028.''',
          why="A single-screen landmark like the Cinerama Dome sitting dark for six years is a specific kind of retail vacancy &mdash; the building has cultural cachet that makes it hard to simply repurpose, but that same cachet also makes it hard to find an operator willing to underwrite the renovation cost of a specialty-format theater. Sony's willingness to fund this as the property owner, pairing its content business with Alamo Drafthouse's operating expertise, is a vertically integrated bet that owning both the real estate and a differentiated exhibition brand is worth more than leasing to a generic operator.",
          implications=[
@@ -1116,6 +1138,7 @@ USC_SIGNALS = [
          tldr="Sony is funding Alamo Drafthouse to reopen Hollywood's Cinerama Dome and ArcLight after six dark years, betting on vertical integration between content and exhibition."),
     dict(category="Hospitality", title="Ian Schrager's PUBLIC West Hollywood Opens on the Sunset Strip",
          subtitle="A New Lifestyle Hotel Bets Against Its Own Industry's Sentiment Survey",
+         date="July 2026",
          trigger=f'''{src("https://hospitalitydesign.com/news/public-west-hollywood-california-ian-schrager/185295/", "PUBLIC West Hollywood, a 137-room hotel in the former Standard Hollywood building")}, closed since 2021, opened in July 2026 after a redesign by architect John Pawson, featuring a 16,000-square-foot rooftop park, three food-and-beverage venues, and guestrooms with 11-foot floor-to-ceiling projection surfaces.''',
          why="A high-profile boutique operator committing capital to reopen a shuttered Sunset Strip property runs directly against trade-press sentiment surveys this month finding roughly 80% of hoteliers don't view LA as a viable long-term investment market ahead of the 2028 Olympics &mdash; Schrager's bet is specifically that flight-to-quality, brand-driven capital still finds a market even when broader operator sentiment sours. The extensive amenity buildout (a 16,000-square-foot private rooftop park, in-room projection technology) is also a bet that experiential differentiation, not room count or location alone, is what LA's next hospitality cycle rewards.",
          implications=[
@@ -1157,6 +1180,7 @@ NYC_SNAPSHOT = [
 NYC_SIGNALS = [
     dict(category="Office", title="NBCUniversal Renews 244,185 SF at 1221 Avenue of the Americas",
          subtitle="A Legacy Media Tenant Recommits Instead of Shrinking",
+         date="July 2026",
          trigger=f'''{src("https://commercialobserver.com/2026/07/nbcuniversal-lease-renewal-office-1221-avenue-of-the-americas/", "NBCUniversal renewed 244,185 square feet at Rockefeller Group's 1221 Avenue of the Americas")} in Midtown, across from its 30 Rockefeller Plaza headquarters, building on a footprint it first established there in 2012 and expanded in 2021; Midtown average asking rents hit $86.18 per square foot in Q2 2026, a quarter Commercial Observer described as having leasing velocity not seen since 2002.''',
          why="A legacy media tenant recommitting to a quarter-million square feet, rather than shrinking or relocating, directly undercuts the narrative that large corporate occupiers are only downsizing their Manhattan footprints. That this renewal lands in a quarter with the strongest Manhattan office leasing velocity since 2002 suggests it's part of a broader pattern of large-tenant conviction, not an isolated holdout renewal driven by relocation costs.",
          implications=[
@@ -1168,6 +1192,7 @@ NYC_SIGNALS = [
          watch="Whether other large media or legacy corporate tenants announce comparable renewals in the same submarket this year."),
     dict(category="Mixed-Use", title="Bill Ackman Pays $188M for Lab Building, Plans Brain Research Institute",
          subtitle="A Philanthropic Buyer Converts Office/Lab Stock Into an Institutional Research Campus",
+         date="July 28, 2026",
          trigger=f'''{src("https://commercialobserver.com/2026/07/bill-ackman-buys-125-west-end-avenue/", "Bill Ackman's Pershing Square Foundation paid $188 million for the 400,000-square-foot lab building at 125 West End Avenue")} from Taconic Partners, the first piece of a roughly $260 million, two-building, 700,000-square-foot assemblage on the Upper West Side that will become the Ackman Oxman Institute, a brain research center developed with the Mount Sinai Hospital System.''',
          why="A billionaire-funded philanthropic buyer paying a premium to convert existing lab and office stock into a dedicated institutional research campus is a concrete example of life-sciences and &ldquo;eds-and-meds&rdquo; demand becoming a real alternative use case for underused Manhattan office and lab buildings, not just a talking point. Because this is a mission-driven, not yield-driven, acquisition, it's a different kind of demand signal than a REIT or fund buying the same building &mdash; but it still removes real square footage from the conventional office market permanently.",
          implications=[
@@ -1179,6 +1204,7 @@ NYC_SIGNALS = [
          watch="Whether the Foundation closes on the adjacent 320 West 66th Street parcel as planned, and construction/opening timelines for the Ackman Oxman Institute."),
     dict(category="Retail", title="Boutique Fitness Operators Drive Manhattan Retail Vacancy to a 2019 Low",
          subtitle="Experiential Wellness Tenants, Not Apparel Chains, Are Now the Demand Engine",
+         date="Mid-July 2026",
          trigger=f'''{src("https://www.credaily.com/briefs/boutique-gyms-lead-manhattan-retail-leasing-surge/", "Boutique fitness and wellness operators drove a surge in Manhattan and Brooklyn retail leasing")}, led by Chelsea Piers (76,000 square feet at Seaport) and Life Time (71,000 square feet in North Williamsburg), pushing prime-corridor retail vacancy down to roughly 12% &mdash; the lowest since 2019, with Madison Avenue and SoHo down to about 8%.''',
          why="Wellness and fitness tenants regularly ranking among the largest retail leases in the market, rather than traditional apparel or restaurant chains, is a durable shift in what landlords are underwriting retail rents against &mdash; these operators typically sign long-term leases anchored around expensive buildout (pools, studios, equipment), which makes them stickier tenants than a typical apparel retailer once installed. Vacancy falling to a level not seen since 2019 in the specific corridors these tenants are choosing confirms this demand is broad enough to move real vacancy numbers, not just a handful of headline deals.",
          implications=[
@@ -1190,6 +1216,7 @@ NYC_SIGNALS = [
          watch="Whether additional large-format wellness operators announce New York leases this year, and rent growth in the specific corridors already tightening."),
     dict(category="Office", title="Brooklyn Medical Office Building Sells for $632/SF, Well Above Conventional Office",
          subtitle="Healthcare-Anchored Real Estate Is Trading at a Premium to Ordinary Office",
+         date="July 28, 2026",
          trigger=f'''{src("https://crenews.com/2026/07/28/brooklyn-n-y-medical-office-property-sells-for-89-9mln/", "The 142,249-square-foot East New York Health Hub sold for $89.9 million")}, or roughly $632 per square foot, to Vital Infrastructure Property Trust, with Newmark involved in the brokerage.''',
          why="A $632-per-square-foot price for an outer-borough medical office asset is well above typical Brooklyn office pricing, which confirms healthcare-anchored real estate is trading at a meaningful premium to conventional office right now. That premium reflects the durability of medical tenancies (long leases, high build-out costs, non-discretionary demand) relative to ordinary office space, and reinforces medical and life-science-adjacent property as one of the few office-related categories still attracting strong institutional capital.",
          implications=[
@@ -1249,6 +1276,7 @@ IB_SNAPSHOT = [
 IB_SIGNALS = [
     dict(category="M&amp;A", title="Mapfre Buys Safety Insurance for $1.54B in Cash at a 44% Premium",
          subtitle="A Clean All-Cash Deal Is a Useful Baseline for Reading Premium Mechanics",
+         date="July 23, 2026",
          trigger=f'''{src("https://www.businesswire.com/news/home/20260723192248/en/Safety-Insurance-Group-Inc.-Enters-Into-Merger-Agreement-With-Mapfre-for-$1.54-Billion", "Spain's Mapfre agreed to acquire Massachusetts-based Safety Insurance Group for $1.54 billion in cash")}, with Safety shareholders receiving $105 per share, a 44% premium to the July 23 closing price; the deal was unanimously approved by both boards and is expected to close in Q1 2027 pending Massachusetts insurance-commissioner approval and HSR clearance.''',
          why="A 44% all-cash premium from a foreign strategic acquirer is about as close to a textbook control premium as this market produces &mdash; no stock-mix complexity, no financing contingency, just a direct statement of how much more Mapfre believes it can extract from Safety's regional agency network once combined with its existing US operations than public markets were pricing standalone. Regulatory approval risk here is real but narrow: a single state insurance commissioner and standard antitrust clearance, not a multi-jurisdiction gauntlet.",
          implications=[
@@ -1260,6 +1288,7 @@ IB_SIGNALS = [
          watch="The Massachusetts Commissioner of Insurance's review timeline, and whether any competing bid emerges before the Q1 2027 closing target."),
     dict(category="Sector: Healthcare", title="Tempus AI Buys Cancer-Monitoring Firm Personalis for $1.5B in Stock",
          subtitle="An All-Stock Bolt-On Extends an Existing Commercial Partnership Into Full Ownership",
+         date="July 19, 2026",
          trigger=f'''{src("https://finance.yahoo.com/healthcare/articles/tempus-ai-acquires-cancer-monitoring-123048272.html", "Tempus AI agreed to acquire Personalis for $1.5 billion")}, with Personalis shareholders receiving $16.25 per share &mdash; a 28% premium to the unaffected 30-day average &mdash; in a deal structured as 100% stock, though Tempus retains an option to pay up to half in cash; the deal builds on a commercial partnership dating to 2023 and Tempus values the minimal-residual-disease testing market the combined company targets at $20 billion.''',
          why="Funding a bolt-on with stock rather than debt, from a recently public company, is a bet that its own currency is valuable enough to use for M&amp;A without straining its balance sheet &mdash; and acquiring a partner it already had a multi-year commercial relationship with meaningfully de-risks integration relative to a cold acquisition, since both sides already know how the underlying technology and data pipelines work together. That Tempus retains a cash-payment option, without committing to it, preserves flexibility if its stock price moves before closing.",
          implications=[
@@ -1271,6 +1300,7 @@ IB_SIGNALS = [
          watch="Whether Tempus exercises its cash-payment option before close, and shareholder and regulatory approval timing into late 2026 or early 2027."),
     dict(category="Sponsor Finance", title="EU Clears Record $55B Take-Private of Electronic Arts",
          subtitle="CFIUS, Not Antitrust, Is Now the Last Real Hurdle on the Largest LBO Ever",
+         date="July 23, 2026",
          trigger=f'''{src("https://www.engadget.com/2221898/eu-gives-antitrust-approval-to-the-saudi-led-55-billion-takeover-of-ea/", "The European Commission cleared the $55 billion take-private of Electronic Arts")} on July 23, concluding the deal &ldquo;would not raise competition concerns&rdquo;; a consortium led by Saudi Arabia's Public Investment Fund (93.4% ownership), Silver Lake, and Affinity Partners is financing what would be the largest leveraged buyout in history with more than $20 billion in debt, with CFIUS review of Saudi ownership of EA's player data and AI assets now the sole remaining major approval ahead of a September 28 outside date.''',
          why="Clearing EU antitrust on a deal this size confirms competition regulators don't see market-concentration risk in a single publisher's buyout, which shifts the entire remaining risk of the largest LBO ever onto a single, narrower question: whether CFIUS treats sovereign-wealth ownership of a major US data and AI asset as a national-security issue. That distinction matters because antitrust and CFIUS review operate on completely different logic &mdash; one prices market power, the other prices geopolitical risk &mdash; and a deal can clear the first cleanly while still facing real uncertainty on the second.",
          implications=[
@@ -1282,6 +1312,7 @@ IB_SIGNALS = [
          watch="CFIUS's review outcome ahead of the September 28 outside date, extendable to December 28 if needed."),
     dict(category="Sponsor Finance", title="BlackRock-Led Consortium Closes $40B Acquisition of Aligned Data Centers",
          subtitle="Asset Managers Are Now Both the Equity Sponsor and the Debt Originator on AI Infrastructure",
+         date="July 21, 2026",
          trigger=f'''{src("https://www.datacenterfrontier.com/hyperscale/article/55323360/blackrock-led-consortium-to-acquire-aligned-data-centers-in-40-billion-ai-infrastructure-deal", "A BlackRock-led consortium including Global Infrastructure Partners, Abu Dhabi's MGX, Microsoft, and Nvidia closed its roughly $40 billion acquisition of Aligned Data Centers")} from Macquarie Asset Management on July 21, taking 100% of the equity in a platform spanning 50-plus campuses and more than 5 gigawatts of capacity across the Americas, with the consortium committing a further $5 billion toward expansion post-close.''',
          why="This is the infrastructure-fund version of a leveraged buyout, except the sponsor consortium includes strategic technology players (Microsoft, Nvidia) alongside traditional asset managers &mdash; a structure that blends equity sponsorship with guaranteed future customer demand from two of the buyers themselves. BlackRock's dual role here, as both equity sponsor on this deal and, via its separate Meta bond financing this week, as an originator of AI-datacenter debt, shows how far traditional asset managers have moved into building end-to-end AI capital-formation platforms rather than just allocating to them.",
          implications=[
@@ -1293,6 +1324,7 @@ IB_SIGNALS = [
          watch="Deployment pace of the additional $5 billion expansion commitment, and whether Microsoft or Nvidia's involvement translates into disclosed capacity commitments at Aligned's campuses."),
     dict(category="DCM", title="BlackRock Prices ~$12.5B in Bonds at 7.53% to Fund Meta's El Paso Data Center",
          subtitle="A Junk-Like Yield on Nominally Investment-Grade Paper Prices Real AI-Capex Risk",
+         date="July 27, 2026",
          trigger=f'''{src("https://finance.yahoo.com/technology/ai/articles/blackrock-raising-12-billion-bonds-121305502.html", "BlackRock priced roughly $12&ndash;12.55 billion of investment-grade-rated bonds at a 7.534% yield")} to fund Meta's roughly 1-gigawatt El Paso, Texas data center, through a BlackRock-controlled entity in which BlackRock holds 80% and Meta 20%, with Meta leasing the facility back and booking it as rent rather than capex; JPMorgan and Morgan Stanley led the deal, which follows the same structure as Meta's $27 billion Louisiana facility financed with Blue Owl.''',
          why="A 7.5%-plus yield on paper rated investment-grade is a meaningfully wide spread for that rating category, which means fixed-income investors are pricing real execution and demand risk into AI-datacenter debt even though the credit rating itself says otherwise &mdash; the rating reflects Meta's ultimate lease obligation, but the yield reflects the market's independent view of the underlying asset and structure. The off-balance-sheet design, where Meta leases rather than owns, is becoming the standard template for how hyperscaler AI capex gets financed without appearing directly on the hyperscaler's own balance sheet.",
          implications=[
@@ -1304,6 +1336,7 @@ IB_SIGNALS = [
          watch="Where the bonds trade in secondary markets in their first weeks, and whether other hyperscalers adopt the same 80/20 leaseback structure for their own AI capex."),
     dict(category="Restructuring", title="Republic National Distributing Files Chapter 11 to Wind Down, Not Reorganize",
          subtitle="A 128-Year-Old Distributor Chooses Liquidation Over a Turnaround",
+         date="July 26, 2026",
          trigger=f'''{src("https://www.bloomberglaw.com/bankruptcy-law/republic-national-distributing-company-files-for-ch-11-in-texas", "Republic National Distributing Company, once the second-largest US wine-and-spirits distributor, filed for Chapter 11")} in the Southern District of Texas on July 26, reporting $500 million to $1 billion in assets against $1 billion to $10 billion in liabilities and citing more than 100,000 creditors; the company is pursuing going-concern sales and an orderly wind-down rather than a reorganization, with several state joint ventures excluded from the filing and continuing to operate.''',
          why="Choosing a liquidating Chapter 11 over a reorganization is a deliberate signal that management and its advisors concluded no restructured capital structure makes this business viable going forward &mdash; a reorganizing filer keeps operating and re-emerges; a liquidating filer is explicitly selling itself off in pieces. The scale here, over 100,000 creditors and a 128-year operating history, makes this a significant test case for how going-concern sale processes execute inside a wind-down Chapter 11, since most large distribution-company bankruptcies attempt reorganization first.",
          implications=[
@@ -1315,6 +1348,7 @@ IB_SIGNALS = [
          watch="Which state joint ventures and business lines attract going-concern buyers first, and the recovery rate creditors ultimately receive."),
     dict(category="ECM", title="Scribe Therapeutics Prices Upsized IPO, Pops 44% on First Day",
          subtitle="A Strategic Co-Investor Alongside a Hot Open Is the Strongest Biotech Demand Signal Available",
+         date="July 23, 2026",
          trigger=f'''{src("https://www.stocktitan.net/news/SCTX/scribe-therapeutics-announces-pricing-of-upsized-initial-public-fv1at7xqi0ga.html", "Gene-editing biotech Scribe Therapeutics priced an upsized IPO at $15.00 per share")}, raising roughly $155.5 million including the underwriters' full over-allotment exercise, alongside a concurrent $7.5 million private placement to Sanofi; the stock reportedly jumped as much as 44% on its first day of trading.''',
          why="An upsized deal pricing at the top of its range, with a strategic pharma investor buying into the same round at the IPO price, is about as strong a demand signal as an early-stage biotech offering produces &mdash; underwriters only upsize when order books are genuinely oversubscribed, and Sanofi's concurrent private placement means an industry insider with real diligence capability was willing to co-invest at the retail price, not demand a discount. A 44% first-day pop confirms the upsized pricing still left room on the table, suggesting even more demand existed than the deal ultimately captured.",
          implications=[
@@ -1360,6 +1394,7 @@ CREDIT_SNAPSHOT = [
 CREDIT_SIGNALS = [
     dict(category="Asset-Based Lending", title="Apollo and Blackstone Arrange ~$35B Financing for Anthropic's AI Chip Purchases",
          subtitle="Chip-as-Collateral Lending Is Functionally Asset-Based Credit Against Depreciating Hardware",
+         date="July 9, 2026",
          trigger=f'''{src("https://www.benzinga.com/markets/private-markets/26/07/60372922/broadcom-anthropic-just-turned-ais-chip-bet-into-somebody-elses-debt-apollo-and-blackstone-hold-the-keys", "Apollo Global Management and Blackstone arranged a roughly $35 billion financing package")} to fund Anthropic's purchase of custom AI chips from Google and Broadcom, structured through a special-purpose vehicle that buys the chips and leases them back to Anthropic via a delayed-draw facility with roughly 16 separate releases over a bit more than a year; Broadcom is backstopping Anthropic's payment obligations on the largest senior tranches, and roughly $15 billion of the package is expected to migrate to the 144A market by early 2027.''',
          why="Structuring chip purchases as a leased special-purpose vehicle, with a delayed-draw facility that releases capital in roughly 16 tranches, lets private credit underwrite AI infrastructure the same way it underwrites any other depreciating, collateral-backed asset &mdash; except the collateral here is custom silicon whose useful economic life and resale value are far less established than a warehouse or an aircraft. Broadcom's backstop on the senior tranches is doing real work: it converts what would otherwise be pure technology-obsolescence risk into a corporate-credit question about Broadcom's own backstop capacity, which is a very different risk private lenders are much more comfortable pricing.",
          implications=[
@@ -1371,6 +1406,7 @@ CREDIT_SIGNALS = [
          watch="Whether the expected 144A migration proceeds on the early-2027 timeline, and how the chips' resale or residual value holds up as tranches draw down."),
     dict(category="Asset-Based Lending", title="Brookfield and Tor Provide $255M GPU-Backed Note to PaleBlueDot AI",
          subtitle="Asset-Based AI Credit Is Reaching Well Past the Megacap Names",
+         date="July 21, 2026",
          trigger=f'''{src("https://www.prnewswire.com/news-releases/palebluedot-ai-closes-us255-million-credit-financing-to-accelerate-agentic-ai-infra-expansion-302831169.html", "PaleBlueDot AI closed a $255 million, three-year, GPU-backed private note")} on July 21, with Brookfield Asset Management and Tor Investment Management as lenders and JPMorgan as placement agent, refinancing an existing credit facility and funding continued buildout of the Silicon Valley agentic-AI infrastructure company's platform.''',
          why="A venture-stage AI infrastructure company, not a household name, tapping private credit directly for GPU-backed debt rather than raising another equity round shows how far down the financing food chain asset-based AI credit has spread in a matter of months &mdash; the same lending logic used on Anthropic's $35 billion package (chips as collateral, asset managers as originator) is now being applied at a fraction of the scale to a much younger, less-established borrower.",
          implications=[
@@ -1382,6 +1418,7 @@ CREDIT_SIGNALS = [
          watch="Whether PaleBlueDot draws on this facility to fund additional infrastructure buildout, and if other venture-stage AI infrastructure platforms follow with similar GPU-backed note issuances."),
     dict(category="Fund Finance", title="Rated NAV Loan Issuance Tops $82B Since 2018 as Initial Ratings Skew Lower",
          subtitle="A Niche GP Liquidity Tool Has Become a Standardized, Ratings-Tracked Asset Class",
+         date="July 13, 2026",
          trigger=f'''{src("https://finance.yahoo.com/markets/stocks/articles/kbra-releases-research-private-credit-084600271.html", "KBRA reported cumulative rated NAV loan issuance has topped $82 billion across 157 transactions since 2018")}, after a record $23 billion across 38 deals in 2025; across 279 surveillance reviews from 2020 through the first half of 2026, 95% of rating actions were affirmations, with only two downgrades since early 2025, even as initial 2025 ratings skewed toward BBB rather than the previously typical A-/BBB+ range.''',
          why="NAV lending moving from a niche GP liquidity tool to a standardized, ratings-agency-tracked asset class with $82 billion of cumulative issuance is itself a maturation signal, but the shift toward BBB initial ratings in 2025, alongside increasing use of delayed-draw components and hybrid collateral packages, suggests lenders are underwriting more aggressive advance rates even as the broader market matures &mdash; a combination worth watching for early stress signs, since a 95% affirmation rate reflects performance to date, not necessarily performance through a real portfolio-value downturn.",
          implications=[
@@ -1393,6 +1430,7 @@ CREDIT_SIGNALS = [
          watch="Whether the affirmation rate holds if PE portfolio valuations broadly decline, and if initial ratings continue skewing toward BBB on new 2026 issuance."),
     dict(category="Secondary Market", title="Credit Secondaries Market Doubles to $20.4B in H1 2026",
          subtitle="BDC Redemption Pressure Is Becoming a Supply Source for Secondaries",
+         date="July 23, 2026",
          trigger=f'''{src("https://alternativecreditinvestor.com/2026/07/23/credit-secondaries-market-doubles-to-20-4bn-in-h1-2026/", "The credit secondaries market more than doubled to $20.4 billion in H1 2026 versus H1 2025")}, already exceeding full-year 2025 volume, per an Evercore report; GP-led transactions made up roughly 83% of H1 2026 volume, drawing primarily on 2018-2021 vintage closed-end funds, with Evercore citing redemption pressure at BDCs and semi-liquid vehicles as an emerging supply driver.''',
          why="A secondaries market doubling in six months, already past last year's full total, means LPs and GPs both need a liquidity release valve faster than the primary market or fund lifecycle normally provides &mdash; and Evercore's explicit link to BDC and semi-liquid-vehicle redemption pressure ties this directly to the same retail-facing private credit vehicles generating governance fights elsewhere this week. GP-led continuation vehicles becoming the dominant format (83% of volume) also means sponsors themselves are driving the liquidity solution, not just LPs seeking an exit.",
          implications=[
@@ -1404,6 +1442,7 @@ CREDIT_SIGNALS = [
          watch="Whether H2 2026 volume sustains the H1 pace, and if BDC redemption pressure continues rising as a stated driver of secondaries supply."),
     dict(category="Documentation", title="Minority Lenders Escalate Suit Over Trinseo's 2023 Priming Transaction",
          subtitle="A Double-Dip Liability Management Exercise Is Now Years of Bankruptcy Litigation",
+         date="July 3, 2026",
          trigger=f'''In Trinseo's Chapter 11 case, minority &ldquo;excluded&rdquo; lenders led by CastleKnight Management are suing to unwind the company's 2023 &ldquo;double-dip&rdquo; liability management exercise and a 2025 exchange offer; Trinseo and the Super HoldCo lenders moved to dismiss on June 9 and again June 22, 2026, and CastleKnight filed a follow-on motion on July 3 seeking derivative standing to pursue breach-of-fiduciary-duty and fraudulent-transfer claims in the US Bankruptcy Court for the Southern District of Texas.''',
          why="CastleKnight alleges the 2023 transaction used a sham intercompany loan and an off-market intercreditor agreement to entrench senior lenders and extract value from excluded minority lenders &mdash; the archetypal creditor-on-creditor violence fact pattern, now generating years of litigation rather than a quick negotiated resolution. This matters beyond Trinseo specifically because research on LME litigation has found lenders who fight priming transactions in court recover roughly 14 cents on the dollar versus 57 cents for senior lenders in clean bankruptcies, which is exactly the bet CastleKnight is making by continuing to litigate instead of settling.",
          implications=[
@@ -1415,6 +1454,7 @@ CREDIT_SIGNALS = [
          watch="The court's ruling on CastleKnight's derivative-standing motion, and whether other minority lender groups in comparable LME disputes cite this case as precedent."),
     dict(category="BDC", title="Prospect Capital Shareholders Renew Below-NAV Share Sale Authority",
          subtitle="Getting Permission to Dilute at a 57% NAV Discount Is a Governance Signal on Its Own",
+         date="July 7, 2026",
          trigger=f'''{src("https://www.stocktitan.net/sec-filings/PSEC/8-k-prospect-capital-corp-reports-material-event-e174a28ef8a2.html", "Prospect Capital Corporation shareholders voted on July 7 to renew the company's authority to sell common stock below net asset value")} for the next 12 months, 277.6 million votes for versus 63.9 million against, after the vote was adjourned twice (from June 9 to June 23 to July 7) to solicit sufficient turnout; PSEC has traded around a 57% discount to NAV earlier in 2026, with any single day's sales capped at 25% of shares outstanding.''',
          why="A BDC needing two adjournments to secure shareholder permission to issue equity below NAV, while trading at a 57% discount, tells you the authority itself is contested even though it ultimately passed &mdash; selling new shares below NAV directly dilutes existing holders' per-share value, so management is prioritizing balance-sheet flexibility over near-term shareholder economics. This is precisely the kind of governance dynamic that has drawn activist pressure (including from Saba Capital) at peer BDCs this year.",
          implications=[
@@ -1426,6 +1466,7 @@ CREDIT_SIGNALS = [
          watch="Whether Prospect Capital actually exercises this authority given the steep discount, and if activist investors escalate pressure following the contested vote."),
     dict(category="Direct Lending", title="Lafayette Square Finances RM Capital's Investment in Samaha & Associates",
          subtitle="Lower-Middle-Market Lending Is Clearing Even as Upper-Middle-Market Volume Slows",
+         date="July 21, 2026",
          trigger=f'''{src("https://www.prnewswire.com/news-releases/lafayette-square-provides-financing-to-support-rm-capital-partners-investment-in-samaha--associates-302830245.html", "Lafayette Square USA provided a senior secured credit facility backing RM Capital Partners' platform investment in Samaha &amp; Associates")}, a Miami-based technology consulting firm serving credit unions and banks with more than 500 completed engagements for 200-plus clients; facility size and pricing were not disclosed.''',
          why="This deal clearing at all is the signal, not its size &mdash; PitchBook LCD data showed Q2 2026 direct lending volume at $33.6 billion, the lowest since Q2 2023, meaning upper-middle-market deal flow has slowed sharply while smaller, non-sponsor-adjacent lenders like Lafayette Square are still finding and financing lower-middle-market deal flow banks and larger direct lenders are passing on. That bifurcation, not the aggregate volume number alone, is the more useful read on where credit is actually still flowing.",
          implications=[
@@ -1479,6 +1520,7 @@ AUSTIN_DEBT_SNAPSHOT = [
 AUSTIN_DEBT_SIGNALS = [
     dict(category="Construction Lending", title="PIMCO and Berkadia Finance 336-Unit Affordable Community Near Austin",
          subtitle="Institutional Credit Meets a Ground Lease Structure for Deeply Affordable Housing",
+         date="July 15, 2026",
          trigger=f'''{src("https://rejournals.com/the-nrp-group-breaks-ground-on-336-unit-affordable-housing-community-in-austin-area/", "The NRP Group broke ground on Catalina, a 336-unit affordable multifamily community in Travis County")}, with construction and permanent financing provided by PIMCO and arranged by Berkadia, tax credit equity from Huntington Community Development Corporation, Safehold as ground lessor, and a $2 million contribution from the Housing Authority of Travis County toward units serving households at or below 30% of area median income.''',
          why="Layering this many distinct capital sources &mdash; an institutional bond giant, a specialty tax-credit equity provider, a ground-lease REIT, and a public housing authority &mdash; onto one 336-unit project is a structure built specifically because no single capital source could underwrite the full affordability spectrum this project targets (30% to 70% AMI) alone. PIMCO's participation as construction and permanent lender is notable because institutional fixed-income managers don't typically underwrite ground-up affordable construction directly; doing so here signals confidence in Berkadia's underwriting and in Travis County's affordable housing demand specifically.",
          implications=[
@@ -1491,6 +1533,7 @@ AUSTIN_DEBT_SIGNALS = [
          tldr="A 336-unit Travis County affordable project is financed by PIMCO directly, alongside tax-credit equity, a ground lease, and a housing authority &mdash; a stack built because no single source could underwrite it alone."),
     dict(category="Bridge Lending", title="Leander Apartment Complex Lands $46.5M Bridge Refinancing",
          subtitle="A Floating-Rate Bridge Loan on a Newly Built Property Is a Read on Where Rents Are Headed",
+         date="July 20, 2026",
          trigger=f'''The owner of a 329-unit, built-in-2024 apartment complex on Talon Grasp Trail in Leander {src("https://crenews.com/2026/07/20/bridge-investment-lends-46-5mln-against-leander-texas-apartments/", "secured a $46.5 million floating-rate, interest-only bridge loan from Bridge Investment Group")}, arranged by Walker &amp; Dunlop, against a backdrop of falling rents across the Austin metro.''',
          why="A floating-rate, interest-only bridge loan on a property that's barely two years old is a specific kind of bet: the borrower is choosing short-term, flexible-but-more-expensive debt over locking in long-term fixed financing, which usually means it expects either rents to improve enough to refinance into permanent debt later, or needs the interest-only period to cover debt service while the property finishes lease-up in a softer rent environment. That this is happening against reported Austin-metro rent declines makes the loan structure itself a signal about current lease-up conditions in the northwest suburbs, independent of what any single ownership group says publicly.",
          implications=[
@@ -1502,6 +1545,7 @@ AUSTIN_DEBT_SIGNALS = [
          watch="Lease-up and rent trends at the property over the loan's term, and whether comparable newly delivered Leander complexes pursue similar bridge refinancings."),
     dict(category="Construction Lending", title="$870M Single-Lender Construction Loan Backs Ultra-Luxury Lake Austin Resort",
          subtitle="One Lender Taking the Entire Stack Is a Bet Few Balance Sheets Can Make",
+         date="June 2, 2026",
          trigger=f'''Earlier this summer, {src("https://therealdeal.com/texas/2026/06/02/four-seasons-lake-austin-secures-construction-loan/", "TYKO Capital, an affiliate of Elliott Investment Management, provided an $870 million single-lender construction loan")} to Lincoln Property Company and Austin Capital Partners for Four Seasons Private Residences Lake Austin, a 210-acre ultra-luxury resort community with 179 residences, 28 villa lots, and a private marina.''',
          why="A single lender underwriting an $870 million construction loan alone, rather than syndicating it across a club of banks, requires a balance sheet large enough and a risk appetite specific enough that few institutions can make that call &mdash; Elliott's hedge-fund-adjacent capital, deployed through TYKO, is exactly the kind of flexible, patient capital willing to hold that concentration. The scale of this deal is also a specific bet on ultra-high-net-worth demand for branded residential product in Austin, at a price point insulated from the broader multifamily rent softness affecting the rest of the metro this year.",
          implications=[
@@ -1514,6 +1558,7 @@ AUSTIN_DEBT_SIGNALS = [
          tldr="A single hedge-fund-affiliated lender wrote an $870M construction loan alone for an ultra-luxury Lake Austin resort, insulated from the metro's broader rent softness."),
     dict(category="Distress", title="JPMorgan Takes Back The Line Austin at Foreclosure Auction",
          subtitle="A Lender Credit-Bidding to Own a Hotel Says More Than a Discounted Sale Would",
+         date="June 3, 2026",
          trigger=f'''{src("https://therealdeal.com/texas/2026/06/03/the-line-hyatt-centric-go-back-to-lenders-at-auction/", "JPMorgan won back The Line Austin, a 428-key downtown hotel, at a Travis County foreclosure auction")} with an unopposed credit bid for the exact $172 million owed on its 2023 loan to an entity tied to Sydell Group before Soho House &amp; Co. acquired the Line brand; it is the third Line-branded hotel to face foreclosure since 2025, following Line DC and Line LA.''',
          why="A lender credit-bidding the full loan balance to take a property back, rather than accepting a discounted third-party bid at auction, signals JPMorgan currently sees more value in owning and repositioning this hotel than in selling into today's soft downtown Austin hospitality buyer pool. That this is the third Line-branded property to hit foreclosure since 2025 also points to trouble at the brand and parent-company level, not just a single asset's local performance.",
          implications=[
@@ -1525,6 +1570,7 @@ AUSTIN_DEBT_SIGNALS = [
          watch="Whether JPMorgan re-brands or sells The Line Austin now that it holds the asset directly, and if other Line-branded hotels face similar foreclosure action."),
     dict(category="Agency Multifamily", title="Freddie Mac Sends Vacant Foreclosed Austin Apartments to Auction at an 80% Haircut",
          subtitle="A $50M Loan Writing Down to a $9.5M Opening Bid Is a Hard Basis Reset",
+         date="June 8, 2026",
          trigger=f'''{src("https://therealdeal.com/texas/2026/06/08/freddie-mac-sends-foreclosed-austin-apartments-to-auction/", "Freddie Mac listed a fully vacant, 526-unit foreclosed Austin apartment complex")} at 1601 Royal Crest Drive for auction with a $9.5 million opening bid, after previous owner Mia Riverside defaulted on a $50.2 million Freddie Mac loan originated in March 2024 and the agency took the property back at a January 2026 auction with a $50 million credit bid.''',
          why="An agency loan writing down from a $50 million credit bid to a $9.5 million opening bid for resale, on a now-completely-vacant property, is roughly an 80% basis haircut in under six months &mdash; a specific, quantified data point on how far older, non-renovated Austin multifamily stock has actually fallen, not an estimate. That Freddie Mac is willing to publicly reset the ask this aggressively also suggests the agency has concluded holding for a better outcome isn't worth the continued carrying cost on a vacant asset.",
          implications=[
@@ -1536,6 +1582,7 @@ AUSTIN_DEBT_SIGNALS = [
          watch="The final sale price relative to the $9.5 million opening bid, and the buyer's disclosed renovation or repositioning plans."),
     dict(category="Special Servicing", title="$430M Fairmont Austin Loan Transfers to Special Servicing Over Tax Reserve Dispute",
          subtitle="Tapping a Reserve Fund Without Consent Is What Actually Triggered This, Not Just Soft Performance",
+         date="June 16, 2026",
          trigger=f'''Earlier this summer, {src("https://therealdeal.com/texas/2026/06/16/fairmont-austins-cmbs-loan-transferred-to-special-servicing/", "the $430 million CMBS loan on the 1,048-key Fairmont Austin transferred to special servicing")} after owner Manchester Financial Group tapped a reserve fund to pay property taxes without lender consent, with the hotel's cash flow falling to 65% of underwritten levels and occupancy dropping from 72% to 54% since the loan was originated.''',
          why="The trigger event here is a governance violation, not simply a missed payment &mdash; tapping a reserve fund without consent is a covenant breach that gives the lender grounds to act regardless of whether the borrower could otherwise cover debt service. That said, the underlying performance decline (occupancy down 18 points, cash flow at two-thirds of underwriting) is severe enough that the reserve fund dispute reads as a symptom of real distress, not just a technical disagreement between two parties still fundamentally aligned.",
          implications=[
@@ -1548,6 +1595,7 @@ AUSTIN_DEBT_SIGNALS = [
          tldr="The $430M Fairmont Austin loan hit special servicing over a reserve-fund covenant breach, not just a missed payment &mdash; and occupancy has fallen 18 points since origination."),
     dict(category="Refinancing", title="Barings Refinances Domain Tower 2 Office as JPMorgan Debt Rolls Off",
          subtitle="A Life-Company Lender Backing a Well-Leased Tower Is a Contrast to This Week's Hotel Stress",
+         date="June 30, 2026",
          trigger=f'''{src("https://www.commercialsearch.com/news/exclusive-barings-provides-135m-for-austin-office-refi/", "Stonelake Capital Partners closed a $135 million refinancing of Domain Tower 2")}, a 332,265-square-foot, 24-story office tower in Austin's Domain district leased to PayPal, Wise, Samsung, and ShiftKey, with life-company lender Barings retiring 2023-vintage debt originally held by JPMorgan.''',
          why="A life-company asset manager stepping in to refinance a well-leased, tech-tenanted Domain-district tower shows lender risk appetite in Austin office is highly bifurcated by asset quality, not uniformly closed &mdash; the same week a $430 million hotel loan sits in special servicing and a lender is credit-bidding to take back a downtown hotel, a newer, fully-tenanted suburban office tower clears the debt market on ordinary terms. That distinction, quality asset versus distressed asset, matters more right now than property type alone.",
          implications=[
@@ -1588,6 +1636,7 @@ USC_DEBT_SNAPSHOT = [
 USC_DEBT_SIGNALS = [
     dict(category="CMBS", title="BofA Plaza Sale Triggers $175.87M in CMBS Losses",
          subtitle="A Receivership Sale Finally Prices What Four Bond Trusts Were Actually Owed",
+         date="July 21, 2026",
          trigger=f'''{src("https://crenews.com/2026/07/21/sale-of-las-bofa-plaza-causes-175-87mln-of-losses-to-4-cmbs-trusts/", "The receivership sale of the 1.4-million-square-foot Bank of America Plaza in downtown LA to Capital Group for $210 million")} &mdash; after Brookfield Properties defaulted on a $400 million CMBS loan &mdash; resulted in $175.87 million of losses allocated across four CMBS trusts, per Trepp data.''',
          why="A loss allocation only becomes final once a distressed asset actually trades, because until then the loss is an estimate on paper, subject to however optimistic or pessimistic the special servicer's valuation is. A $210 million sale price against a $400 million loan crystallizes the loss at just over 52 cents on the dollar of the original debt, which is a harder, more specific data point for repricing other downtown LA office CMBS exposure than any analyst estimate could be. That the buyer is a real operating company, not another distressed-asset speculator, also suggests the price found a genuine floor rather than another round of extend-and-pretend.",
          implications=[
@@ -1600,6 +1649,7 @@ USC_DEBT_SIGNALS = [
          tldr="A $210M sale of Bank of America Plaza crystallized $175.87M in real CMBS losses &mdash; the clearest repricing data point for downtown LA office debt yet."),
     dict(category="Distress", title="Hackman Capital Defaults on Television City Studio Lot Loan",
          subtitle="A Second Hackman-Affiliated Studio Property Hits Distress in the Same Stretch",
+         date="June 2026",
          trigger=f'''{src("https://commercialobserver.com/2026/07/la-studios-distress-hackman-television-city-default-sale/", "Hackman Capital Partners defaulted on a $357 million-plus Deutsche Bank-led loan")} against the 25-acre Television City studio lot in the Fairfax District, with a notice of default filed in June 2026; Hackman and partner Affinius Capital had bought the site from CBS in 2019 for $750 million and planned a roughly $1 billion redevelopment, and Rick Caruso and the Gilmore family are named as potential bidders.''',
          why="A second Hackman-affiliated studio property hitting distress in the same stretch &mdash; alongside Manhattan Beach Studios below, and Goldman Sachs having already taken Hackman's Radford Studio Center after a separate $1.1 billion mortgage default &mdash; shows the Hollywood production slowdown is now hitting one sponsor's studio real estate debt directly and repeatedly, not as an isolated event. A single lender's or sponsor's cluster of defaults across a specific collateral type is a more reliable read on that asset class's health than any one default alone.",
          implications=[
@@ -1611,6 +1661,7 @@ USC_DEBT_SIGNALS = [
          watch="Whether Television City proceeds to a formal sale process, and which of the named potential bidders emerges as the lead buyer."),
     dict(category="Special Servicing", title="$280M Santa Monica Hotel Loan Heads to Special Servicing",
          subtitle="Even Trophy Hospitality Assets Are Tripping on Maturity-Extension Covenants",
+         date="July 15, 2026",
          trigger=f'''{src("https://therealdeal.com/la/2026/07/15/edward-thomas-slatkin-280m-loan-to-special-servicing/", "A $280 million CMBS loan against Shutters on the Beach and Casa del Mar")}, the 327-key Santa Monica hotel duo owned by brothers Edward and Thomas Slatkin, was sent to special servicing after the borrowers said they couldn't meet maturity-extension conditions on top of a separate $120 million mezzanine loan; the Slatkins call special servicer LNR's posture &ldquo;unnecessarily aggressive&rdquo; given what they describe as strong hotel performance.''',
          why="A borrower disputing that its hotels are underperforming, while still landing in special servicing over a maturity-extension covenant, shows how a mezzanine tranche stacked on top of CMBS debt can trigger a workout even when the underlying operating story is genuinely contested &mdash; the covenant, not necessarily the cash flow, is what moved this loan. That this is happening to two of Santa Monica's most recognizable beachfront hotels shows maturity risk in this cycle isn't confined to secondary assets.",
          implications=[
@@ -1622,6 +1673,7 @@ USC_DEBT_SIGNALS = [
          watch="Whether the Slatkins and LNR reach a modification or the dispute escalates toward a forced process, and any disclosed occupancy or RevPAR data supporting either side's position."),
     dict(category="Distressed Note Sale", title="Lenders Shop $240M Mortgage on Manhattan Beach Studios After Default",
          subtitle="The Marketing Pitch Reveals Who the Lenders Think the Real Buyer Is",
+         date="July 2026",
          trigger=f'''{src("https://www.bisnow.com/los-angeles/news/industrial/manhattan-beach-studios-being-shopped-as-possible-defense-tech-site-135465", "Deutsche Bank and Kennedy Wilson are marketing for sale the $240 million mortgage on Hackman Capital Partners' Manhattan Beach Studios")} after filing a notice of default, with marketing materials pitching the 15-soundstage lot to defense-tech and aerospace tenants rather than traditional entertainment production.''',
          why="Selling the note, rather than foreclosing and operating the asset directly, lets the lenders exit at whatever price the market clears without taking on landlord risk themselves &mdash; but the marketing angle is the real signal here. Pitching a legacy film-production lot to defense-tech and aerospace tenants is an explicit bet that Los Angeles soundstage demand from traditional entertainment has softened enough that the highest-value use for this asset has shifted to an entirely different industry. Paired with the Television City default above, this is now a pattern across Hackman's studio portfolio specifically, not a one-off.",
          implications=[
@@ -1633,6 +1685,7 @@ USC_DEBT_SIGNALS = [
          watch="The note's eventual sale price and buyer identity, and whether defense-tech lease commitments materialize at the property."),
     dict(category="Agency Multifamily", title="Freddie Mac Refinances Upland Apartment Complex With 10-Year Interest-Only Loan",
          subtitle="A Full-Term Interest-Only Structure Is the Owner Betting on Appreciation, Not Paydown",
+         date="July 17, 2026",
          trigger=f'''{src("https://www.bisnow.com/los-angeles/news/deal-sheet/santa-monica-offices-to-become-school-los-angeles-deal-sheet-135476", "Northmarq arranged a $34 million, 10-year, full-term interest-only loan from Freddie Mac")} to refinance the 324-unit Northwoods Apartments in Upland.''',
          why="A full-term interest-only structure means the owner never pays down principal over the entire 10-year loan term, which only makes sense if the owner is betting that property value appreciation, not amortization, will build equity over the hold period. Freddie Mac agreeing to this structure is itself a statement of confidence in the property's rent-roll durability, since the agency is accepting a loan balance that never shrinks against a property whose value it's implicitly betting will grow or at least hold.",
          implications=[
@@ -1645,6 +1698,7 @@ USC_DEBT_SIGNALS = [
          tldr="Freddie Mac backed a 10-year, full-term interest-only refinance on an Upland apartment complex &mdash; a structure that bets on appreciation, not paydown."),
     dict(category="Affordable Bond Financing", title="SoLa Impact Closes $105M Bond Financing for 14-Property Affordable Portfolio",
          subtitle="A First-of-Its-Kind Structure Recapitalizes Construction Across a Scattered Site Portfolio",
+         date="July 20, 2026",
          trigger=f'''{src("https://therealdeal.com/la/2026/07/22/sola-impact-lands-financing-for-affordable-housing/", "SoLa Impact, one of LA's largest Section 8 landlords, closed roughly $105 million in taxable and tax-exempt municipal bond financing on July 20")} across 14 properties in LA County &mdash; the first publicly rated muni bond of its kind backed by Section 8 housing assets &mdash; recapitalizing ground-up construction of 465 units, more than half restricted to tenants at 60% of area median income or below.''',
          why="Structuring this as a publicly rated municipal bond, rather than a conventional construction loan or agency financing, means SoLa Impact needed a novel capital markets vehicle specifically because the scattered-site, Section 8-heavy nature of this portfolio didn't fit standard multifamily lending boxes cleanly. Getting a public rating on a first-of-its-kind structure requires convincing a rating agency the cash flows across 14 disparate properties are stable and diversified enough to support investment-grade-style scrutiny.",
          implications=[
@@ -1656,6 +1710,7 @@ USC_DEBT_SIGNALS = [
          watch="Whether other affordable housing operators pursue similar public bond structures, and how this bond trades in the municipal secondary market."),
     dict(category="Construction Lending", title="$85M Construction Loan Backs Beverly Hills Mixed-Use Apartments",
          subtitle="65% Loan-to-Cost in a High-Barrier Submarket Shows Selective Lender Appetite Returning",
+         date="June 12, 2026",
          trigger=f'''{src("https://crenews.com/2026/06/12/85mln-construction-loan-secured-for-beverly-hills-calif-apartment-project/", "Marcus &amp; Millichap Capital Corp arranged an $85 million, four-year construction loan at 65% loan-to-cost")} for a 140-unit mixed-use apartment development with 13,000 square feet of ground-floor retail at 55 N. La Cienega Blvd in Beverly Hills, for borrower Westland Development Group.''',
          why="A 65% loan-to-cost construction loan in Beverly Hills specifically, rather than in a lower-barrier submarket, signals a national banking institution is willing to underwrite ground-up multifamily risk in one of LA's most supply-constrained, highest-cost-to-build markets &mdash; a bet that high barriers to entry protect the eventual rent basis enough to justify construction risk at today's costs. This stands in contrast to the broader depressed pace of LA multifamily construction starts citywide.",
          implications=[
@@ -1696,6 +1751,7 @@ NYC_DEBT_SNAPSHOT = [
 NYC_DEBT_SIGNALS = [
     dict(category="Refinancing", title="SL Green Begins Refinancing $1.77B Mortgage on 245 Park Ave",
          subtitle="A Mega-Loan Refi Attempt Is a Real Test of the Trophy Office Debt Market",
+         date="July 29, 2026",
          trigger=f'''{src("https://crenews.com/2026/07/29/sl-green-eyes-refinancing-245-park-office-in-midtown-manhattan/", "SL Green Realty Corp. began efforts to refinance $1.77 billion of existing mortgage debt")} against 245 Park Avenue, its 1.78 million-square-foot Midtown Manhattan office tower.''',
          why="A refinancing attempt at this scale on a large Class A Midtown tower is a direct test of whether debt capital is willing to underwrite mega-loans on trophy office again, rather than just office debt broadly stabilizing on paper. The eventual lender group, pricing, and proceeds relative to the existing $1.77 billion balance will be closely watched as a read on where office lending has actually normalized versus where it merely looks calmer from the outside.",
          implications=[
@@ -1707,6 +1763,7 @@ NYC_DEBT_SIGNALS = [
          watch="The identity of the new lender group once disclosed, and whether proceeds come in at, above, or below the existing $1.77 billion balance."),
     dict(category="Distressed Note Sale", title="OceanFirst Sells $1.3B of NYC Rent-Stabilized Apartment Loans to Cerberus",
          subtitle="A Regional Bank De-Risks Its Rent-Regulated Multifamily Exposure in Bulk",
+         date="July 29, 2026",
          trigger=f'''{src("https://crenews.com/2026/07/29/oceanfirst-bank-sells-1-3bln-portfolio-of-new-york-apartment-loans/", "OceanFirst Financial Corp. sold a $1.3 billion portfolio of New York City apartment loans to Cerberus Capital Management")}, with most of the underlying properties subject to New York's rent-stabilization regulations.''',
          why="A regional bank offloading $1.3 billion in rent-regulated multifamily paper in bulk, to a distressed-debt buyer rather than another bank, is a concrete data point on how lenders are de-risking exposure to post-HSTPA rent-stabilized buildings &mdash; an asset class many lenders have quietly repriced as structurally impaired collateral since New York's 2019 rent law changes limited owners' ability to raise rents or recoup renovation costs. Cerberus buying at scale suggests distressed-debt investors see a workable basis in this paper that the originating bank no longer wanted to carry.",
          implications=[
@@ -1718,6 +1775,7 @@ NYC_DEBT_SIGNALS = [
          watch="Whether other regional or community banks announce similar bulk sales of rent-stabilized NYC multifamily loans."),
     dict(category="Special Servicing", title="$37.5M CMBS Loan on Lower Manhattan Office Building Hits Special Servicing",
          subtitle="Distress Has Moved Well Beyond Trophy Towers Into Small, Older Office Stock",
+         date="July 6, 2026",
          trigger=f'''{src("https://crenews.com/2026/07/06/continued-occupancy-cash-flow-issues-prompt-manhattan-office-loans-transfer-to-special-servicing/", "The $37.5 million CMBS loan against the 58,850-square-foot Ditson Building in Lower Manhattan transferred to special servicing")} due to continued occupancy and cash-flow issues; the loan, securitized through the BANK 2018-BN13 trust, carries a fixed rate of 5.43%.''',
          why="A sub-$40 million loan hitting special servicing shows office distress has moved well beyond headline-grabbing trophy towers into small, older Lower Manhattan office stock &mdash; buildings where there's little leasing momentum to justify an extended workout, making straight liquidation a more likely outcome than extend-and-pretend. Aggregating enough of these smaller loan-level events is often a better read on the depth of an office distress cycle than any single large-tower story.",
          implications=[
@@ -1729,6 +1787,7 @@ NYC_DEBT_SIGNALS = [
          watch="Whether the loan proceeds toward a modification or a forced sale, and comparable special servicing transfers on similarly small, older Manhattan office loans."),
     dict(category="Agency Multifamily", title="Arbor Writes $146.24M Fannie Mae Loan for Lower Manhattan Apartments",
          subtitle="Agency Lenders Remain the Reliable, Lowest-Cost Capital Source for Stabilized NYC Multifamily",
+         date="July 28, 2026",
          trigger=f'''{src("https://crenews.com/2026/07/28/arbor-realty-writes-146-24mln-fannie-mae-loan-for-manhattan-apartments/", "Arbor Realty Trust originated a $146.24 million Fannie Mae loan for the 209-unit apartment building at 7 Dey Street")} in Lower Manhattan.''',
          why="Continued heavy GSE appetite for Manhattan multifamily at this scale reinforces that agency lenders remain the reliable, lowest-cost capital source for stabilized NYC apartment assets even while bank and CMBS office lending stays comparatively choppy. That split &mdash; agency capital flowing freely to multifamily while office debt requires much more selective underwriting &mdash; is one of the clearest lender-risk-appetite divides in the current market.",
          implications=[
@@ -1740,6 +1799,7 @@ NYC_DEBT_SIGNALS = [
          watch="Whether comparable GSE-financed Manhattan multifamily loans price similarly in the coming weeks."),
     dict(category="Construction Lending", title="BXP Closes $1.2B Construction Loan for 343 Madison Ave Office Tower",
          subtitle="A Bank Club Deal Shows Lenders Will Still Fund New Office Supply, With Conditions",
+         date="July 28, 2026",
          trigger=f'''{src("https://commercialobserver.com/2026/07/bxp-construction-loan-343-madison-avenue-q2-earnings/", "BXP closed a $1.2 billion construction loan for its 46-story, roughly 930,000-square-foot office tower at 343 Madison Avenue")}, led by Wells Fargo with support from BofA Securities, Bank of New York Mellon, and JPMorgan Chase; the loan carries a four-year initial term plus a one-year extension, an initial rate of Term SOFR plus 2.50% that steps down to plus 2.25% on leasing and construction milestones, and the roughly $2 billion, Grand Central-connected tower is about 50% pre-leased with completion expected in 2029.''',
          why="A major bank club deal financing ground-up trophy office construction, at a moment when office construction lending has been scarce nationally, shows lenders will still underwrite new supply &mdash; but only when it clears a high bar: pre-leased, transit-connected, and built by a top-tier REIT. The rate step-down tied to leasing and construction milestones is itself a signal that lenders are pricing in real execution risk and rewarding de-risking events explicitly, rather than underwriting the project on projected rents alone.",
          implications=[
@@ -1751,6 +1811,7 @@ NYC_DEBT_SIGNALS = [
          watch="Whether 343 Madison's pre-leasing percentage climbs enough to trigger the rate step-down, and construction progress toward the 2029 completion target."),
     dict(category="Affordable Bond Financing", title="Cedarbridge Refinances 1,000-Unit Portfolio With 40-Year Affordability Deal",
          subtitle="A Bank Refinancing Is Being Used to Lock In Affordability, Not Just Provide Subsidy",
+         date="July 28, 2026",
          trigger=f'''{src("https://www.bisnow.com/new-york/news/deal-sheet/canadian-reit-brooklyn-medical-office-ny-deal-sheet-135586", "Cedarbridge Management refinanced a 27-building, 1,000-unit multifamily portfolio")} across Brooklyn and Manhattan with a $145.7 million loan from Customers Bank, closing simultaneously with a new 40-year Article 11 affordability agreement negotiated with the NYC Housing Partnership.''',
          why="Tying a private bank refinancing directly to a long-term, 40-year affordability covenant illustrates how lenders and the city are increasingly using debt structuring itself &mdash; not just direct subsidy &mdash; as the mechanism to preserve affordable housing stock at scale. A 27-building portfolio locking in affordability for four decades in exchange for refinancing terms is a much larger and longer-duration commitment than a typical single-building affordable deal.",
          implications=[
@@ -1762,6 +1823,7 @@ NYC_DEBT_SIGNALS = [
          watch="Whether Customers Bank or other private lenders pursue additional refinancings structured around long-term Article 11 agreements."),
     dict(category="Bridge Lending", title="Ladder Capital Lends $268M to Fund 575 Fifth Ave Office Purchase",
          subtitle="A Non-Bank Lender Underwrites Aggressive Leverage on a Fifth Avenue Trade",
+         date="July 27, 2026",
          trigger=f'''{src("https://crenews.com/2026/07/27/ladder-capital-lends-268mln-to-fund-purchase-of-manhattans-575-fifth-ave-office/", "Ladder Capital Corp. lent $268 million to fund the purchase of the 507,031-square-foot office building at 575 Fifth Avenue")}, which traded for $378 million ($745.50 per square foot), implying roughly 71% leverage against the purchase price; Eastdil Secured brokered the sale.''',
          why="A non-bank balance-sheet lender writing a $268 million acquisition loan at roughly 71% loan-to-value on a Fifth Avenue office trade signals real debt capital is still willing to underwrite sizable Manhattan office acquisitions at aggressive leverage. Read alongside this week's special servicing and refinancing-distress signals, it's a useful counterpoint showing the office debt market is bifurcating sharply by asset quality and location, rather than being uniformly frozen.",
          implications=[
@@ -1820,6 +1882,7 @@ STRUCTURED_SNAPSHOT = [
 STRUCTURED_SIGNALS = [
     dict(category="Esoteric ABS", title="Aligned Data Centers Prices $1.183B ABS, Upsized 30% From Target",
          subtitle="An Oversubscribed First-Since-2023 Deal Confirms Investor Appetite Hasn't Faded",
+         date="July 28, 2026",
          trigger=f'''{src("https://www.globenewswire.com/news-release/2026/07/28/3334210/0/en/Aligned-Data-Centers-Completes-1-18-Billion-Securitization-Financing.html", "Aligned Data Centers closed a $1.183 billion ABS issuance on July 28")}, its first securitization since 2023, upsized roughly 30% from an initial $905 million target; the Class A-2-I and Class B notes carry a five-year anticipated repayment date, backed by four data center campuses with 14 enterprise customers, more than 90% of annualized base rent from investment-grade counterparties.''',
          why="A 30% upsize on a first-since-2023 deal, in the same week a separate BlackRock-led consortium closed its $40 billion acquisition of the same company, shows institutional capital is underwriting Aligned's cash flows from both the equity and structured-debt side simultaneously &mdash; the ABS market's own appetite here is independent confirmation that the M&amp;A price wasn't disconnected from how bond investors view the same collateral. That over 90% of rent comes from investment-grade counterparties is what let the deal price at this scale despite continued questions about AI-datacenter demand durability broadly.",
          implications=[
@@ -1831,6 +1894,7 @@ STRUCTURED_SIGNALS = [
          watch="Whether other data center operators follow with new issuance given Aligned's demonstrated demand, and how the notes perform in secondary trading."),
     dict(category="CLO", title="CVC Credit Prices $550M CLO at Near Market-Tight Spreads for Tier-1 Managers",
          subtitle="Top-Shelf Managers Are Pricing Tight Even as Broader New-Issue Volume Slows",
+         date="July 7, 2026",
          trigger=f'''{src("https://www.cvc.com/media/news/2026/cvc-credit-prices-third-new-issue-clo-of-2026/", "CVC Credit priced Apidos LVII, a $550 million new-issue CLO, on July 7")}, its third global new-issue CLO of 2026, with a five-year reinvestment period and Scotiabank as lead arranger; CVC described &ldquo;strong demand across the entire debt stack&rdquo; with pricing landing at &ldquo;near market tights for Tier 1 CLO managers.&rdquo;''',
          why="A Tier-1 manager pricing at near-market-tights, even as broader broadly-syndicated-loan CLO volume is reported down roughly 21% year-over-year, shows the CLO primary market is bifurcating by manager quality rather than moving uniformly &mdash; investors are still paying up in spread terms for platforms with CVC's track record while pulling back from less-established shelves. That distinction matters more right now than the aggregate volume figure alone.",
          implications=[
@@ -1842,6 +1906,7 @@ STRUCTURED_SIGNALS = [
          watch="Whether CVC's fourth 2026 new-issue CLO, if it prices, matches this spread level, and how second-tier manager pricing compares in the same stretch."),
     dict(category="CLO", title="Macquarie Prices Third U.S. CLO in 18 Months, Draws Ten New Investors",
          subtitle="A Newer Entrant Scaling Fast Shows Investors Backing More Than Just Legacy Platforms",
+         date="July 2, 2026",
          trigger=f'''{src("https://www.macquarie.com/us/en/about/news/2026/pricing-marks-continued-growth-for-the-firms-clo-platform.html", "Macquarie Asset Management priced Market Street CLO III, a $409 million CLO, on July 2")}, pushing its total U.S. CLO pricing past $1.6 billion across three deals in 18 months since its inaugural 2025 issuance, and drawing ten new investors to the platform on this print alone.''',
          why="A relatively new entrant scaling to $1.6 billion across three deals in 18 months, with ten new investors on the latest print, is a different story than CVC's tight Tier-1 pricing above &mdash; it shows CLO investors are also willing to back newer platforms building scale quickly, not just consolidating around legacy Tier-1 shops, as Macquarie's Credit &amp; Insurance division (which manages $162 billion) builds out its structured credit franchise following its Spire Management acquisition.",
          implications=[
@@ -1853,6 +1918,7 @@ STRUCTURED_SIGNALS = [
          watch="Whether Macquarie prices a fourth U.S. CLO within the next several months, and if the new-investor count continues growing on subsequent deals."),
     dict(category="Consumer ABS", title="Pagaya Closes Its Largest-Ever Auto ABS at $750M, Upsized",
          subtitle="A New Excess-Spread Tranche Shows Fintech ABS Platforms Getting More Structurally Sophisticated",
+         date="July 16, 2026",
          trigger=f'''{src("https://pulse2.com/pagaya-closes-750-million-auto-abs-transaction-its-largest-to-date/", "Pagaya Technologies closed RPM 2026-4 on July 16, a $750 million upsized auto ABS")}, its largest deal ever and fourth fully pre-funded auto ABS of 2026, drawing 41 unique investors including 6 new to Pagaya's platform and 7 new to its auto ABS shelf specifically; the deal included the platform's inaugural excess-spread tranche, bringing total 2026 pre-funded auto ABS issuance to $2.25 billion.''',
          why="Introducing a new excess-spread tranche, designed specifically to let Pagaya monetize residual cash flows separately from traditional note classes, is a structural innovation that broadens the investor base able to buy into the deal &mdash; different investors want different risk-return profiles, and slicing out excess spread as its own tranche lets Pagaya sell to more of them at once, which likely helped this deal both upsize and draw 13 new investors on a single print.",
          implications=[
@@ -1864,6 +1930,7 @@ STRUCTURED_SIGNALS = [
          watch="Whether Pagaya's excess-spread tranche structure appears in other platforms' auto ABS deals, and pricing performance on RPM 2026-4's next servicing reports."),
     dict(category="Synthetic Risk Transfer", title="Santander Prices Its Tenth Auto Credit-Linked Note, First Prime Deal of 2026",
          subtitle="A Tenth Iteration Signals SRT Has Normalized as a Routine Capital Tool for Auto Lenders",
+         date="July 2026",
          trigger=f'''{src("https://www.ifre.com/deal/securitisation/2441589/abs-santander-auto-credit-linked-sbcln-2026-a-us279m-priced", "Banco Santander priced SBCLN 2026-A, a $279 million-plus credit-linked note tied to prime U.S. auto loans")}, its debut prime auto CLN of 2026 and tenth auto CLN overall, part of Santander's broader 2026 strategy to shed roughly &euro;40&ndash;45 billion of risk-weighted assets globally via SRT and other capital-relief tools this year.''',
          why="A tenth iteration of the same auto-CLN program shows synthetic risk transfer has become a routine, repeatable capital-management tool for large auto lenders rather than a one-off trade &mdash; evidence the asset class, once dominated by residential mortgage and corporate-loan SRTs, is normalizing for consumer auto risk specifically in the U.S. market, as Santander works through a large, disclosed global risk-weighted-asset reduction target.",
          implications=[
@@ -1875,6 +1942,7 @@ STRUCTURED_SIGNALS = [
          watch="Whether Santander prices additional prime auto CLNs later in 2026, and if other large bank auto lenders launch comparable SRT programs."),
     dict(category="Rating Action", title="Over 400 CLOs Lined Up for Upgrades After Fitch and Moody's Methodology Changes",
          subtitle="A Methodology-Driven Wave of Upgrades Raises a Real 2008-Adjacent Question",
+         date="July 15, 2026",
          trigger=f'''{src("https://www.bloomberg.com/news/articles/2026-07-15/over-400-clos-tabbed-for-upgrade-in-pivot-that-fans-08-fears", "Over 400 CLOs are lined up for ratings upgrades")} after Fitch (June 1) and Moody's (June 5) each proposed CLO ratings-methodology changes reflecting years of actual defaults running below what the agencies' models had predicted &mdash; Fitch's change affecting up to 15% of the CLOs it rates, Moody's affecting roughly a third of the tranches it assesses; the scale and speed of the shift has drawn explicit comparisons to pre-2008 ratings methodology loosening.''',
          why="An upgrade wave driven by a methodology recalibration, rather than by improved underlying collateral credit at each individual deal, decouples the rating itself from loan-level credit quality in a way that's structurally different from a normal rating action &mdash; the loans didn't get safer overnight, the model's assumptions about them changed. That's precisely the mechanism critics are flagging as reminiscent of pre-2008 methodology loosening, and it's a critical distinction for anyone learning to read CLO tranche ratings as a signal rather than accepting them as a fixed technical fact.",
          implications=[
@@ -1886,6 +1954,7 @@ STRUCTURED_SIGNALS = [
          watch="How quickly the 400-plus flagged upgrades are actually executed, and whether other rating agencies propose similar methodology recalibrations."),
     dict(category="Warehouse Facility", title="Empire Asset Finance Closes First Institutional Warehouse Facility With Bank OZK",
          subtitle="A Textbook Warehouse-to-ABS Pipeline Deal, Even Without a Disclosed Size",
+         date="July 20, 2026",
          trigger=f'''{src("https://www.monitordaily.com/empire-asset-finance-secures-senior-warehouse-credit-facility-with-bank-ozk/", "Empire Asset Finance closed its first institutional warehouse credit facility with Bank OZK")} on July 20, funding capital leases, operating leases, loans, and sale-leaseback transactions across equipment types for U.S. and Canadian middle-market borrowers; facility size was not disclosed, but the deal is explicitly framed as building toward future term-out into capital markets and ABS execution.''',
          why="A specialty equipment finance originator lining up bank warehouse funding as the explicit first step toward eventually terming out into a rated securitization is the textbook warehouse-to-ABS pipeline &mdash; this kind of flow deal is a leading indicator of future esoteric ABS supply, since originators only build out warehouse capacity when they're planning to scale origination volume toward a size that eventually justifies a term securitization.",
          implications=[
@@ -1929,6 +1998,7 @@ SECURITIZED_SNAPSHOT = [
 SECURITIZED_SIGNALS = [
     dict(category="CMBS Conduit", title="Citi Prices Largest Multifamily-Only CMBS Conduit Since the Financial Crisis",
          subtitle="A Bank's Own Top-Market Rankings Reveal Where Its Origination Pipeline Is Strongest",
+         date="Week of July 16, 2026",
          trigger=f'''{src("https://commercialobserver.com/2026/07/citi-conduit-cmbs/", "Citigroup priced the $816.9 million Citigroup Commercial Mortgage Trust 2026-MFAM1")} the week of July 16, the largest single-bank-originated, multifamily-only conduit transaction since the financial crisis, comprising 27 five-year interest-only loans across 27 multifamily properties with New York, Los Angeles, and Florida as the top three markets represented; AAA bonds priced at swaps plus 80 basis points, 8 basis points tighter than a comparable May 2026 deal, with average Fitch loan-to-value at 123.4%.''',
          why="A bank's own top-market rankings in a conduit deal reveal where its origination pipeline actually found qualifying volume, not just where multifamily lending happens broadly &mdash; and pricing 8 basis points tighter than a comparable deal from two months earlier shows AAA investor demand improved in that short window even as single-asset, single-borrower deals now make up roughly three-quarters of private-label CMBS issuance, making this diversified pool a rarer structure investors were evidently glad to see.",
          implications=[
@@ -1940,6 +2010,7 @@ SECURITIZED_SIGNALS = [
          watch="Whether other banks follow with comparable large multifamily-only conduit deals, and loan-level performance disclosures as the pool seasons."),
     dict(category="CMBS SASB", title="Nomura Prices $719M SASB CMBS as Keller Investment Shifts From Agency Debt",
          subtitle="A Sponsor's First-Ever CMBS Execution Is a Real Vote on Where Pricing Sits Right Now",
+         date="Early July 2026",
          trigger=f'''{src("https://commercialobserver.com/2026/07/nomura-sasb-cmbs-keller-newmark/", "Nomura priced the $719 million KELR 2026-MF single-asset, single-borrower CMBS deal")} in early July, its largest sole-bank SASB transaction in nearly two years, backed by 12 multifamily properties and one student-housing asset totaling 3,321 units for borrower Keller Investment Properties &mdash; the sponsor's first-ever CMBS execution after historically relying on agency debt; AAA bonds priced at 135 basis points over SOFR at 77% loan-to-value, multiple times oversubscribed.''',
          why="A sponsor moving from agency financing to a SASB CMBS execution for the first time, and getting oversubscribed at 135 basis points over SOFR, is a direct market vote that CMBS spreads have tightened enough to actually pull borrowers away from their default agency-debt playbook &mdash; sponsors don't switch financing channels for the first time on a $719 million deal unless the pricing genuinely beats their established alternative.",
          implications=[
@@ -1951,6 +2022,7 @@ SECURITIZED_SIGNALS = [
          watch="Whether Keller Investment Properties returns to CMBS for future refinancings, and if other agency-reliant sponsors follow with their own first-time SASB executions."),
     dict(category="Non-Agency RMBS", title="AD Mortgage Closes Fifth Non-QM RMBS Deal of 2026, Pace Nearing Quarterly",
          subtitle="Programmatic Quarterly Issuance Signals a Maturing Funding Channel, Not an Opportunistic One",
+         date="July 8, 2026",
          trigger=f'''{src("https://www.businesswire.com/news/home/20260708309861/en/KBRA-Assigns-Preliminary-Ratings-to-AD-Mortgage-Trust-2026-NQM5-ADMT-2026-NQM5", "KBRA assigned preliminary ratings on July 8 to ADMT 2026-NQM5, AD Mortgage's fifth non-QM RMBS deal of 2026")}, a $432.4 million transaction backed by 1,008 loans with a 754 weighted-average FICO and 69.1% weighted-average combined LTV, following May's $407 million ADMT 2026-NQM4 and bringing AD Mortgage's year-to-date non-QM issuance to roughly $1.7 billion.''',
          why="Five deals in roughly seven months, at a pace nearing one per quarter, from a single repeat mid-sized shelf issuer indicates the non-QM securitization market has normalized into an established, programmatic funding channel rather than remaining an opportunistic, one-off financing tool &mdash; programmatic issuers plan origination volume around a known securitization cadence, which is a materially more stable funding model than issuers who securitize only when market conditions happen to align.",
          implications=[
@@ -1962,6 +2034,7 @@ SECURITIZED_SIGNALS = [
          watch="Whether AD Mortgage maintains this roughly-quarterly pace into Q4 2026, and early delinquency data on ADMT 2026-NQM5 as the pool seasons."),
     dict(category="Non-Agency RMBS", title="KBRA Rates $490.6M Blended Non-Prime RMBS Deal for Aspire Mortgage",
          subtitle="Blending QM-Exempt and Non-QM Collateral Keeps Programmatic Issuance Flowing",
+         date="July 20, 2026",
          trigger=f'''{src("https://finance.yahoo.com/real-estate/articles/kbra-assigns-preliminary-ratings-aspire-200300095.html", "KBRA assigned preliminary ratings on July 20 to Aspire Mortgage Trust 2026-4")}, a $490.6 million non-prime RMBS deal backed by 1,070 loans across ten rated certificate classes; the pool is 99% fixed-rate, with 49.1% Safe Harbor QM, 1.9% Rebuttable Presumption QM, 14.5% Non-QM, and 34.5% exempt from the ATR/QM rule.''',
          why="Blending QM-exempt and non-QM loan types within a single non-prime shelf, rather than issuing a pure non-QM pool, is a structural choice that lets issuers keep programmatic issuance flowing even as any single collateral category's origination volume fluctuates &mdash; a mixed pool gives the issuer more loans to draw from each quarter, which matters for maintaining a steady securitization cadence rather than waiting to accumulate enough of one specific loan type.",
          implications=[
@@ -1973,6 +2046,7 @@ SECURITIZED_SIGNALS = [
          watch="How rating agencies price blended QM-exempt/non-QM pools relative to pure non-QM shelves over time, and early performance data on this specific pool."),
     dict(category="CMBS SASB", title="Starwood Prices $482.5M Single-Family Rental Securitization, Its Fifth",
          subtitle="Repeat Institutional SFR Issuance Confirms a Durable, Financeable Asset Class",
+         date="July 15, 2026",
          trigger=f'''{src("https://www.businesswire.com/news/home/20260715232837/en/KBRA-Assigns-Preliminary-Ratings-to-STAR-2026-SFR8", "KBRA assigned preliminary ratings on July 15 to Starwood's STAR 2026-SFR8")}, a single-borrower single-family-rental securitization backed by one $482.5 million floating-rate loan secured by 1,749 properties (1,756 units) across ten states, with Atlanta, Phoenix, and Charlotte as the top three markets; aggregate broker price opinion value is $651.7 million, producing a nominal loan-to-value of 74.0% and a KBRA-adjusted LTV of 77.1%.''',
          why="A fifth KBRA-rated SFR securitization from the same institutional sponsor confirms single-family rental has become a durable, repeat-financeable asset class within the SASB market, not a one-time structural experiment &mdash; and that durability matters specifically because it's happening even as more conventional office and retail CMBS collateral faces elevated distress, showing capital markets access for institutional SFR ownership hasn't followed the broader CMBS credit story downward.",
          implications=[
@@ -1984,6 +2058,7 @@ SECURITIZED_SIGNALS = [
          watch="Whether other institutional SFR operators follow with comparable repeat securitizations, and regional rent performance across the ten states in the collateral pool."),
     dict(category="Rating Action", title="CMBS Delinquency Rate Falls to 7.35%, but Office, Retail, and Multifamily All Worsen",
          subtitle="An Improving Headline Number Driven Entirely by Lodging Masks a Bifurcating Market",
+         date="July 8, 2026",
          trigger=f'''{src("https://newslink.mba.org/mba-newslinks/2026/july/trepp-cmbs-delinquency-rate-falls-in-june/", "Trepp reported the overall CMBS delinquency rate fell 20 basis points to 7.35% in June")}, published July 8, versus 7.13% a year earlier; by property type, office delinquency rose 4bps to 11.57%, retail rose 30bps to 6.91%, and multifamily rose 28bps to 7.23%, while lodging fell 79bps to 5.22% &mdash; the primary driver of the headline improvement. Including performing matured balloons, the effective rate would be 9.53%, up 36bps from May.''',
          why="A headline delinquency rate improving almost entirely because of one property type (lodging), while office, retail, and multifamily all simultaneously worsen, means the aggregate number is actively masking a bifurcating credit story rather than describing a broadly healthy market &mdash; anyone pricing or rating a conduit bond needs the property-type breakdown, not the headline figure, since a pool's AAA cushion depends heavily on which property types sit inside it. The 9.53% effective rate including performing matured balloons is also meaningfully worse than the reported 7.35%, since those loans are current on interest but haven't actually repaid principal at maturity.",
          implications=[
