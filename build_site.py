@@ -19,9 +19,9 @@ CSS = """
   --fg:#1a1a18;
   --rule:#d9d4c8;
   --rule-strong:#1a1a18;
-  --accent:#BF5700;
-  --accent-glow:rgba(191,87,0,.28);
-  --accent-wash:rgba(191,87,0,.08);
+  --accent:#8B1E3F;
+  --accent-glow:rgba(139,30,63,.28);
+  --accent-wash:rgba(139,30,63,.08);
   --muted:#7a7567;
   --rising:#2a6b3c;
   --stable:#4a5568;
@@ -37,9 +37,9 @@ CSS = """
     --fg:#ece7db;
     --rule:#39342a;
     --rule-strong:#ece7db;
-    --accent:#e3812e;
-    --accent-glow:rgba(227,129,46,.30);
-    --accent-wash:rgba(227,129,46,.10);
+    --accent:#D9647E;
+    --accent-glow:rgba(217,100,126,.30);
+    --accent-wash:rgba(217,100,126,.10);
     --muted:#a59c8a;
     --rising:#5aa574;
     --stable:#93a0b3;
@@ -50,9 +50,9 @@ CSS = """
   --fg:#ece7db;
   --rule:#39342a;
   --rule-strong:#ece7db;
-  --accent:#e3812e;
-  --accent-glow:rgba(227,129,46,.30);
-  --accent-wash:rgba(227,129,46,.10);
+  --accent:#D9647E;
+  --accent-glow:rgba(217,100,126,.30);
+  --accent-wash:rgba(217,100,126,.10);
   --muted:#a59c8a;
   --rising:#5aa574;
   --stable:#93a0b3;
@@ -62,9 +62,9 @@ CSS = """
   --fg:#1a1a18;
   --rule:#d9d4c8;
   --rule-strong:#1a1a18;
-  --accent:#BF5700;
-  --accent-glow:rgba(191,87,0,.28);
-  --accent-wash:rgba(191,87,0,.08);
+  --accent:#8B1E3F;
+  --accent-glow:rgba(139,30,63,.28);
+  --accent-wash:rgba(139,30,63,.08);
   --muted:#7a7567;
   --rising:#2a6b3c;
   --stable:#4a5568;
@@ -175,6 +175,50 @@ a{ color:inherit; }
 .theme-toggle svg{width:13px;height:13px;display:none;}
 .theme-toggle[data-current="dark"] .icon-sun{display:block;}
 .theme-toggle[data-current="light"] .icon-moon{display:block;}
+
+/* ---------- accent color picker ---------- */
+.accent-picker{position:relative;flex-shrink:0;}
+.accent-picker-btn{
+  width:27px;
+  height:27px;
+  padding:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:transparent;
+  border:1px solid var(--rule);
+  border-radius:50%;
+  cursor:pointer;
+  transition:border-color .15s ease;
+}
+.accent-picker-btn:hover{border-color:var(--muted);}
+.accent-picker-btn:focus-visible{outline:1px solid var(--accent);outline-offset:2px;}
+.accent-picker-dot{width:13px;height:13px;border-radius:50%;background:var(--accent);}
+.accent-picker-menu{
+  position:absolute;
+  top:calc(100% + 10px);
+  right:0;
+  display:none;
+  gap:8px;
+  padding:10px;
+  background:var(--bg);
+  border:1px solid var(--rule);
+  border-radius:14px;
+  box-shadow:0 14px 34px -14px rgba(0,0,0,.35);
+  z-index:950;
+}
+.accent-picker-menu.open{display:flex;}
+.accent-swatch{
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  border:2px solid transparent;
+  padding:0;
+  cursor:pointer;
+  transition:border-color .15s ease, transform .15s ease;
+}
+.accent-swatch:hover{transform:scale(1.12);}
+.accent-swatch.active{border-color:var(--fg);}
 
 /* ---------- pages ---------- */
 .page{display:none;}
@@ -2211,6 +2255,19 @@ NAV = '''<nav class="topnav">
     <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.5v2.5M12 19v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M2 12h2.5M19.5 12H22M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"></path></svg>
     <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.3A8.2 8.2 0 1 1 9.7 4a6.8 6.8 0 0 0 10.3 10.3Z"></path></svg>
   </button>
+  <div class="accent-picker">
+    <button type="button" class="accent-picker-btn" onclick="window.__toggleAccentMenu()" aria-label="Choose accent color" title="Choose accent color">
+      <span class="accent-picker-dot"></span>
+    </button>
+    <div class="accent-picker-menu" id="accent-picker-menu">
+      <button type="button" class="accent-swatch" data-accent="burgundy" style="background:#8B1E3F" onclick="window.__setAccent('burgundy')" aria-label="Burgundy accent"></button>
+      <button type="button" class="accent-swatch" data-accent="orange" style="background:#BF5700" onclick="window.__setAccent('orange')" aria-label="Orange accent"></button>
+      <button type="button" class="accent-swatch" data-accent="navy" style="background:#1F3A63" onclick="window.__setAccent('navy')" aria-label="Navy accent"></button>
+      <button type="button" class="accent-swatch" data-accent="green" style="background:#2F5D3A" onclick="window.__setAccent('green')" aria-label="Green accent"></button>
+      <button type="button" class="accent-swatch" data-accent="teal" style="background:#14636B" onclick="window.__setAccent('teal')" aria-label="Teal accent"></button>
+      <button type="button" class="accent-swatch" data-accent="plum" style="background:#5B2A6B" onclick="window.__setAccent('plum')" aria-label="Plum accent"></button>
+    </div>
+  </div>
 </nav>'''
 
 THEME_SCRIPT = '''<script>
@@ -2224,6 +2281,7 @@ THEME_SCRIPT = '''<script>
     root.setAttribute("data-theme", theme);
     var btn = document.getElementById("theme-toggle");
     if (btn) btn.setAttribute("data-current", theme);
+    if (window.__reapplyAccent) window.__reapplyAccent();
   }
   window.__toggleCreSignalTheme = function(){
     var next = current() === "dark" ? "light" : "dark";
@@ -2231,6 +2289,52 @@ THEME_SCRIPT = '''<script>
     reflect(next);
   };
   reflect(current());
+})();
+</script>'''
+
+ACCENT_SCRIPT = '''<script>
+(function(){
+  var KEY = "market-signal-accent";
+  var PALETTE = {
+    burgundy: {light:{a:"#8B1E3F",g:"rgba(139,30,63,.28)",w:"rgba(139,30,63,.08)"}, dark:{a:"#D9647E",g:"rgba(217,100,126,.30)",w:"rgba(217,100,126,.10)"}},
+    orange:   {light:{a:"#BF5700",g:"rgba(191,87,0,.28)",w:"rgba(191,87,0,.08)"}, dark:{a:"#e3812e",g:"rgba(227,129,46,.30)",w:"rgba(227,129,46,.10)"}},
+    navy:     {light:{a:"#1F3A63",g:"rgba(31,58,99,.28)",w:"rgba(31,58,99,.08)"}, dark:{a:"#7FA6D9",g:"rgba(127,166,217,.30)",w:"rgba(127,166,217,.10)"}},
+    green:    {light:{a:"#2F5D3A",g:"rgba(47,93,58,.28)",w:"rgba(47,93,58,.08)"}, dark:{a:"#6BBF7B",g:"rgba(107,191,123,.30)",w:"rgba(107,191,123,.10)"}},
+    teal:     {light:{a:"#14636B",g:"rgba(20,99,107,.28)",w:"rgba(20,99,107,.08)"}, dark:{a:"#4FB8C4",g:"rgba(79,184,196,.30)",w:"rgba(79,184,196,.10)"}},
+    plum:     {light:{a:"#5B2A6B",g:"rgba(91,42,107,.28)",w:"rgba(91,42,107,.08)"}, dark:{a:"#B885D1",g:"rgba(184,133,209,.30)",w:"rgba(184,133,209,.10)"}}
+  };
+  var root = document.documentElement;
+  function currentTheme(){ return root.getAttribute("data-theme") === "dark" ? "dark" : "light"; }
+  function getAccent(){
+    try { var s = localStorage.getItem(KEY); return (s && PALETTE[s]) ? s : "burgundy"; } catch(e){ return "burgundy"; }
+  }
+  function applyAccent(key){
+    var variant = (PALETTE[key] || PALETTE.burgundy)[currentTheme()];
+    root.style.setProperty("--accent", variant.a);
+    root.style.setProperty("--accent-glow", variant.g);
+    root.style.setProperty("--accent-wash", variant.w);
+    var swatches = document.querySelectorAll(".accent-swatch");
+    for (var i = 0; i < swatches.length; i++){
+      swatches[i].classList.toggle("active", swatches[i].getAttribute("data-accent") === key);
+    }
+  }
+  window.__setAccent = function(key){
+    try { localStorage.setItem(KEY, key); } catch(e){}
+    applyAccent(key);
+    var menu = document.getElementById("accent-picker-menu");
+    if (menu) menu.classList.remove("open");
+  };
+  window.__toggleAccentMenu = function(){
+    var menu = document.getElementById("accent-picker-menu");
+    if (menu) menu.classList.toggle("open");
+  };
+  window.__reapplyAccent = function(){ applyAccent(getAccent()); };
+  document.addEventListener("click", function(e){
+    var picker = document.querySelector(".accent-picker");
+    var menu = document.getElementById("accent-picker-menu");
+    if (menu && picker && !picker.contains(e.target)) menu.classList.remove("open");
+  });
+  applyAccent(getAccent());
 })();
 </script>'''
 
@@ -2327,6 +2431,7 @@ window.__filterSignals = function(el){
 BODY = NEWLINE.join([
     NAV,
     THEME_SCRIPT,
+    ACCENT_SCRIPT,
     HOME_PAGE,
     CRE_PAGE,
     IB_PAGE,
