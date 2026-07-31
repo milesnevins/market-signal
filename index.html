@@ -198,8 +198,9 @@ a{ color:inherit; }
 .topnav-links a:hover{color:var(--fg);}
 .topnav-links a.active{color:var(--accent);background:var(--accent-wash);border-color:var(--accent-glow);}
 
-/* ---------- theme toggle (now docked in nav) ---------- */
-.theme-toggle{
+/* ---------- settings button + panel ---------- */
+.settings-picker{position:relative;flex-shrink:0;}
+.settings-btn{
   width:27px;
   height:27px;
   padding:0;
@@ -211,47 +212,54 @@ a{ color:inherit; }
   border-radius:50%;
   color:var(--muted);
   cursor:pointer;
-  flex-shrink:0;
-  transition:color .15s ease, border-color .15s ease, background .15s ease;
+  transition:color .15s ease, border-color .15s ease;
 }
-.theme-toggle:hover{color:var(--fg);border-color:var(--muted);}
-.theme-toggle:focus-visible{outline:1px solid var(--accent);outline-offset:2px;}
-.theme-toggle svg{width:13px;height:13px;display:none;}
-.theme-toggle[data-current="dark"] .icon-sun{display:block;}
-.theme-toggle[data-current="light"] .icon-moon{display:block;}
-
-/* ---------- accent color picker ---------- */
-.accent-picker{position:relative;flex-shrink:0;}
-.accent-picker-btn{
-  width:27px;
-  height:27px;
-  padding:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:transparent;
-  border:1px solid var(--rule);
-  border-radius:50%;
-  cursor:pointer;
-  transition:border-color .15s ease;
-}
-.accent-picker-btn:hover{border-color:var(--muted);}
-.accent-picker-btn:focus-visible{outline:1px solid var(--accent);outline-offset:2px;}
-.accent-picker-dot{width:13px;height:13px;border-radius:50%;background:var(--accent);}
-.accent-picker-menu{
+.settings-btn:hover{color:var(--fg);border-color:var(--muted);}
+.settings-btn:focus-visible{outline:1px solid var(--accent);outline-offset:2px;}
+.settings-btn svg{width:15px;height:15px;}
+.settings-menu{
   position:absolute;
   top:calc(100% + 10px);
   right:0;
   display:none;
-  gap:8px;
-  padding:10px;
+  flex-direction:column;
+  gap:16px;
+  padding:18px;
+  min-width:230px;
   background:var(--bg);
   border:1px solid var(--rule);
   border-radius:14px;
   box-shadow:0 14px 34px -14px rgba(0,0,0,.35);
   z-index:950;
 }
-.accent-picker-menu.open{display:flex;}
+.settings-menu.open{display:flex;}
+.settings-section-label{
+  font-family:var(--font-mono);
+  font-size:10px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin:0;
+}
+.settings-row{display:flex;flex-direction:column;gap:9px;}
+.settings-row-label{font-size:11.5px;color:var(--muted);}
+.theme-segmented{display:flex;border:1px solid var(--rule);border-radius:999px;padding:2px;gap:2px;}
+.theme-seg-btn{
+  flex:1;
+  padding:6px 0;
+  font-family:var(--font-mono);
+  font-size:10.5px;
+  text-transform:uppercase;
+  letter-spacing:0.04em;
+  background:transparent;
+  border:none;
+  border-radius:999px;
+  color:var(--muted);
+  cursor:pointer;
+  transition:background .15s ease, color .15s ease;
+}
+.theme-seg-btn.active{background:var(--accent-wash);color:var(--accent);}
+.settings-swatch-row{display:flex;gap:8px;}
 .accent-swatch{
   width:22px;
   height:22px;
@@ -807,21 +815,30 @@ footer{
     <a href="#/structured" data-nav="structured">Structured</a>
     <a href="#/securitized" data-nav="securitized">Securitized</a>
   </div>
-  <button type="button" id="theme-toggle" class="theme-toggle" onclick="window.__toggleCreSignalTheme()" aria-label="Switch color theme" title="Switch color theme">
-    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.5v2.5M12 19v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M2 12h2.5M19.5 12H22M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"></path></svg>
-    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.3A8.2 8.2 0 1 1 9.7 4a6.8 6.8 0 0 0 10.3 10.3Z"></path></svg>
-  </button>
-  <div class="accent-picker">
-    <button type="button" class="accent-picker-btn" onclick="window.__toggleAccentMenu()" aria-label="Choose accent color" title="Choose accent color">
-      <span class="accent-picker-dot"></span>
+  <div class="settings-picker">
+    <button type="button" class="settings-btn" onclick="window.__toggleSettingsMenu()" aria-label="Settings" title="Settings">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
     </button>
-    <div class="accent-picker-menu" id="accent-picker-menu">
-      <button type="button" class="accent-swatch" data-accent="burgundy" style="background:#8B1E3F" onclick="window.__setAccent('burgundy')" aria-label="Burgundy accent"></button>
-      <button type="button" class="accent-swatch" data-accent="orange" style="background:#BF5700" onclick="window.__setAccent('orange')" aria-label="Orange accent"></button>
-      <button type="button" class="accent-swatch" data-accent="navy" style="background:#1F3A63" onclick="window.__setAccent('navy')" aria-label="Navy accent"></button>
-      <button type="button" class="accent-swatch" data-accent="green" style="background:#2F5D3A" onclick="window.__setAccent('green')" aria-label="Green accent"></button>
-      <button type="button" class="accent-swatch" data-accent="teal" style="background:#14636B" onclick="window.__setAccent('teal')" aria-label="Teal accent"></button>
-      <button type="button" class="accent-swatch" data-accent="plum" style="background:#5B2A6B" onclick="window.__setAccent('plum')" aria-label="Plum accent"></button>
+    <div class="settings-menu" id="settings-menu">
+      <p class="settings-section-label">Display</p>
+      <div class="settings-row">
+        <span class="settings-row-label">Theme</span>
+        <div class="theme-segmented">
+          <button type="button" class="theme-seg-btn" data-theme-choice="light" onclick="window.__setTheme('light')">Light</button>
+          <button type="button" class="theme-seg-btn" data-theme-choice="dark" onclick="window.__setTheme('dark')">Dark</button>
+        </div>
+      </div>
+      <div class="settings-row">
+        <span class="settings-row-label">Accent color</span>
+        <div class="settings-swatch-row">
+          <button type="button" class="accent-swatch" data-accent="burgundy" style="background:#8B1E3F" onclick="window.__setAccent('burgundy')" aria-label="Burgundy accent"></button>
+          <button type="button" class="accent-swatch" data-accent="orange" style="background:#BF5700" onclick="window.__setAccent('orange')" aria-label="Orange accent"></button>
+          <button type="button" class="accent-swatch" data-accent="navy" style="background:#1F3A63" onclick="window.__setAccent('navy')" aria-label="Navy accent"></button>
+          <button type="button" class="accent-swatch" data-accent="green" style="background:#2F5D3A" onclick="window.__setAccent('green')" aria-label="Green accent"></button>
+          <button type="button" class="accent-swatch" data-accent="teal" style="background:#14636B" onclick="window.__setAccent('teal')" aria-label="Teal accent"></button>
+          <button type="button" class="accent-swatch" data-accent="plum" style="background:#5B2A6B" onclick="window.__setAccent('plum')" aria-label="Plum accent"></button>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
@@ -834,14 +851,15 @@ footer{
   function current(){ var s = stored(); return (s === "light" || s === "dark") ? s : systemPref(); }
   function reflect(theme){
     root.setAttribute("data-theme", theme);
-    var btn = document.getElementById("theme-toggle");
-    if (btn) btn.setAttribute("data-current", theme);
+    var segBtns = document.querySelectorAll(".theme-seg-btn");
+    for (var i = 0; i < segBtns.length; i++){
+      segBtns[i].classList.toggle("active", segBtns[i].getAttribute("data-theme-choice") === theme);
+    }
     if (window.__reapplyAccent) window.__reapplyAccent();
   }
-  window.__toggleCreSignalTheme = function(){
-    var next = current() === "dark" ? "light" : "dark";
-    try { localStorage.setItem(KEY, next); } catch(e){}
-    reflect(next);
+  window.__setTheme = function(theme){
+    try { localStorage.setItem(KEY, theme); } catch(e){}
+    reflect(theme);
   };
   reflect(current());
 })();
@@ -875,17 +893,15 @@ footer{
   window.__setAccent = function(key){
     try { localStorage.setItem(KEY, key); } catch(e){}
     applyAccent(key);
-    var menu = document.getElementById("accent-picker-menu");
-    if (menu) menu.classList.remove("open");
   };
-  window.__toggleAccentMenu = function(){
-    var menu = document.getElementById("accent-picker-menu");
+  window.__toggleSettingsMenu = function(){
+    var menu = document.getElementById("settings-menu");
     if (menu) menu.classList.toggle("open");
   };
   window.__reapplyAccent = function(){ applyAccent(getAccent()); };
   document.addEventListener("click", function(e){
-    var picker = document.querySelector(".accent-picker");
-    var menu = document.getElementById("accent-picker-menu");
+    var picker = document.querySelector(".settings-picker");
+    var menu = document.getElementById("settings-menu");
     if (menu && picker && !picker.contains(e.target)) menu.classList.remove("open");
   });
   applyAccent(getAccent());
