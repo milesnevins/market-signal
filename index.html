@@ -63,9 +63,9 @@
   --fg:#1a1a18;
   --rule:#d9d4c8;
   --rule-strong:#1a1a18;
-  --accent:#8B1E3F;
-  --accent-glow:rgba(139,30,63,.28);
-  --accent-wash:rgba(139,30,63,.08);
+  --accent:#1C8FCC;
+  --accent-glow:rgba(28,143,204,.28);
+  --accent-wash:rgba(28,143,204,.08);
   --muted:#7a7567;
   --rising:#2a6b3c;
   --stable:#4a5568;
@@ -81,9 +81,9 @@
     --fg:#ece7db;
     --rule:#39342a;
     --rule-strong:#ece7db;
-    --accent:#D9647E;
-    --accent-glow:rgba(217,100,126,.30);
-    --accent-wash:rgba(217,100,126,.10);
+    --accent:#6EC6FA;
+    --accent-glow:rgba(110,198,250,.30);
+    --accent-wash:rgba(110,198,250,.10);
     --muted:#a59c8a;
     --rising:#5aa574;
     --stable:#93a0b3;
@@ -94,9 +94,9 @@
   --fg:#ece7db;
   --rule:#39342a;
   --rule-strong:#ece7db;
-  --accent:#D9647E;
-  --accent-glow:rgba(217,100,126,.30);
-  --accent-wash:rgba(217,100,126,.10);
+  --accent:#6EC6FA;
+  --accent-glow:rgba(110,198,250,.30);
+  --accent-wash:rgba(110,198,250,.10);
   --muted:#a59c8a;
   --rising:#5aa574;
   --stable:#93a0b3;
@@ -106,9 +106,9 @@
   --fg:#1a1a18;
   --rule:#d9d4c8;
   --rule-strong:#1a1a18;
-  --accent:#8B1E3F;
-  --accent-glow:rgba(139,30,63,.28);
-  --accent-wash:rgba(139,30,63,.08);
+  --accent:#1C8FCC;
+  --accent-glow:rgba(28,143,204,.28);
+  --accent-wash:rgba(28,143,204,.08);
   --muted:#7a7567;
   --rising:#2a6b3c;
   --stable:#4a5568;
@@ -259,18 +259,6 @@ a{ color:inherit; }
   transition:background .15s ease, color .15s ease;
 }
 .theme-seg-btn.active{background:var(--accent-wash);color:var(--accent);}
-.settings-swatch-row{display:flex;gap:8px;}
-.accent-swatch{
-  width:22px;
-  height:22px;
-  border-radius:50%;
-  border:2px solid transparent;
-  padding:0;
-  cursor:pointer;
-  transition:border-color .15s ease, transform .15s ease;
-}
-.accent-swatch:hover{transform:scale(1.12);}
-.accent-swatch.active{border-color:var(--fg);}
 
 /* ---------- pages ---------- */
 .page{display:none;}
@@ -836,17 +824,6 @@ footer{
           <button type="button" class="theme-seg-btn" data-theme-choice="dark" onclick="window.__setTheme('dark')">Dark</button>
         </div>
       </div>
-      <div class="settings-row">
-        <span class="settings-row-label">Accent color</span>
-        <div class="settings-swatch-row">
-          <button type="button" class="accent-swatch" data-accent="burgundy" style="background:#8B1E3F" onclick="window.__setAccent('burgundy')" aria-label="Burgundy accent"></button>
-          <button type="button" class="accent-swatch" data-accent="orange" style="background:#BF5700" onclick="window.__setAccent('orange')" aria-label="Orange accent"></button>
-          <button type="button" class="accent-swatch" data-accent="navy" style="background:#1F3A63" onclick="window.__setAccent('navy')" aria-label="Navy accent"></button>
-          <button type="button" class="accent-swatch" data-accent="green" style="background:#2F5D3A" onclick="window.__setAccent('green')" aria-label="Green accent"></button>
-          <button type="button" class="accent-swatch" data-accent="teal" style="background:#14636B" onclick="window.__setAccent('teal')" aria-label="Teal accent"></button>
-          <button type="button" class="accent-swatch" data-accent="plum" style="background:#5B2A6B" onclick="window.__setAccent('plum')" aria-label="Plum accent"></button>
-        </div>
-      </div>
     </div>
   </div>
 </nav>
@@ -863,7 +840,6 @@ footer{
     for (var i = 0; i < segBtns.length; i++){
       segBtns[i].classList.toggle("active", segBtns[i].getAttribute("data-theme-choice") === theme);
     }
-    if (window.__reapplyAccent) window.__reapplyAccent();
   }
   window.__setTheme = function(theme){
     try { localStorage.setItem(KEY, theme); } catch(e){}
@@ -874,45 +850,15 @@ footer{
 </script>
 <script>
 (function(){
-  var KEY = "market-signal-accent";
-  var PALETTE = {
-    burgundy: {light:{a:"#8B1E3F",g:"rgba(139,30,63,.28)",w:"rgba(139,30,63,.08)"}, dark:{a:"#D9647E",g:"rgba(217,100,126,.30)",w:"rgba(217,100,126,.10)"}},
-    orange:   {light:{a:"#BF5700",g:"rgba(191,87,0,.28)",w:"rgba(191,87,0,.08)"}, dark:{a:"#e3812e",g:"rgba(227,129,46,.30)",w:"rgba(227,129,46,.10)"}},
-    navy:     {light:{a:"#1F3A63",g:"rgba(31,58,99,.28)",w:"rgba(31,58,99,.08)"}, dark:{a:"#7FA6D9",g:"rgba(127,166,217,.30)",w:"rgba(127,166,217,.10)"}},
-    green:    {light:{a:"#2F5D3A",g:"rgba(47,93,58,.28)",w:"rgba(47,93,58,.08)"}, dark:{a:"#6BBF7B",g:"rgba(107,191,123,.30)",w:"rgba(107,191,123,.10)"}},
-    teal:     {light:{a:"#14636B",g:"rgba(20,99,107,.28)",w:"rgba(20,99,107,.08)"}, dark:{a:"#4FB8C4",g:"rgba(79,184,196,.30)",w:"rgba(79,184,196,.10)"}},
-    plum:     {light:{a:"#5B2A6B",g:"rgba(91,42,107,.28)",w:"rgba(91,42,107,.08)"}, dark:{a:"#B885D1",g:"rgba(184,133,209,.30)",w:"rgba(184,133,209,.10)"}}
-  };
-  var root = document.documentElement;
-  function currentTheme(){ return root.getAttribute("data-theme") === "dark" ? "dark" : "light"; }
-  function getAccent(){
-    try { var s = localStorage.getItem(KEY); return (s && PALETTE[s]) ? s : "burgundy"; } catch(e){ return "burgundy"; }
-  }
-  function applyAccent(key){
-    var variant = (PALETTE[key] || PALETTE.burgundy)[currentTheme()];
-    root.style.setProperty("--accent", variant.a);
-    root.style.setProperty("--accent-glow", variant.g);
-    root.style.setProperty("--accent-wash", variant.w);
-    var swatches = document.querySelectorAll(".accent-swatch");
-    for (var i = 0; i < swatches.length; i++){
-      swatches[i].classList.toggle("active", swatches[i].getAttribute("data-accent") === key);
-    }
-  }
-  window.__setAccent = function(key){
-    try { localStorage.setItem(KEY, key); } catch(e){}
-    applyAccent(key);
-  };
   window.__toggleSettingsMenu = function(){
     var menu = document.getElementById("settings-menu");
     if (menu) menu.classList.toggle("open");
   };
-  window.__reapplyAccent = function(){ applyAccent(getAccent()); };
   document.addEventListener("click", function(e){
     var picker = document.querySelector(".settings-picker");
     var menu = document.getElementById("settings-menu");
     if (menu && picker && !picker.contains(e.target)) menu.classList.remove("open");
   });
-  applyAccent(getAccent());
 })();
 </script>
 <section id="page-home" class="page active">
