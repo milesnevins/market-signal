@@ -548,6 +548,44 @@ footer{
   margin:0 0 16px;
 }
 .home-lede.muted{color:var(--muted);}
+.subscribe-form{
+  display:flex;
+  gap:10px;
+  max-width:420px;
+  margin-top:8px;
+}
+.subscribe-input{
+  flex:1;
+  min-width:0;
+  padding:11px 16px;
+  font-family:var(--font-body);
+  font-size:14px;
+  color:var(--fg);
+  background:var(--bg);
+  border:1px solid var(--rule);
+  border-radius:999px;
+  outline:none;
+  transition:border-color .15s ease;
+}
+.subscribe-input::placeholder{color:var(--muted);}
+.subscribe-input:focus{border-color:var(--accent);}
+.subscribe-btn{
+  flex-shrink:0;
+  padding:11px 20px;
+  font-family:var(--font-mono);
+  font-size:12px;
+  letter-spacing:0.03em;
+  color:var(--bg);
+  background:var(--accent);
+  border:none;
+  border-radius:999px;
+  cursor:pointer;
+  transition:opacity .15s ease;
+}
+.subscribe-btn:hover{opacity:0.85;}
+@media (max-width:560px){
+  .subscribe-form{flex-direction:column;max-width:none;}
+}
 
 .desk-grid{
   display:flex;
@@ -2259,6 +2297,39 @@ ABOUT_PAGE = f'''<section id="page-about" class="page">
 
 print("About page OK", len(ABOUT_PAGE))
 
+# ============================================================== ARCHIVE ==============================================================
+# Each week, before overwriting a desk/market's live content with fresh research,
+# snapshot the outgoing week here so past issues remain readable. Append new
+# entries to ARCHIVE_ENTRIES going forward -- never remove old ones.
+
+ARCHIVE_ENTRIES = [
+    # (entry_id, label, name_a, name_b, dateline, drop, coverage, snapshot, signals, final_paragraphs, final_bullets, tagline, implications_label)
+    ("cre-austin-20260729", "CRE &middot; Austin, TX &middot; Jul 29, 2026", "CRE", "Signal", "AUSTIN, TEXAS", "JULY 29, 2026", "JULY 7&ndash;27, 2026", CRE_SNAPSHOT, CRE_SIGNALS, CRE_FINAL_PARAGRAPHS, CRE_FINAL_BULLETS, "No predictions. No stock references. Project-anchored interpretation only.", "Local Market Implications"),
+    ("cre-usc-20260729", "CRE &middot; Los Angeles, CA &middot; Jul 29, 2026", "CRE", "Signal", "LOS ANGELES, CA", "JULY 29, 2026", "JULY 15&ndash;28, 2026", USC_SNAPSHOT, USC_SIGNALS, USC_FINAL_PARAGRAPHS, USC_FINAL_BULLETS, "No predictions. No stock references. Project-anchored interpretation only.", "Local Market Implications"),
+    ("cre-nyu-20260729", "CRE &middot; New York, NY &middot; Jul 29, 2026", "CRE", "Signal", "NEW YORK, NY", "JULY 29, 2026", "JULY 15&ndash;28, 2026", NYC_SNAPSHOT, NYC_SIGNALS, NYC_FINAL_PARAGRAPHS, NYC_FINAL_BULLETS, "No predictions. No stock references. Project-anchored interpretation only.", "Local Market Implications"),
+    ("redebt-austin-20260729", "RE Debt &middot; Austin, TX &middot; Jul 29, 2026", "RE Debt", "Signal", "AUSTIN, TEXAS", "JULY 29, 2026", "JUNE 2&ndash;JULY 28, 2026", AUSTIN_DEBT_SNAPSHOT, AUSTIN_DEBT_SIGNALS, AUSTIN_DEBT_FINAL_PARAGRAPHS, AUSTIN_DEBT_FINAL_BULLETS, "No predictions. No stock references. Loan-anchored interpretation only.", "Market Implications"),
+    ("redebt-usc-20260729", "RE Debt &middot; Los Angeles, CA &middot; Jul 29, 2026", "RE Debt", "Signal", "LOS ANGELES, CA", "JULY 29, 2026", "JULY 15&ndash;28, 2026", USC_DEBT_SNAPSHOT, USC_DEBT_SIGNALS, USC_DEBT_FINAL_PARAGRAPHS, USC_DEBT_FINAL_BULLETS, "No predictions. No stock references. Loan-anchored interpretation only.", "Market Implications"),
+    ("redebt-nyu-20260729", "RE Debt &middot; New York, NY &middot; Jul 29, 2026", "RE Debt", "Signal", "NEW YORK, NY", "JULY 29, 2026", "JULY 6&ndash;29, 2026", NYC_DEBT_SNAPSHOT, NYC_DEBT_SIGNALS, NYC_DEBT_FINAL_PARAGRAPHS, NYC_DEBT_FINAL_BULLETS, "No predictions. No stock references. Loan-anchored interpretation only.", "Market Implications"),
+    ("ib-20260729", "IB Signal &middot; Jul 29, 2026", "IB", "Signal", "NEW YORK, NY", "JULY 29, 2026", "JULY 19&ndash;27, 2026", IB_SNAPSHOT, IB_SIGNALS, IB_FINAL_PARAGRAPHS, IB_FINAL_BULLETS, "No predictions. No stock references. Deal-anchored interpretation only.", "Market Implications"),
+    ("credit-20260729", "Credit Signal &middot; Jul 29, 2026", "Credit", "Signal", "NEW YORK, NY", "JULY 29, 2026", "JULY 21&ndash;28, 2026", CREDIT_SNAPSHOT, CREDIT_SIGNALS, CREDIT_FINAL_PARAGRAPHS, CREDIT_FINAL_BULLETS, "No predictions. No stock references. Facility-anchored interpretation only.", "Market Implications"),
+    ("structured-20260729", "Structured Signal &middot; Jul 29, 2026", "Structured", "Signal", "NEW YORK, NY", "JULY 29, 2026", "JULY 2&ndash;28, 2026", STRUCTURED_SNAPSHOT, STRUCTURED_SIGNALS, STRUCTURED_FINAL_PARAGRAPHS, STRUCTURED_FINAL_BULLETS, "No predictions. No stock references. Structure-anchored interpretation only.", "Market Implications"),
+    ("securitized-20260729", "Securitized Signal &middot; Jul 29, 2026", "Securitized", "Signal", "NEW YORK, NY", "JULY 29, 2026", "JULY 7&ndash;28, 2026", SECURITIZED_SNAPSHOT, SECURITIZED_SIGNALS, SECURITIZED_FINAL_PARAGRAPHS, SECURITIZED_FINAL_BULLETS, "No predictions. No stock references. Pool-anchored interpretation only.", "Market Implications"),
+]
+
+ARCHIVE_MARKETS = [(entry_id, label) for entry_id, label, *_ in ARCHIVE_ENTRIES]
+
+ARCHIVE_BLOCKS = []
+for i, (entry_id, label, name_a, name_b, dateline, drop, coverage, snapshot, signals, final_paragraphs, final_bullets, tagline, implications_label) in enumerate(ARCHIVE_ENTRIES):
+    ARCHIVE_BLOCKS.append(market_block_html(
+        "archive", entry_id, i == 0, name_a, name_b, dateline, drop, coverage,
+        snapshot, "What Happened", signals, final_paragraphs, final_bullets, tagline,
+        implications_label=implications_label,
+    ))
+
+ARCHIVE_PAGE = multi_market_page("archive", False, ARCHIVE_MARKETS, ARCHIVE_BLOCKS)
+
+print("Archive page OK", len(ARCHIVE_PAGE))
+
 HOME_PAGE = f'''<section id="page-home" class="page active">
 <div class="issue home">
   <div class="home-hero">
@@ -2266,6 +2337,10 @@ HOME_PAGE = f'''<section id="page-home" class="page active">
     <h1 class="home-title brand-word"><span class="cre">Market</span><span class="signal">Signal</span></h1>
     <div class="accent-rule"></div>
     <p class="home-lede">Market Signal is weekly market intelligence for students recruiting into finance &mdash; six desks, each read closely enough to explain why a deal matters, not just that it happened. Follow your target desk for real fluency in interviews; follow the rest so no adjacent-industry question catches you flat-footed. No predictions. No stock references. Every signal is anchored to something that actually happened &mdash; never commentary floating free of one.</p>
+    <form action="https://buttondown.com/api/emails/embed-subscribe/PLACEHOLDER_USERNAME" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/api/emails/embed-subscribe/PLACEHOLDER_USERNAME', 'popupwindow', 'width=600,height=800')" class="subscribe-form">
+      <input type="email" name="email" placeholder="you@school.edu" required class="subscribe-input" aria-label="Email address">
+      <button type="submit" class="subscribe-btn">Get it weekly &rarr;</button>
+    </form>
   </div>
 
   <p class="eyebrow">The Desks</p>
@@ -2321,6 +2396,7 @@ NAV = '''<nav class="topnav">
     <a href="#/redebt" data-nav="redebt">RE Debt</a>
     <a href="#/structured" data-nav="structured">Structured</a>
     <a href="#/securitized" data-nav="securitized">Securitized</a>
+    <a href="#/archive" data-nav="archive">Archive</a>
   </div>
   <div class="settings-picker">
     <button type="button" class="settings-btn" onclick="window.__toggleSettingsMenu()" aria-label="Settings" title="Settings">
@@ -2377,11 +2453,12 @@ SETTINGS_SCRIPT = '''<script>
 
 ROUTER_SCRIPT = '''<script>
 (function(){
-  var PAGES = ["home","cre","ib","credit","redebt","structured","securitized","about"];
+  var PAGES = ["home","cre","ib","credit","redebt","structured","securitized","about","archive"];
   var MARKETS = {
     cre: ["austin","usc","nyu","uga","uf"],
     redebt: ["austin","usc","nyu","uga","uf"],
-    about: ["cre","ib","credit","redebt","structured","securitized"]
+    about: ["cre","ib","credit","redebt","structured","securitized"],
+    archive: __ARCHIVE_ENTRY_IDS__
   };
   function parseHash(){
     var h = location.hash.replace(/^#\\/?/, "");
@@ -2423,6 +2500,9 @@ ROUTER_SCRIPT = '''<script>
   render();
 })();
 </script>'''
+
+ARCHIVE_ENTRY_IDS_JSON = "[" + ",".join(f'"{eid}"' for eid, _ in ARCHIVE_MARKETS) + "]"
+ROUTER_SCRIPT = ROUTER_SCRIPT.replace("__ARCHIVE_ENTRY_IDS__", ARCHIVE_ENTRY_IDS_JSON)
 
 FILTER_SCRIPT = '''<script>
 window.__filterSignals = function(el){
@@ -2477,6 +2557,7 @@ BODY = NEWLINE.join([
     STRUCTURED_PAGE,
     SECURITIZED_PAGE,
     ABOUT_PAGE,
+    ARCHIVE_PAGE,
     FILTER_SCRIPT,
     ROUTER_SCRIPT,
 ])
