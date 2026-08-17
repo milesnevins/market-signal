@@ -5,9 +5,10 @@ fonts_css = (scratch / "embedded-fonts.css").read_text()
 NEWLINE = chr(10)
 WHATIS_LABELS = {
     "cre": "CRE",
+    "repe": "REPE",
+    "redebt": "RE Debt",
     "ib": "IB",
     "credit": "Private Credit",
-    "redebt": "RE Debt",
     "structured": "Structured Finance",
     "securitized": "Securitized Products",
 }
@@ -1147,18 +1148,6 @@ USC_SIGNALS = [
              "Confirms downtown Long Beach's 35% vacancy rate is now severe enough to justify an unconventional public-sector response",
          ],
          watch="Which logistics, supply-chain, and customs-brokerage tenants the Port signs under the Anchor LB initiative, and whether other California port authorities consider similar office acquisitions."),
-    dict(category="Multifamily", title="Milhaus Merges With SRG Residential, Agrees to Acquire Broadshore Capital",
-         subtitle="Consolidation Is How Mid-Size Multifamily Platforms Are Buying Scale Right Now",
-         date="July 15, 2026",
-         trigger=f'''{src("https://www.bisnow.com/los-angeles/news/multifamily/milhaus-and-srg-residential-complete-merger-acquire-broadshore-capital-partners-135444", "Indianapolis-based Milhaus completed its merger with Newport Beach's SRG Residential on July 15, 2026")} and separately agreed to acquire LA-based Broadshore Capital Partners, creating a combined platform with $2.5 billion in investment activity and more than 50,000 apartments under third-party management, spanning development, investment management, and lending capabilities across Long Beach, Irvine, Woodland Hills, and Ontario.''',
-         why="A mid-size developer merging with an LA-adjacent operator and simultaneously acquiring an investment-and-lending platform is a scale play, not a distressed rescue &mdash; Milhaus is assembling development, third-party management, and capital-markets capabilities under one roof specifically because standalone platforms are finding it harder to compete for institutional capital in a tighter fundraising environment. For USC-market multifamily specifically, this concentrates a meaningful share of LA-area third-party management and lending relationships into one combined platform almost overnight.",
-         implications=[
-             "Signals mid-size multifamily platforms are consolidating to compete for institutional capital allocations",
-             "Adds vertically integrated lending and investment-management capability to a previously development-focused platform",
-             "Concentrates LA-area third-party apartment management under a materially larger combined operator",
-             "Sets a template other regional multifamily platforms may follow to bulk up ahead of a slower deployment cycle",
-         ],
-         watch="Whether the combined platform's eight planned development projects break ground on schedule, and if further bolt-on acquisitions follow the Broadshore deal's close this summer."),
     dict(category="Mixed-Use", title="Bankruptcy Court Approves $517M Sale of Stalled Oceanwide Plaza Towers",
          subtitle="A Half-Billion-Dollar Sale Still Leaves an $800 Million Gap to Finish the Job",
          date="July 2026",
@@ -1345,6 +1334,124 @@ CRE_PAGE = multi_market_page("cre", False, CRE_MARKETS,
     [CRE_AUSTIN_BLOCK, CRE_USC_BLOCK, CRE_NYU_BLOCK, CRE_UGA_BLOCK, CRE_UF_BLOCK])
 
 print("CRE page loaded OK", len(CRE_PAGE))
+
+# ============================================================== REPE SIGNAL ==============================================================
+
+REPE_SNAPSHOT = [
+    ("Fundraising / Dry Powder", "rising"),
+    ("Platform M&amp;A Activity", "rising"),
+    ("Portfolio Acquisition Volume", "rising"),
+    ("Take-Private Activity", "stable"),
+    ("Deployment Pace", "stable"),
+    ("GP-Stake / Secondaries Activity", "rising"),
+]
+
+REPE_SIGNALS = [
+    dict(category="Platform M&amp;A", title="Bridgepoint to Acquire Kayne Anderson Real Estate for ~$1.39B",
+         subtitle="A GP-Stake Sale and a Platform Sale Happen in the Same Transaction",
+         date="June 29, 2026",
+         trigger=f'''{src("https://www.bridgepointgroup.com/about-us/news-and-insights/press-releases/2026/bridgepoint-to-acquire-kayne-anderson-real-estate-strengthening-its-position-as-a-leading-global-middle-market-private-markets-platform", "UK-listed private markets firm Bridgepoint Group agreed to acquire Kayne Anderson Real Estate (KARE), a senior-living- and residential-focused manager, from Kayne Anderson Capital Advisors")} for roughly $1.39 billion in upfront enterprise value; as part of the same transaction, Goldman Sachs Alternatives' Petershill program, which held a minority GP stake in KARE, sold its position.''',
+         why="A platform sale and a minority GP-stake exit closing in the same transaction is a clean illustration of how real estate manager ownership itself gets bought and sold at multiple levels simultaneously &mdash; Bridgepoint is buying KARE's full operating business while Petershill, which had only ever owned a slice of KARE's economics, is exiting its own separate position at the same time. Both trades value the same underlying manager, just from different ownership stakes.",
+         implications=[
+             "Confirms mid-market real estate manager consolidation is active enough to support a $1.39 billion platform sale",
+             "Shows a minority GP-stake investor (Petershill) and a full-platform acquirer (Bridgepoint) can exit and enter the same manager simultaneously",
+             "Adds senior-living and residential-focused management capability directly to Bridgepoint's private markets platform",
+             "Provides a real, dated valuation benchmark for mid-market real estate manager M&amp;A",
+         ],
+         watch="Deal close timing and whether Bridgepoint retains KARE's existing investment team and strategy post-acquisition."),
+    dict(category="Platform M&amp;A", title="Milhaus Merges With SRG Residential, Adds Broadshore Capital's Investment Platform",
+         subtitle="An Operator-Developer Buys Its Way Into the Fund-Management Business",
+         date="July 14, 2026",
+         trigger=f'''{src("https://www.businesswire.com/news/home/20260714343558/en/Milhaus-and-SRG-Residential-Complete-Merger-and-Announce-Acquisition-of-Broadshore-Capital-Partners", "Apartment developer Milhaus completed its merger with Sares Regis Group's multifamily arm, SRG Residential, and simultaneously announced an agreement to acquire Broadshore Capital Partners")}, an SEC-registered investment adviser with roughly $1 billion in AUM; the combined platform's pipeline exceeds $2.5 billion, with more than 50,000 apartment units under third-party management, and Broadshore's principals are joining Milhaus's leadership.''',
+         why="An operator-developer acquiring a registered investment adviser, rather than just merging with another developer, is a distinct playbook from the usual story of a large manager buying a smaller one &mdash; Milhaus is specifically buying its way into discretionary fund management and third-party capital relationships it didn't previously have, blending development execution with institutional capital-raising capability under one roof.",
+         implications=[
+             "Shows an operator-developer acquiring registered investment-adviser capability, not just merging with a peer developer",
+             "Creates a combined platform with more than 50,000 apartment units under third-party management",
+             "Folds Broadshore's principals directly into Milhaus's leadership, integrating rather than just financing the acquisition",
+             "Provides a template for development-focused platforms seeking to add institutional fund-management capability",
+         ],
+         watch="Whether the combined platform raises a dedicated fund using Broadshore's registered-adviser infrastructure, and integration progress across the merged leadership team."),
+    dict(category="Fundraising", title="Starwood Capital Closes $10.2B Opportunistic Fund XIII, Its Largest Ever",
+         subtitle="A Flagship Sponsor's Biggest-Ever Raise Doubles as a Strategy Pivot Toward Data Centers",
+         date="July 1, 2026",
+         trigger=f'''{src("https://www.prnewswire.com/news-releases/starwood-capital-group-raises-10-2-billion-opportunistic-real-estate-fund-302815286.html", "Starwood Capital Group held the final close of SOF XIII, its opportunistic flagship fund, at $10.2 billion in commitments")} from more than 300 investors across roughly 20 countries &mdash; the largest fund in Starwood's history &mdash; already deploying or committing more than $3 billion across 20 deals targeting residential, data center, industrial, and hospitality assets in the US, Europe, and select Asia-Pacific markets.''',
+         why="A flagship sponsor's largest-ever raise landing specifically as it pivots toward data centers and Sun Belt exposure is a clear signal of where institutional LP capital wants opportunistic real estate managers deployed right now &mdash; a $10.2 billion vehicle only gets built if hundreds of sophisticated investors across 20 countries buy into both the manager's track record and its stated forward strategy.",
+         implications=[
+             "Confirms institutional LP appetite for opportunistic real estate remains strong enough to support a record-setting single-manager raise",
+             "Signals data centers and Sun Belt exposure as explicit strategic priorities for one of the largest opportunistic platforms",
+             "Adds $10.2 billion of fresh dry powder targeting distressed and value-add real estate across three continents",
+             "Provides a scale benchmark other flagship opportunistic sponsors will be measured against on their next raise",
+         ],
+         watch="Deployment pace against the fund's data center and industrial targets, and whether Starwood's next flagship raise references this fund's strategy shift."),
+    dict(category="Fundraising", title="Alpaca Real Estate Closes Debut Fund at ~$223M",
+         subtitle="A First-Time, AI-Enabled Manager Builds an Institutional LP Base From Scratch",
+         date="August 6, 2026",
+         trigger=f'''{src("https://www.businesswire.com/news/home/20260806490964/en/Alpaca-Real-Estate-Closes-Debut-Fund-at-Approximately-%24223-Million", "Alpaca Real Estate held the final close of its debut fund at roughly $223 million in commitments")}, plus about $21 million in co-investment to date, targeting infill industrial and high-density residential deals sourced via a proprietary, AI-enabled platform; the firm expects total equity deployed to exceed $300 million, supporting a portfolio approaching $1 billion in AUM, and drew public pensions, RIAs, family offices, and international investors roughly 18 months after first close.''',
+         why="A first-time manager successfully building an institutional LP base &mdash; public pensions, RIAs, family offices &mdash; from a standing start is a much harder fundraising path than a flagship sponsor's follow-on close, and this specific debut leaned on a proprietary AI-enabled sourcing platform as its differentiator. It's a useful counterpoint to Starwood's $10.2 billion mega-raise: two very different fundraising stories happening in the same market at the same time.",
+         implications=[
+             "Confirms institutional LPs will back a genuinely first-time manager when the sourcing thesis is differentiated enough",
+             "Provides a real debut-fund benchmark ($223 million, roughly 18 months to close) for other emerging REPE managers",
+             "Signals AI-enabled deal sourcing is becoming a credible fundraising differentiator, not just a pitch-deck buzzword",
+             "Offers a common career-path data point for REPE professionals considering an eventual spinout into their own platform",
+         ],
+         watch="Alpaca's initial deployment pace against its infill industrial and high-density residential thesis, and whether it returns to market for a larger Fund II."),
+    dict(category="Portfolio Acquisition", title="PCCP and Stonemont Acquire $1B+ Industrial Portfolio From Blackstone's Link Logistics",
+         subtitle="A Single Off-Market Transaction Replaces Dozens of One-Off Building Trades",
+         date="July 29, 2026",
+         trigger=f'''{src("https://commercialobserver.com/2026/07/pccp-stonemount-industrial-portfolio/", "Stonemont and PCCP jointly acquired a 38-building, 5.9 million-square-foot industrial portfolio from Blackstone's Link Logistics platform")} for roughly $1 billion (about $169 per square foot) in an off-market deal spanning 14 markets across 10 states, including Austin, Dallas, Phoenix, and Charlotte, with more than 70 tenants across the assets; the deal was financed with debt from JPMorgan and Wells Fargo, and Eastdil Secured advised.''',
+         why="Buying 38 buildings across 14 markets in a single off-market transaction, rather than assembling that footprint building by building, is exactly the kind of platform-scale bet that distinguishes REPE from property-level CRE investing &mdash; the underwriting here is on a diversified, multi-market industrial income stream and a JV capital structure between two sponsors, not on any single asset's local leasing prospects.",
+         implications=[
+             "Confirms institutional capital is still underwriting large-scale, multi-market industrial portfolios via single transactions",
+             "Provides a $169-per-square-foot benchmark for comparable large industrial portfolio trades",
+             "Shows how two sponsors (PCCP and Stonemont) structure a joint acquisition and shared debt financing",
+             "Signals continued institutional conviction in diversified Sun Belt industrial exposure specifically",
+         ],
+         watch="Whether PCCP and Stonemont pursue additional joint industrial portfolio acquisitions, and lease-up/renewal activity across the 70-plus existing tenants."),
+    dict(category="Portfolio Acquisition", title="TPG AG Real Estate and Redfearn Capital Acquire $628M Industrial Portfolio",
+         subtitle="A Second Large-Cap Manager Makes the Same Multi-State Logistics Bet in the Same Window",
+         date="August 6, 2026",
+         trigger=f'''{src("https://www.tpg.com/news-and-insights/tpg-ag-real-estate-acquires-628m-industrial-portfolio-in-partnership-with-redfearn-capital", "TPG's AG Real Estate unit partnered with Redfearn Capital to acquire a 53-building, roughly 5.4 million-square-foot distribution, logistics, and manufacturing portfolio")} spanning seven states, including Florida, Georgia, North Carolina, Tennessee, Minnesota, Illinois, and Oregon, for $628 million.''',
+         why="A second large-cap manager closing a multi-state industrial portfolio acquisition within days of the PCCP/Stonemont deal, rather than an isolated one-off, confirms institutional capital is chasing diversified logistics platforms broadly right now, not just responding to one seller's specific opportunity &mdash; two unrelated buyer groups reaching the same conclusion about the same asset class in the same short window is a stronger signal than either deal alone.",
+         implications=[
+             "Confirms institutional appetite for multi-state industrial portfolios extends beyond a single buyer or seller",
+             "Provides a second, independent basis benchmark ($628 million, 53 buildings) for comparable logistics portfolio trades",
+             "Signals large-cap managers are actively competing for diversified industrial platforms across the same target markets",
+             "Adds TPG's AG Real Estate unit to the roster of active large-cap industrial portfolio acquirers this cycle",
+         ],
+         watch="Whether additional large industrial portfolio trades follow in the same states, and how TPG and Redfearn structure asset management across the seven-state footprint."),
+    dict(category="Leadership Change", title="Mack Real Estate Group Announces Senior Leadership Promotions and Transitions",
+         subtitle="Succession Planning at a Credit-Adjacent Platform Reshuffles Who Runs the Desks Recruits Target",
+         date="July 15, 2026",
+         trigger=f'''{src("https://finance.yahoo.com/real-estate/articles/mack-real-estate-group-announces-170000594.html", "Mack Real Estate Group named Priyanka Garg, formerly Head of Credit Strategies, as President")}, effective July 1, 2026, while Michael McGillis moved from President to Vice Chairman, retaining his role as President and CFO of NYSE-listed Claros Mortgage Trust; Brett Kaplan and Regina Lubin became Co-Heads of Credit Strategies.''',
+         why="Leadership succession at a real estate investment platform with a public-markets-adjacent credit arm is a different kind of signal than a transaction, but it's directly relevant to anyone tracking who actually runs the desks they might recruit into &mdash; a credit-strategies head being promoted to firm president specifically signals where the platform sees its own center of gravity shifting.",
+         implications=[
+             "Marks a real, dated succession at a major real estate investment platform with a public-markets-adjacent credit arm",
+             "Promotes a credit-strategies leader to firm president, a signal of where the platform sees its center of gravity",
+             "Keeps continuity at NYSE-listed Claros Mortgage Trust by retaining McGillis in his existing public-company role",
+             "Is directly relevant to students and job-seekers tracking leadership at platforms spanning both equity and credit strategies",
+         ],
+         watch="How the new Co-Heads of Credit Strategies structure splits responsibilities, and whether the leadership transition prompts any further senior-level moves at the platform."),
+]
+
+REPE_FINAL_PARAGRAPHS = [
+    "Welcome to the first issue of REPE Signal, a new desk covering the fund and ownership layer that sits above any single building &mdash; fund closes, platform M&amp;A, portfolio acquisitions, and sponsor leadership, distinct from CRE Signal's property- and market-level coverage. This inaugural issue spans six weeks of real, dated activity rather than one, since the desk has no prior coverage to build from.",
+    "Two platform M&amp;A stories bookend very different playbooks. Bridgepoint's acquisition of Kayne Anderson Real Estate closed alongside a separate GP-stake exit by Goldman Sachs Alternatives' Petershill program, showing how manager ownership trades at multiple levels simultaneously; Milhaus's merger with SRG Residential and acquisition of Broadshore Capital shows an operator-developer buying its way into fund management rather than simply merging with a peer.",
+    "Starwood's record $10.2 billion fund close and Alpaca Real Estate's roughly $223 million debut fund describe opposite ends of the same fundraising market &mdash; a flagship sponsor's largest-ever raise, pivoting toward data centers and Sun Belt exposure, alongside a first-time, AI-enabled manager building an institutional LP base from scratch. And two large-cap managers, PCCP/Stonemont and TPG/Redfearn, independently closed multi-state industrial portfolio acquisitions within days of each other, confirming diversified logistics platforms are where institutional capital wants to be deployed right now.",
+]
+REPE_FINAL_BULLETS = [
+    "A platform sale and a separate GP-stake exit closed in the same transaction, showing manager ownership trades at multiple levels at once",
+    "Starwood's record $10.2B fund close and Alpaca's ~$223M debut fund show mega-sponsors and first-time managers both raising successfully",
+    "Two unrelated large-cap managers closed multi-state industrial portfolio acquisitions within days of each other",
+    "An operator-developer (Milhaus) acquired a registered investment adviser to buy its way into fund management, not just merge with a peer",
+]
+
+REPE_PAGE = issue_page(
+    "repe", False, "REPE", "Signal", "NEW YORK, NY", "AUGUST 10, 2026", "JUNE 29&ndash;AUG 10, 2026",
+    REPE_SNAPSHOT, "What Happened", REPE_SIGNALS, REPE_FINAL_PARAGRAPHS, REPE_FINAL_BULLETS,
+    "No predictions. No stock references. Platform-anchored interpretation only.",
+)
+
+print("REPE page OK", len(REPE_PAGE))
 
 # ============================================================== IB SIGNAL ==============================================================
 
@@ -2266,9 +2373,10 @@ def desk_card(page_id, name_a, name_b, desc, meta, whatis_label):
 
 ABOUT_SWITCHER_ITEMS = [
     ("cre", "CRE"),
+    ("repe", "REPE"),
+    ("redebt", "RE Debt"),
     ("ib", "IB"),
     ("credit", "Credit"),
-    ("redebt", "RE Debt"),
     ("structured", "Structured"),
     ("securitized", "Securitized"),
 ]
@@ -2314,6 +2422,24 @@ ABOUT_CRE = about_block_html(
         ("Entitlement", "&mdash; the government approvals a developer needs before construction can legally begin."),
     ],
     "cre", "CRE Signal",
+)
+
+ABOUT_REPE = about_block_html(
+    "repe", False,
+    "What Is Real Estate Private Equity?",
+    "The fund and ownership layer sitting above any single building.",
+    [
+        "Real estate private equity (REPE) is the business of raising pooled capital &mdash; from pension funds, endowments, and other institutional investors &mdash; into a fund, then deploying it to buy, reposition, or take entire real estate companies private. It's a level up from any single building: REPE Signal covers funds, platforms, and portfolios, while CRE Signal covers individual properties and markets.",
+        "A REPE fund typically targets a specific risk-return profile &mdash; core (stabilized, low-risk), value-add (needs repositioning), or opportunistic (development or distress, higher risk and return) &mdash; and raises a fixed pool of capital with a defined life, usually 7 to 10 years, that it must eventually return to its investors.",
+        "Recruiting into REPE usually means acquisitions (sourcing and underwriting deals), asset management (executing a fund's business plan once a deal closes), or investor relations/fundraising (raising the next fund). It sits adjacent to, but distinct from, both the property-level work in CRE Signal and the lending work in RE Debt Signal.",
+    ],
+    [
+        ("GP / LP", "&mdash; the general partner runs the fund and makes decisions; limited partners supply the capital and don't."),
+        ("Dry powder", "&mdash; capital a fund has raised but not yet deployed into deals."),
+        ("Continuation vehicle", "&mdash; a new fund created to let a GP hold an asset longer while giving existing LPs a chance to cash out."),
+        ("Take-private", "&mdash; a PE sponsor buying a publicly traded company (like a REIT) and delisting it from the stock market."),
+    ],
+    "repe", "REPE Signal",
 )
 
 ABOUT_IB = about_block_html(
@@ -2415,9 +2541,10 @@ ABOUT_PAGE = f'''<section id="page-about" class="page">
 {about_switcher_html("cre")}
   </div>
 {ABOUT_CRE}
+{ABOUT_REPE}
+{ABOUT_REDEBT}
 {ABOUT_IB}
 {ABOUT_CREDIT}
-{ABOUT_REDEBT}
 {ABOUT_STRUCTURED}
 {ABOUT_SECURITIZED}
 </div>
@@ -4206,7 +4333,7 @@ HOME_PAGE = f'''<section id="page-home" class="page active">
     <p class="eyebrow">Weekly Intelligence, By Desk</p>
     <h1 class="home-title brand-word"><span class="cre">Market</span><span class="signal">Signal</span></h1>
     <div class="accent-rule"></div>
-    <p class="home-lede">Market Signal is weekly market intelligence for students recruiting into finance &mdash; six desks, each read closely enough to explain why a deal matters, not just that it happened. Follow your target desk for real fluency in interviews; follow the rest so no adjacent-industry question catches you flat-footed. No predictions. No stock references. Every signal is anchored to something that actually happened &mdash; never commentary floating free of one.</p>
+    <p class="home-lede">Market Signal is weekly market intelligence for students recruiting into finance &mdash; seven desks, each read closely enough to explain why a deal matters, not just that it happened. Follow your target desk for real fluency in interviews; follow the rest so no adjacent-industry question catches you flat-footed. No predictions. No stock references. Every signal is anchored to something that actually happened &mdash; never commentary floating free of one.</p>
     <form action="https://buttondown.com/api/emails/embed-subscribe/PLACEHOLDER_USERNAME" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/api/emails/embed-subscribe/PLACEHOLDER_USERNAME', 'popupwindow', 'width=600,height=800')" class="subscribe-form">
       <input type="email" name="email" placeholder="Enter email" required class="subscribe-input" aria-label="Email address">
       <button type="submit" class="subscribe-btn">Get it weekly &rarr;</button>
@@ -4218,15 +4345,18 @@ HOME_PAGE = f'''<section id="page-home" class="page active">
 {desk_card("cre", "CRE", "Signal",
            "Commercial real estate signals across multiple university markets nationwide.",
            "Latest: Aug 10, 2026", "CRE")}
+{desk_card("repe", "REPE", "Signal",
+           "Fund closes, platform M&amp;A, take-privates, and sponsor capital strategy signals.",
+           "Latest: Aug 10, 2026", "REPE")}
+{desk_card("redebt", "RE Debt", "Signal",
+           "Construction, bridge, agency, and CMBS lending signals.",
+           "Latest: Aug 10, 2026", "RE Debt")}
 {desk_card("ib", "IB", "Signal",
            "M&amp;A, capital markets, sponsor finance, and restructuring signals.",
            "Latest: Aug 10, 2026", "IB")}
 {desk_card("credit", "Credit", "Signal",
            "Direct lending, BDCs, and private credit signals.",
            "Latest: Aug 10, 2026", "Private Credit")}
-{desk_card("redebt", "RE Debt", "Signal",
-           "Construction, bridge, agency, and CMBS lending signals.",
-           "Latest: Aug 10, 2026", "RE Debt")}
 {desk_card("structured", "Structured", "Signal",
            "CLOs, ABS, and securitized credit signals.",
            "Latest: Aug 10, 2026", "Structured Finance")}
@@ -4261,9 +4391,10 @@ NAV = '''<nav class="topnav">
   <div class="topnav-links">
     <a href="#/home" data-nav="home">Home</a>
     <a href="#/cre" data-nav="cre">CRE</a>
+    <a href="#/repe" data-nav="repe">REPE</a>
+    <a href="#/redebt" data-nav="redebt">RE Debt</a>
     <a href="#/ib" data-nav="ib">IB</a>
     <a href="#/credit" data-nav="credit">Credit</a>
-    <a href="#/redebt" data-nav="redebt">RE Debt</a>
     <a href="#/structured" data-nav="structured">Structured</a>
     <a href="#/securitized" data-nav="securitized">Securitized</a>
     <a href="#/archive" data-nav="archive">Archive</a>
@@ -4323,11 +4454,11 @@ SETTINGS_SCRIPT = '''<script>
 
 ROUTER_SCRIPT = '''<script>
 (function(){
-  var PAGES = ["home","cre","ib","credit","redebt","structured","securitized","about","archive"];
+  var PAGES = ["home","cre","repe","redebt","ib","credit","structured","securitized","about","archive"];
   var MARKETS = {
     cre: ["austin","usc","nyu","uga","uf"],
     redebt: ["austin","usc","nyu","uga","uf"],
-    about: ["cre","ib","credit","redebt","structured","securitized"],
+    about: ["cre","repe","redebt","ib","credit","structured","securitized"],
     archive: __ARCHIVE_ENTRY_IDS__
   };
   function parseHash(){
@@ -4421,9 +4552,10 @@ BODY = NEWLINE.join([
     SETTINGS_SCRIPT,
     HOME_PAGE,
     CRE_PAGE,
+    REPE_PAGE,
+    REDEBT_PAGE,
     IB_PAGE,
     CREDIT_PAGE,
-    REDEBT_PAGE,
     STRUCTURED_PAGE,
     SECURITIZED_PAGE,
     ABOUT_PAGE,
