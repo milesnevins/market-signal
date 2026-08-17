@@ -4334,7 +4334,7 @@ HOME_PAGE = f'''<section id="page-home" class="page active">
     <h1 class="home-title brand-word"><span class="cre">Market</span><span class="signal">Signal</span></h1>
     <div class="accent-rule"></div>
     <p class="home-lede">Market Signal is weekly market intelligence for students recruiting into finance &mdash; seven desks, each read closely enough to explain why a deal matters, not just that it happened. Follow your target desk for real fluency in interviews; follow the rest so no adjacent-industry question catches you flat-footed. No predictions. No stock references. Every signal is anchored to something that actually happened &mdash; never commentary floating free of one.</p>
-    <form action="https://buttondown.com/api/emails/embed-subscribe/PLACEHOLDER_USERNAME" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/api/emails/embed-subscribe/PLACEHOLDER_USERNAME', 'popupwindow', 'width=600,height=800')" class="subscribe-form">
+    <form action="https://buttondown.com/api/emails/embed-subscribe/milesnevins" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/api/emails/embed-subscribe/milesnevins', 'popupwindow', 'width=600,height=800')" class="subscribe-form">
       <input type="email" name="email" placeholder="Enter email" required class="subscribe-input" aria-label="Email address">
       <button type="submit" class="subscribe-btn">Get it weekly &rarr;</button>
     </form>
